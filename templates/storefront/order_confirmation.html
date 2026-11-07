@@ -1,0 +1,297 @@
+
+{% extends 'storefront/base.html' %}
+
+{% block title %}
+  Pedido recebido | {{ tenant.name }}
+{% endblock %}
+
+{% block content %}
+  <section class="confirmation">
+    <div class="success-icon">✓</div>
+
+    <h1>Pedido enviado!</h1>
+
+    <p id="order-status-message">
+      A loja recebeu seu pedido e precisa confirmar a disponibilidade.
+    </p>
+
+    <div class="order-number">{{ order.number }}</div>
+
+    <div
+      class="status-pill"
+      id="order-status-label"
+      data-status="{{ order.status }}"
+    >
+      {{ order.get_status_display }}
+    </div>
+
+    {% if order.status == 'pending' and reservation_expires_at %}
+      <div
+        class="reservation-countdown"
+        id="reservation-countdown"
+        data-expiration="{{ reservation_expires_at|date:'c' }}"
+      >
+        <div class="countdown-icon">⏱</div>
+        <strong>Tempo para confirmação</strong>
+        <div class="countdown-time" id="countdown-time">30:00</div>
+        <p id="countdown-message">
+          A loja precisa confirmar seu pedido antes do fim do prazo.
+        </p>
+      </div>
+    {% endif %}
+
+    <div
+      class="reservation-expired"
+      id="reservation-expired"
+      {% if order.status != 'expired' %}hidden{% endif %}
+    >
+      <strong>Prazo de reserva encerrado</strong>
+      <p>
+        O tempo para confirmação terminou. Entre em contato com a loja
+        para verificar a disponibilidade.
+      </p>
+    </div>
+
+    <h2>Resumo</h2>
+
+    {% for item in order.items.all %}
+      <div class="summary-row">
+        <span>{{ item.quantity }} × {{ item.product_name_snapshot }}</span>
+        <strong>R$ {{ item.line_total|floatformat:2 }}</strong>
+      </div>
+    {% endfor %}
+
+    <div class="summary-row total">
+      <span>Total dos produtos</span>
+      <strong>R$ {{ order.total|floatformat:2 }}</strong>
+    </div>
+
+    <div class="payment-note">
+      <strong>Pagamento</strong>
+      <p>{{ order.payment_instructions }}.</p>
+
+      <strong>Recebimento</strong>
+      <p>
+        {{ order.get_fulfillment_method_display }}
+        {% if order.fulfillment_method == 'delivery' %}
+          : {{ order.delivery_address }}
+        {% endif %}
+      </p>
+    </div>
+
+    <p class="muted">
+      A loja entrará em contato pelo telefone informado:
+      {{ order.customer_phone_snapshot }}.
+    </p>
+
+    <a class="button full" href="{% url 'storefront:store' tenant.slug %}">
+      Voltar à loja
+    </a>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const statusElement = document.getElementById('order-status-label');
+      const statusMessage = document.getElementById('order-status-message');
+      const countdown = document.getElementById('reservation-countdown');
+      const timeElement = document.getElementById('countdown-time');
+      const countdownMessage = document.getElementById('countdown-message');
+      const expiredElement = document.getElementById('reservation-expired');
+
+      const statusUrl = "{% url 'storefront:order-status' tenant.slug order.public_id %}";
+
+      let currentStatus = statusElement.dataset.status;
+      let pollingInterval = null;
+      let countdownInterval = null;
+
+      const finalStatuses = [
+        'completed',
+        'rejected',
+        'cancelled',
+        'expired'
+      ];
+
+      const statusMessages = {
+        pending: 'A loja recebeu seu pedido e precisa confirmar a disponibilidade.',
+        approved: 'Seu pedido foi aprovado pela loja!',
+        preparing: 'A loja está preparando seu pedido.',
+        ready: 'Seu pedido está pronto!',
+        completed: 'Seu pedido foi concluído. Obrigado pela preferência!',
+        rejected: 'A loja não conseguiu aceitar seu pedido. Entre em contato para mais informações.',
+        cancelled: 'Este pedido foi cancelado.',
+        expired: 'O prazo para confirmação terminou. Entre em contato com a loja para verificar a disponibilidade.'
+      };
+
+      function stopPolling() {
+        if (pollingInterval) {
+          clearInterval(pollingInterval);
+          pollingInterval = null;
+        }
+      }
+
+      function updateStatus(data) {
+        if (!data || !data.status) return;
+
+        statusElement.textContent = data.status_display;
+        statusElement.dataset.status = data.status;
+
+        statusMessage.textContent =
+          statusMessages[data.status] ||
+          'O status do seu pedido foi atualizado.';
+
+        currentStatus = data.status;
+
+        if (countdown && data.status !== 'pending') {
+          countdown.hidden = true;
+        }
+
+        if (expiredElement) {
+          expiredElement.hidden = data.status !== 'expired';
+        }
+
+        if (data.status === 'expired' && countdownMessage) {
+          countdownMessage.textContent = 'O prazo de confirmação terminou.';
+        }
+
+        if (finalStatuses.includes(data.status)) {
+          stopPolling();
+        }
+      }
+
+      async function checkOrderStatus() {
+        try {
+          const response = await fetch(statusUrl, {
+            method: 'GET',
+            cache: 'no-store',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+
+          if (!response.ok) return;
+
+          const data = await response.json();
+          updateStatus(data);
+
+        } catch (error) {
+          console.warn('Não foi possível atualizar o status do pedido.', error);
+        }
+      }
+
+      function updateCountdown() {
+        if (!countdown || !timeElement) return;
+
+        const expiration = new Date(countdown.dataset.expiration).getTime();
+
+        if (Number.isNaN(expiration)) return;
+
+        const remaining = Math.max(0, expiration - Date.now());
+        const totalSeconds = Math.floor(remaining / 1000);
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const formatted = hours > 0
+          ? String(hours).padStart(2, '0') + ':' +
+            String(minutes).padStart(2, '0') + ':' +
+            String(seconds).padStart(2, '0')
+          : String(minutes).padStart(2, '0') + ':' +
+            String(seconds).padStart(2, '0');
+
+        timeElement.textContent = formatted;
+
+        if (remaining <= 0) {
+          countdown.classList.add('countdown-expired');
+          timeElement.textContent = '00:00';
+
+          if (countdownMessage) {
+            countdownMessage.textContent =
+              'O prazo terminou. Estamos atualizando o status do pedido.';
+          }
+        }
+      }
+
+      // Atualiza o contador a cada segundo.
+      if (countdown) {
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+      }
+
+      // Consulta o status imediatamente e depois a cada 5 segundos.
+      checkOrderStatus();
+
+      if (!finalStatuses.includes(currentStatus)) {
+        pollingInterval = setInterval(checkOrderStatus, 5000);
+      }
+    });
+  </script>
+
+  <style>
+    .reservation-countdown {
+      margin: 24px 0;
+      padding: 22px 16px;
+      text-align: center;
+      background: #f5f8ff;
+      border: 1px solid #dce6ff;
+      border-radius: 14px;
+    }
+
+    .countdown-icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .reservation-countdown > strong {
+      display: block;
+      font-size: 14px;
+      color: #344054;
+    }
+
+    .countdown-time {
+      margin: 8px 0;
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #2457c5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reservation-countdown p {
+      margin: 0;
+      font-size: 13px;
+      color: #667085;
+    }
+
+    .countdown-expired {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .countdown-expired .countdown-time {
+      color: #c2410c;
+    }
+
+    .reservation-expired {
+      margin: 24px 0;
+      padding: 18px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      color: #9a3412;
+    }
+
+    .reservation-expired p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .reservation-expired[hidden] {
+      display: none;
+    }
+
+    .reservation-countdown[hidden] {
+      display: none;
+    }
+  </style>
+{% endblock %}

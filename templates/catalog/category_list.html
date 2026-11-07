@@ -1,0 +1,157 @@
+
+{% extends "layouts/base.html" %}
+
+{% block title %}Categorias | pediu.{% endblock %}
+
+{% block breadcrumb %}Categorias{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">CATÁLOGO</span>
+        <h1>Categorias</h1>
+        <p>Organize os produtos da sua empresa.</p>
+    </div>
+
+    <a href="{% url 'catalog:category-create' %}" class="btn btn-primary">
+        + Nova categoria
+    </a>
+</div>
+
+<div class="product-stats">
+    <div class="product-stat">
+        <span>Total de categorias</span>
+        <strong>{{ total_categories }}</strong>
+    </div>
+    <div class="product-stat">
+        <span>Categorias ativas</span>
+        <strong>{{ active_categories }}</strong>
+    </div>
+    <div class="product-stat">
+        <span>Categorias inativas</span>
+        <strong>{{ inactive_categories }}</strong>
+    </div>
+</div>
+
+<div class="product-list-panel">
+    <form method="get" class="product-filters">
+        <input
+            type="search"
+            name="q"
+            value="{{ search }}"
+            placeholder="Pesquisar categoria..."
+            class="form-control"
+        >
+
+        <select name="status" class="form-control">
+            <option value="all" {% if status == "all" %}selected{% endif %}>
+                Todas
+            </option>
+            <option value="active" {% if status == "active" %}selected{% endif %}>
+                Ativas
+            </option>
+            <option value="inactive" {% if status == "inactive" %}selected{% endif %}>
+                Inativas
+            </option>
+        </select>
+
+        <button type="submit" class="btn btn-secondary">Filtrar</button>
+        <a href="{% url 'catalog:category-list' %}" class="btn btn-secondary">
+            Limpar
+        </a>
+    </form>
+
+    <div class="table-responsive">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Identificador</th>
+                    <th>Produtos vinculados</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for category in page_obj %}
+                <tr>
+                    <td>
+                        <strong>{{ category.name }}</strong>
+                    </td>
+
+                    <td>{{ category.slug }}</td>
+
+                    <td>{{ category.product_count }}</td>
+
+                    <td>
+                        {% if category.is_active %}
+                            <span class="status-badge status-active">Ativa</span>
+                        {% else %}
+                            <span class="status-badge status-inactive">Inativa</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <div class="table-actions">
+                            <a
+                                href="{% url 'catalog:category-update' category.id %}"
+                                class="btn btn-secondary btn-sm"
+                            >
+                                Editar
+                            </a>
+
+                            <form
+                                method="post"
+                                action="{% url 'catalog:category-toggle-status' category.id %}"
+                            >
+                                {% csrf_token %}
+                                <button
+                                    type="submit"
+                                    class="btn btn-secondary btn-sm"
+                                >
+                                    {% if category.is_active %}
+                                        Desativar
+                                    {% else %}
+                                        Ativar
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-state">
+                        Nenhuma categoria encontrada.
+                        <a href="{% url 'catalog:category-create' %}">
+                            Cadastrar primeira categoria
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?q={{ search|urlencode }}&status={{ status }}&page={{ page_obj.previous_page_number }}">
+                Anterior
+            </a>
+        {% endif %}
+
+        <span>
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?q={{ search|urlencode }}&status={{ status }}&page={{ page_obj.next_page_number }}">
+                Próxima
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

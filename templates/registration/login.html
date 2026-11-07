@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar | pediu.</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="login-page">
+    <div class="login-card">
+      <div class="login-brand">
+        pediu<span>.</span>
+      </div>
+      <span class="eyebrow">BEM-VINDO DE VOLTA</span>
+
+      <h1>Acesse sua conta</h1>
+      <p>Entre para gerenciar seus pedidos e sua operação.</p>
+
+      {% if form.errors %}
+        <div class="alert alert-error">E-mail ou senha inválidos. Verifique os dados e tente novamente.</div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}" />
+
+        <div class="field-group">
+          <label for="id_username">E-mail</label>
+          <input type="email" name="username" id="id_username" class="form-control" placeholder="seu@email.com" required autofocus />
+        </div>
+
+        <div class="field-group">
+          <label for="id_password">Senha</label>
+          <input type="password" name="password" id="id_password" class="form-control" placeholder="Digite sua senha" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary login-submit">Entrar na plataforma →</button>
+      </form>
+
+      <div class="login-footer">Ainda não tem conta? <a href="{% url 'accounts:register' %}">Crie sua loja</a></div>
+      <div class="login-footer">Seus pedidos. Sem complicação.</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,401 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      {% block title %}
+        pediu.
+      {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+      .tenant-switcher {
+        margin-top: 12px;
+        width: 100%;
+      }
+
+      .tenant-switcher select {
+        width: 100%;
+        padding: 9px 30px 9px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font-family: inherit;
+        font-size: 12px;
+        cursor: pointer;
+        outline: none;
+      }
+
+      .tenant-switcher select:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .tenant-switcher select option {
+        background: #fff;
+        color: #222;
+      }
+
+      .tenant-switcher-label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.7px;
+        opacity: 0.7;
+      }
+
+      .tenant-switcher select:disabled {
+        opacity: 0.65;
+        cursor: default;
+      }
+
+      /* PERFIL DO USUÁRIO */
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .user-info {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .user-info strong {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .user-profile form {
+        margin: 0;
+        flex-shrink: 0;
+      }
+
+      /* BOTÃO SAIR */
+      .logout-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 12px;
+        min-height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .logout-button:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .logout-button span:first-child {
+        font-size: 15px;
+      }
+
+      /* BOTÃO SAIR NA BARRA SUPERIOR */
+      .topbar-logout-form {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
+
+      .topbar-logout {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 38px;
+        padding: 9px 14px;
+        border: 1px solid #eaebf1;
+        border-radius: 8px;
+        background: #fff;
+        color: #73778b;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .2s ease, color .2s ease, border-color .2s ease;
+      }
+
+      .topbar-logout:hover {
+        background: #fff1f1;
+        color: #cf6262;
+        border-color: #f2d2d2;
+      }
+
+      .topbar-logout span:first-child {
+        font-size: 15px;
+      }
+
+      @media (max-width: 600px) {
+        .topbar-logout {
+          min-height: 34px;
+          padding: 8px 10px;
+          font-size: 11px;
+        }
+
+        .topbar-right {
+          gap: 9px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+
+        <!-- MARCA -->
+        <div class="brand">
+          <span class="brand-name">pediu<span>.</span></span>
+          <span class="brand-caption">GESTÃO INTELIGENTE</span>
+        </div>
+
+        <!-- EMPRESA ATIVA -->
+        <div class="tenant-card">
+          <div class="tenant-avatar">
+            {{ tenant.name|slice:':1'|upper }}
+          </div>
+
+          <div class="tenant-info">
+            <strong>{{ tenant.name }}</strong>
+            <small>Empresa ativa</small>
+          </div>
+
+          <span class="tenant-status"></span>
+
+          <!-- SELETOR DE EMPRESAS -->
+          {% if available_tenant_memberships|length > 1 %}
+            <form
+              method="post"
+              action="{% url 'tenants:switch' %}"
+              class="tenant-switcher"
+              id="tenantSwitcherForm"
+            >
+              {% csrf_token %}
+
+              <label
+                for="tenantSwitcher"
+                class="tenant-switcher-label"
+              >
+                TROCAR DE EMPRESA
+              </label>
+
+              <select
+                name="tenant_id"
+                id="tenantSwitcher"
+                aria-label="Selecionar empresa"
+                onchange="this.form.submit()"
+              >
+                {% for membership in available_tenant_memberships %}
+                  <option
+                    value="{{ membership.tenant_id }}"
+                    {% if membership.tenant_id == tenant.id %}selected{% endif %}
+                  >
+                    {{ membership.tenant.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </form>
+          {% endif %}
+        </div>
+
+        <!-- MENU LATERAL -->
+        <nav class="navigation">
+          <span class="nav-section">MENU PRINCIPAL</span>
+
+          <!-- VISÃO GERAL -->
+          <a
+            href="{% url 'dashboard:home' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+          >
+            <span class="nav-icon">⌂</span>
+            <span>Visão geral</span>
+          </a>
+
+          <span class="nav-section nav-section-spaced">CATÁLOGO</span>
+
+          <!-- PRODUTOS -->
+          <a
+            href="{% url 'catalog:product-list' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'product-list' or request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'product-create' or request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'product-update' %}active{% endif %}"
+          >
+            <span class="nav-icon">▦</span>
+            <span>Produtos</span>
+          </a>
+
+          <!-- CATEGORIAS -->
+          <a
+            href="{% url 'catalog:category-list' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'category-list' or request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'category-create' or request.resolver_match.namespace == 'catalog' and request.resolver_match.url_name == 'category-update' %}active{% endif %}"
+          >
+            <span class="nav-icon">▤</span>
+            <span>Categorias</span>
+          </a>
+
+          <a href="{% url 'tenants:create' %}" class="nav-link">
+            <span class="nav-icon">＋</span>
+            <span>Criar outra loja</span>
+          </a>
+
+          <span class="nav-section nav-section-spaced">GESTÃO</span>
+
+          <!-- PEDIDOS -->
+          <a
+            href="{% url 'storefront:merchant-orders' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'storefront' %}active{% endif %}"
+          >
+            <span class="nav-icon">▤</span>
+            <span>Pedidos</span>
+          </a>
+
+          <!-- ESTOQUE -->
+          <a href="#" class="nav-link disabled-link">
+            <span class="nav-icon">◫</span>
+            <span>Estoque</span>
+          </a>
+
+          <!-- CLIENTES -->
+          <a href="#" class="nav-link disabled-link">
+            <span class="nav-icon">♙</span>
+            <span>Clientes</span>
+          </a>
+        </nav>
+
+        <!-- RODAPÉ DA SIDEBAR -->
+        <div class="sidebar-bottom">
+
+          <div class="help-card">
+            <div class="help-icon">✦</div>
+            <strong>Precisa de ajuda?</strong>
+            <p>Estamos aqui para simplificar sua gestão.</p>
+          </div>
+
+          <!-- USUÁRIO LOGADO -->
+          <div class="user-profile">
+            <div class="user-avatar">
+              {{ request.user.username|slice:':1'|upper }}
+            </div>
+
+            <div class="user-info">
+              <strong>
+                {{ request.user.get_full_name|default:request.user.email }}
+              </strong>
+              <small>Conta de acesso</small>
+            </div>
+
+            <!-- LOGOUT -->
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button
+                class="logout-button"
+                title="Sair da conta"
+                aria-label="Sair da conta"
+                type="submit"
+              >
+                <span>↗</span>
+                <span>Sair</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CONTEÚDO PRINCIPAL -->
+      <main class="main-content">
+
+        <!-- BARRA SUPERIOR -->
+        <header class="topbar">
+          <button
+            class="mobile-menu"
+            id="mobileMenu"
+            type="button"
+          >
+            ☰
+          </button>
+
+          <div class="breadcrumb">
+            <span>pediu.</span>
+            <span class="breadcrumb-separator">/</span>
+
+            <strong>
+              {% block breadcrumb %}
+                Visão geral
+              {% endblock %}
+            </strong>
+          </div>
+
+          <div class="topbar-right">
+            <span class="topbar-date">
+              {% now 'd/m/Y' %}
+            </span>
+
+            <div class="topbar-user">
+              {{ request.user.username|slice:':1'|upper }}
+            </div>
+
+            <!-- BOTÃO SAIR NO TOPO DO DASHBOARD -->
+            <form method="post" action="{% url 'logout' %}" class="topbar-logout-form">
+              {% csrf_token %}
+              <button type="submit" class="topbar-logout" title="Sair da conta">
+                <span aria-hidden="true">↗</span>
+                <span>Sair</span>
+              </button>
+            </form>
+          </div>
+        </header>
+
+        <!-- ÁREA DAS PÁGINAS -->
+        <section class="page-content">
+
+          <!-- MENSAGENS DO SISTEMA -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          {% block content %}
+          {% endblock %}
+
+        </section>
+      </main>
+    </div>
+
+    <!-- MENU MOBILE -->
+    <script>
+      const mobileMenu = document.getElementById('mobileMenu');
+      const sidebar = document.getElementById('sidebar');
+
+      if (mobileMenu && sidebar) {
+        mobileMenu.addEventListener('click', function () {
+          sidebar.classList.toggle('sidebar-open');
+        });
+      }
+    </script>
+  </body>
+</html>

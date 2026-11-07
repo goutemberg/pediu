@@ -1,0 +1,974 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+  <style>
+    .order-detail-page {
+      --od-primary: #635bff;
+      --od-text: #202238;
+      --od-muted: #8589a3;
+      --od-border: #ececf3;
+      --od-bg: #ffffff;
+      color: var(--od-text);
+      width: 100%;
+    }
+    
+    .order-detail-page * {
+      box-sizing: border-box;
+    }
+    
+    .od-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+    
+    .od-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--od-muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 17px;
+    }
+    
+    .od-back:hover {
+      color: var(--od-primary);
+    }
+    
+    .od-title {
+      font-size: 27px;
+      font-weight: 750;
+      letter-spacing: -0.7px;
+      margin: 0 0 9px;
+      overflow-wrap: anywhere;
+    }
+    
+    .od-subtitle {
+      color: var(--od-muted);
+      font-size: 13px;
+      margin: 0;
+    }
+    
+    .od-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 30px;
+      background: #fff7e8;
+      color: #b7791f;
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    
+    .od-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    
+    .od-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 20px;
+      align-items: start;
+    }
+    
+    .od-main,
+    .od-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+    
+    .od-card {
+      background: var(--od-bg);
+      border: 1px solid var(--od-border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+    
+    .od-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 19px;
+      font-size: 15px;
+      font-weight: 750;
+      color: var(--od-text);
+    }
+    
+    .od-section-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: #f1f0ff;
+      color: var(--od-primary);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    
+    .od-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    
+    .od-info-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--od-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.55px;
+      margin-bottom: 7px;
+    }
+    
+    .od-info-value {
+      display: block;
+      font-size: 14px;
+      font-weight: 650;
+      color: var(--od-text);
+      overflow-wrap: anywhere;
+    }
+    
+    .od-info-secondary {
+      display: block;
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--od-muted);
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+    
+    .od-divider {
+      height: 1px;
+      background: var(--od-border);
+      margin: 19px 0;
+    }
+    
+    .od-address {
+      background: #fafaff;
+      border: 1px solid #efeff8;
+      border-radius: 10px;
+      padding: 13px 15px;
+      margin-top: 17px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #555970;
+    }
+    
+    .od-payment {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #555970;
+      margin: 0;
+    }
+    
+    .od-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+    
+    .od-items-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 440px;
+    }
+    
+    .od-items-table th {
+      text-align: left;
+      padding: 12px 10px;
+      background: #fafaff;
+      color: var(--od-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 750;
+    }
+    
+    .od-items-table th:first-child {
+      padding-left: 13px;
+      border-radius: 8px 0 0 8px;
+    }
+    
+    .od-items-table th:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .od-items-table td {
+      padding: 16px 10px;
+      border-bottom: 1px solid #f0f0f5;
+      font-size: 13px;
+      color: #555970;
+    }
+    
+    .od-items-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .od-product-name {
+      color: var(--od-text);
+      font-weight: 650;
+    }
+    
+    .od-item-total {
+      color: var(--od-text) !important;
+      font-weight: 750;
+      text-align: right;
+      white-space: nowrap;
+    }
+    
+    .od-notes {
+      background: #fafaff;
+      border: 1px solid #efeff8;
+      border-radius: 10px;
+      padding: 15px;
+      color: #555970;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+    
+    .od-total-card {
+      background: #24243b;
+      color: #fff;
+      border-radius: 14px;
+      padding: 23px;
+    }
+    
+    .od-total-label {
+      font-size: 12px;
+      color: #c1c2d2;
+      margin-bottom: 9px;
+    }
+    
+    .od-total-value {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+    
+    .od-total-description {
+      color: #b8b9cb;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    
+    .od-actions-card {
+      background: #fff;
+      border: 1px solid var(--od-border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    
+    .od-actions-title {
+      font-size: 14px;
+      font-weight: 750;
+      margin: 0 0 7px;
+    }
+    
+    .od-actions-description {
+      font-size: 12px;
+      color: var(--od-muted);
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+    
+    .od-action-form {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    
+    .od-action-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 43px;
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .od-action-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(0.96);
+    }
+    
+    .od-action-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      filter: none;
+    }
+    
+    .od-action-primary {
+      background: var(--od-primary);
+      color: white;
+    }
+    
+    .od-action-success {
+      background: #16a36a;
+      color: white;
+    }
+    
+    .od-action-secondary {
+      background: #f2f1ff;
+      color: var(--od-primary);
+      border-color: #e5e3ff;
+    }
+    
+    .od-action-danger {
+      background: #fff1f0;
+      color: #c43d3d;
+      border-color: #ffe0dc;
+    }
+    
+    .od-no-actions {
+      padding: 13px;
+      border-radius: 9px;
+      background: #f7f7fa;
+      color: var(--od-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    
+    /* CONTADOR DA RESERVA */
+    .od-reservation-card {
+      background: #f5f8ff;
+      border: 1px solid #dce6ff;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .od-reservation-icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+    
+    .od-reservation-title {
+      font-size: 12px;
+      font-weight: 750;
+      color: #344054;
+    }
+    
+    .od-countdown {
+      display: block;
+      margin: 9px 0;
+      color: #2457c5;
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .od-reservation-message {
+      margin: 0;
+      color: #667085;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    
+    .od-reservation-expired {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+    
+    .od-reservation-expired .od-countdown {
+      color: #c2410c;
+    }
+    
+    .od-reservation-expired .od-reservation-message {
+      color: #9a3412;
+    }
+    
+    /* FOLHA DE SEPARAÇÃO E CONFERÊNCIA */
+    .od-print-document {
+      display: none;
+    }
+    
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm;
+      }
+    
+      body * {
+        visibility: hidden !important;
+      }
+    
+      .od-print-document,
+      .od-print-document * {
+        visibility: visible !important;
+      }
+    
+      .od-print-document {
+        display: block !important;
+        position: fixed;
+        inset: 0 auto auto 0;
+        width: 100%;
+        padding: 0;
+        color: #222;
+        background: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+      }
+    
+      .print-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #222;
+      }
+    
+      .print-header h1 {
+        margin: 0 0 6px;
+        font-size: 24px;
+      }
+    
+      .print-header p {
+        margin: 0;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+    
+      .print-order-number {
+        text-align: right;
+      }
+    
+      .print-order-number span,
+      .print-order-number small {
+        display: block;
+      }
+    
+      .print-order-number strong {
+        display: block;
+        margin: 4px 0;
+        font-size: 19px;
+      }
+    
+      .print-section {
+        margin-top: 20px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    
+      .print-section h2 {
+        margin: 0 0 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #333;
+        font-size: 12px;
+      }
+    
+      .print-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+    
+      .print-grid span,
+      .print-address span {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+        font-size: 9px;
+      }
+    
+      .print-grid strong,
+      .print-address strong {
+        display: block;
+        font-size: 11px;
+      }
+    
+      .print-address {
+        margin-top: 16px;
+        padding: 10px;
+        border: 1px solid #aaa;
+      }
+    
+      .print-items {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    
+      .print-items th,
+      .print-items td {
+        padding: 10px 8px;
+        border: 1px solid #777;
+        text-align: left;
+      }
+    
+      .print-items th {
+        background: #eee !important;
+        color: #222;
+        font-size: 9px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    
+      .print-items td {
+        font-size: 10px;
+      }
+    
+      .print-check {
+        width: 85px;
+        text-align: center !important;
+      }
+    
+      .check-square {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 1px solid #222;
+      }
+    
+      .print-notes {
+        min-height: 45px;
+        padding: 12px;
+        border: 1px solid #aaa;
+      }
+    
+      .print-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding: 14px;
+        border: 1px solid #333;
+        font-weight: bold;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    
+      .print-total strong {
+        font-size: 17px;
+      }
+    
+      .print-signatures {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 45px;
+        margin-top: 75px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    
+      .print-signatures span {
+        display: block;
+        border-top: 1px solid #333;
+      }
+    
+      .print-signatures p {
+        margin-top: 8px;
+        text-align: center;
+        font-size: 10px;
+      }
+    
+      .print-footer {
+        margin-top: 35px;
+        padding-top: 10px;
+        border-top: 1px solid #aaa;
+        color: #555;
+        text-align: center;
+        font-size: 9px;
+      }
+    }
+    
+    @media (max-width: 950px) {
+      .od-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    
+      .od-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .od-title {
+        font-size: 21px;
+      }
+    
+      .od-card {
+        padding: 17px;
+      }
+    
+      .od-sidebar {
+        display: flex;
+      }
+    
+      .od-info-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+      }
+    
+      .od-total-value {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <div class="order-detail-page">
+    <div class="od-header">
+      <div>
+        <a href="{% url 'storefront:merchant-orders' %}" class="od-back">← Voltar aos pedidos</a>
+
+        <h1 class="od-title">Pedido {{ order.number }}</h1>
+
+        <p class="od-subtitle">Recebido em {{ order.created_at|date:'d/m/Y H:i' }}</p>
+      </div>
+
+      <div class="od-status">
+        <span class="od-status-dot"></span>
+        {{ order.get_status_display }}
+      </div>
+    </div>
+
+    <div class="od-layout">
+      <div class="od-main">
+        <!-- CLIENTE -->
+        <section class="od-card">
+          <h2 class="od-section-title">
+            <span class="od-section-icon">♙</span>
+            Dados do cliente
+          </h2>
+
+          <div class="od-info-grid">
+            <div>
+              <span class="od-info-label">Nome do cliente</span>
+              <span class="od-info-value">{{ order.customer_name_snapshot }}</span>
+            </div>
+
+            <div>
+              <span class="od-info-label">Telefone</span>
+              <span class="od-info-value">{{ order.customer_phone_snapshot }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECEBIMENTO -->
+        <section class="od-card">
+          <h2 class="od-section-title">
+            <span class="od-section-icon">⌖</span>
+            Recebimento
+          </h2>
+
+          <div>
+            <span class="od-info-label">Modalidade</span>
+            <span class="od-info-value">{{ order.get_fulfillment_method_display }}</span>
+          </div>
+
+          {% if order.fulfillment_method == 'delivery' %}
+            <div class="od-address">{{ order.delivery_address|linebreaksbr }}</div>
+          {% endif %}
+
+          <div class="od-divider"></div>
+
+          <span class="od-info-label">Pagamento</span>
+          <p class="od-payment">{{ order.payment_instructions }}</p>
+        </section>
+
+        <!-- ITENS -->
+        <section class="od-card">
+          <h2 class="od-section-title">
+            <span class="od-section-icon">▤</span>
+            Produtos do pedido
+          </h2>
+
+          <div class="od-table-wrapper">
+            <table class="od-items-table">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th style="text-align:right;">Subtotal</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for item in order.items.all %}
+                  <tr>
+                    <td>
+                      <span class="od-product-name">{{ item.product_name_snapshot }}</span>
+                    </td>
+
+                    <td>{{ item.quantity }} {{ item.unit_snapshot }}</td>
+
+                    <td class="od-item-total">R$ {{ item.line_total|floatformat:2 }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3">Nenhum item encontrado.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- OBSERVAÇÕES -->
+        {% if order.notes %}
+          <section class="od-card">
+            <h2 class="od-section-title">
+              <span class="od-section-icon">☰</span>
+              Observações do cliente
+            </h2>
+
+            <div class="od-notes">{{ order.notes|linebreaksbr }}</div>
+          </section>
+        {% endif %}
+      </div>
+
+      <!-- COLUNA LATERAL -->
+      <aside class="od-sidebar">
+        <section class="od-total-card">
+          <div class="od-total-label">Valor total do pedido</div>
+
+          <div class="od-total-value">R$ {{ order.total|floatformat:2 }}</div>
+
+          <div class="od-total-description">Pagamento combinado diretamente com a loja.</div>
+        </section>
+
+        {% if order.status == 'pending' and reservation_expires_at %}
+          <section class="od-reservation-card" id="reservation-countdown" data-expiration="{{ reservation_expires_at|date:'c' }}">
+            <div class="od-reservation-icon">⏱</div>
+
+            <div class="od-reservation-title">Tempo restante para aprovação</div>
+
+            <div class="od-countdown" id="countdown-time">--:--</div>
+
+            <p class="od-reservation-message" id="countdown-message">Aprove o pedido antes do fim do prazo para manter a reserva do estoque.</p>
+          </section>
+        {% elif order.status == 'expired' %}
+          <section class="od-reservation-card od-reservation-expired">
+            <div class="od-reservation-icon">⌛</div>
+            <div class="od-reservation-title">Reserva expirada</div>
+            <p class="od-reservation-message">O prazo de confirmação terminou e o estoque reservado foi liberado.</p>
+          </section>
+        {% endif %}
+
+        <section class="od-actions-card">
+          <h2 class="od-actions-title">Ações do pedido</h2>
+
+          <p class="od-actions-description">Gerencie o andamento deste pedido conforme sua operação.</p>
+
+          {% if order.status == 'approved' or order.status == 'preparing' or order.status == 'ready' %}
+            <button type="button" class="od-action-button od-action-secondary od-print-button" onclick="window.print()">▤ Imprimir folha de conferência</button>
+          {% endif %}
+
+          <form method="post" class="od-action-form" id="order-action-form">
+            {% csrf_token %}
+
+            {% if order.status == 'pending' %}
+              <button class="od-action-button od-action-success" id="approve-order-button" name="action" value="approve" type="submit">✓ Aprovar pedido</button>
+
+              <button class="od-action-button od-action-danger" name="action" value="reject" type="submit">Rejeitar pedido</button>
+            {% elif order.status == 'approved' %}
+              <button class="od-action-button od-action-primary" name="action" value="preparing" type="submit">Iniciar separação</button>
+            {% elif order.status == 'preparing' %}
+              <button class="od-action-button od-action-primary" name="action" value="ready" type="submit">Marcar como pronto</button>
+            {% elif order.status == 'ready' %}
+              <button class="od-action-button od-action-success" name="action" value="complete" type="submit">✓ Concluir pedido</button>
+            {% endif %}
+
+            {% if order.status == 'pending' or order.status == 'approved' or order.status == 'preparing' or order.status == 'ready' %}
+              <button class="od-action-button od-action-secondary" name="action" value="cancel" type="submit">Cancelar pedido</button>
+            {% endif %}
+          </form>
+
+          {% if order.status == 'completed' or order.status == 'rejected' or order.status == 'cancelled' %}
+            <div class="od-no-actions">Este pedido já foi finalizado. Não existem ações disponíveis.</div>
+          {% elif order.status == 'expired' %}
+            <div class="od-no-actions">Este pedido expirou. Não existem ações disponíveis.</div>
+          {% endif %}
+        </section>
+      </aside>
+    </div>
+
+    <!-- FOLHA DE SEPARAÇÃO E CONFERÊNCIA: exibida somente na impressão -->
+    <section class="od-print-document">
+      <header class="print-header">
+        <div>
+          <h1>{{ order.tenant.name }}</h1>
+          <p>FOLHA DE SEPARAÇÃO E CONFERÊNCIA</p>
+        </div>
+
+        <div class="print-order-number">
+          <span>PEDIDO</span>
+          <strong>{{ order.number }}</strong>
+          <small>{{ order.created_at|date:'d/m/Y H:i' }}</small>
+        </div>
+      </header>
+
+      <section class="print-section">
+        <h2>IDENTIFICAÇÃO DO CLIENTE</h2>
+
+        <div class="print-grid">
+          <div>
+            <span>CLIENTE</span>
+            <strong>{{ order.customer_name_snapshot }}</strong>
+          </div>
+
+          <div>
+            <span>TELEFONE / WHATSAPP</span>
+            <strong>{{ order.customer_phone_snapshot }}</strong>
+          </div>
+
+          <div>
+            <span>FORMA DE RECEBIMENTO</span>
+            <strong>{{ order.get_fulfillment_method_display }}</strong>
+          </div>
+
+          <div>
+            <span>STATUS DO PEDIDO</span>
+            <strong>{{ order.get_status_display }}</strong>
+          </div>
+        </div>
+
+        {% if order.fulfillment_method == 'delivery' %}
+          <div class="print-address">
+            <span>ENDEREÇO DE ENTREGA</span>
+            <strong>{{ order.delivery_address|linebreaksbr }}</strong>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="print-section">
+        <h2>PRODUTOS PARA CONFERÊNCIA</h2>
+
+        <table class="print-items">
+          <thead>
+            <tr>
+              <th>PRODUTO</th>
+              <th>UNIDADE</th>
+              <th>QUANTIDADE</th>
+              <th>CONFERIDO</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for item in order.items.all %}
+              <tr>
+                <td>{{ item.product_name_snapshot }}</td>
+                <td>{{ item.unit_snapshot }}</td>
+                <td>{{ item.quantity }}</td>
+                <td class="print-check">
+                  <span class="check-square"></span>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="4">Nenhum produto encontrado.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      {% if order.notes %}
+        <section class="print-section">
+          <h2>OBSERVAÇÕES DO CLIENTE</h2>
+          <div class="print-notes">{{ order.notes|linebreaksbr }}</div>
+        </section>
+      {% endif %}
+
+      <div class="print-total">
+        <span>TOTAL DO PEDIDO</span>
+        <strong>R$ {{ order.total|floatformat:2 }}</strong>
+      </div>
+
+      <div class="print-signatures">
+        <div>
+          <span></span>
+          <p>Responsável pela separação</p>
+        </div>
+
+        <div>
+          <span></span>
+          <p>Responsável pela conferência / recebimento</p>
+        </div>
+      </div>
+
+      <footer class="print-footer">Documento interno de separação e conferência de mercadorias.</footer>
+    </section>
+  </div>
+
+  {% if order.status == 'pending' and reservation_expires_at %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const countdown = document.getElementById('reservation-countdown')
+        const timeElement = document.getElementById('countdown-time')
+        const messageElement = document.getElementById('countdown-message')
+        const approveButton = document.getElementById('approve-order-button')
+      
+        if (!countdown || !timeElement) return
+      
+        const expiration = new Date(countdown.dataset.expiration).getTime()
+      
+        if (Number.isNaN(expiration)) return
+      
+        let reloadScheduled = false
+      
+        function updateCountdown() {
+          const remaining = Math.max(0, expiration - Date.now())
+          const totalSeconds = Math.floor(remaining / 1000)
+      
+          const hours = Math.floor(totalSeconds / 3600)
+          const minutes = Math.floor((totalSeconds % 3600) / 60)
+          const seconds = totalSeconds % 60
+      
+          const formatted = hours > 0 ? String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0') : String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
+      
+          timeElement.textContent = formatted
+      
+          if (remaining <= 0) {
+            countdown.classList.add('od-reservation-expired')
+      
+            timeElement.textContent = '00:00'
+      
+            messageElement.textContent = 'O prazo terminou. Atualizando o status do pedido...'
+      
+            if (approveButton) {
+              approveButton.disabled = true
+              approveButton.textContent = 'Prazo de aprovação encerrado'
+            }
+      
+            if (!reloadScheduled) {
+              reloadScheduled = true
+      
+              setTimeout(function () {
+                window.location.reload()
+              }, 5000)
+            }
+          }
+        }
+      
+        updateCountdown()
+        setInterval(updateCountdown, 1000)
+      })
+    </script>
+  {% endif %}
+{% endblock %}

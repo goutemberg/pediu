@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  {{ page_title }} | pediu.
+{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'catalog:category-list' %}">Categorias</a>
+  <span>/</span>
+  {{ page_title }}
+{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <div>
+      <span class="page-eyebrow">CATÁLOGO</span>
+      <h1>{{ page_title }}</h1>
+      <p>Organize os produtos por categorias.</p>
+    </div>
+
+    <a href="{% url 'catalog:category-list' %}" class="btn btn-secondary">Voltar</a>
+  </div>
+
+  <div class="product-list-panel category-form-panel">
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-section">
+        <h3>Informações da categoria</h3>
+        <p>Informe o nome que será utilizado para organizar seus produtos.</p>
+
+        <div class="form-group">
+          <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+          {{ form.name }}
+
+          {% for error in form.name.errors %}
+            <div class="field-error">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        {% if is_edit %}
+          <div class="form-group checkbox-group">
+            {{ form.is_active }}
+            <label for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+          </div>
+        {% else %}
+          {{ form.is_active.as_hidden }}
+        {% endif %}
+
+        {% for error in form.non_field_errors %}
+          <div class="field-error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="form-actions">
+        <a href="{% url 'catalog:category-list' %}" class="btn btn-secondary">Cancelar</a>
+
+        <button type="submit" class="btn btn-primary">
+          {% if is_edit %}
+            Salvar alterações
+          {% else %}
+            Cadastrar categoria
+          {% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

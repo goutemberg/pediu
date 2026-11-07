@@ -1,0 +1,98 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-pediu_db}
+      POSTGRES_USER: ${POSTGRES_USER:-pediu}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pediu_dev_password}
+    # Acesso local para desenvolvimento; não expõe o PostgreSQL na rede pública.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-pediu} -d ${POSTGRES_DB:-pediu_db}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      target: development
+    command: >
+      sh -c "python manage.py makemigrations accounts tenants catalog customers inventory orders notifications subscriptions &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    ports:
+      - "8002:8000"
+    volumes:
+      - ".:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Expiração automática das reservas de estoque
+  reservation_expirer:
+    build:
+      context: .
+      target: development
+    command: >
+      sh -c "while true; do
+        python manage.py expire_reservations;
+        sleep 15;
+      done"
+    env_file:
+      - .env
+    volumes:
+      - ".:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Testes funcionais e de integração
+  tests:
+    build:
+      context: .
+      target: development
+    command: pytest -m "not e2e"
+    env_file:
+      - .env.test
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      DATABASE_URL: postgres://${POSTGRES_USER:-pediu}:${POSTGRES_PASSWORD:-pediu_dev_password}@db:5432/${POSTGRES_TEST_DB:-pediu_test}
+    volumes:
+      - ".:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles:
+      - test
+
+  # Testes ponta a ponta com Playwright
+  e2e:
+    build:
+      context: .
+      target: e2e
+    command: pytest -m e2e
+    env_file:
+      - .env.test
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      DATABASE_URL: postgres://${POSTGRES_USER:-pediu}:${POSTGRES_PASSWORD:-pediu_dev_password}@db:5432/${POSTGRES_TEST_DB:-pediu_test}
+    volumes:
+      - ".:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles:
+      - e2e
+
+volumes:
+  postgres_data:

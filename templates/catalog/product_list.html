@@ -1,0 +1,225 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Produtos | pediu.{% endblock %}
+{% block breadcrumb %}Produtos{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">CATÁLOGO</span>
+        <h1>Produtos</h1>
+        <p>Gerencie seu catálogo, preços e disponibilidade.</p>
+    </div>
+
+    <a href="{% url 'catalog:product-create' %}" class="btn btn-primary">
+        ＋ Novo produto
+    </a>
+</div>
+
+<div class="stats-grid product-stats">
+
+    <div class="stat-card">
+        <span class="stat-label">Total de produtos</span>
+        <strong class="stat-value">{{ total_products }}</strong>
+        <span class="stat-description">Produtos cadastrados</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-label">Produtos ativos</span>
+        <strong class="stat-value">{{ active_products }}</strong>
+        <span class="stat-description">Disponíveis para utilização</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-label">Produtos inativos</span>
+        <strong class="stat-value">{{ inactive_products }}</strong>
+        <span class="stat-description">Fora de utilização</span>
+    </div>
+
+</div>
+
+<div class="panel product-list-panel">
+
+    <form method="get" class="product-filters">
+
+        <div class="search-field">
+            <span>⌕</span>
+            <input
+                type="search"
+                name="q"
+                value="{{ search }}"
+                placeholder="Buscar por nome, código ou descrição..."
+            >
+        </div>
+
+        <select name="status" class="form-control filter-status">
+            <option value="all" {% if status == "all" %}selected{% endif %}>
+                Todos os produtos
+            </option>
+            <option value="active" {% if status == "active" %}selected{% endif %}>
+                Ativos
+            </option>
+            <option value="inactive" {% if status == "inactive" %}selected{% endif %}>
+                Inativos
+            </option>
+        </select>
+
+        <button type="submit" class="btn btn-secondary">Filtrar</button>
+
+        {% if search or status != "all" %}
+            <a href="{% url 'catalog:product-list' %}" class="clear-filter">
+                Limpar
+            </a>
+        {% endif %}
+
+    </form>
+
+    {% if product_rows %}
+
+        <div class="table-wrapper">
+            <table class="data-table product-table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Código</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Estoque físico</th>
+                        <th>Reservado</th>
+                        <th>Disponível</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in product_rows %}
+                        <tr>
+                            <td>
+                                <div class="product-cell">
+                                    {% if row.product.image %}
+                                        <img
+                                            src="{{ row.product.image.url }}"
+                                            alt="{{ row.product.name }}"
+                                            class="product-thumbnail"
+                                        >
+                                    {% else %}
+                                        <div class="product-thumbnail placeholder-thumbnail">
+                                            ▦
+                                        </div>
+                                    {% endif %}
+
+                                    <div>
+                                        <strong>{{ row.product.name }}</strong>
+                                        <small>{{ row.product.unit }}</small>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>{{ row.product.code }}</td>
+
+                            <td>
+                                {% if row.product.category %}
+                                    {{ row.product.category.name }}
+                                {% else %}
+                                    <span class="muted-text">Sem categoria</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="table-money">
+                                R$ {{ row.product.price|floatformat:2 }}
+                            </td>
+
+                            <td>{{ row.physical|floatformat:3 }}</td>
+                            <td>{{ row.reserved|floatformat:3 }}</td>
+
+                            <td>
+                                <strong>{{ row.available|floatformat:3 }}</strong>
+                            </td>
+
+                            <td>
+                                {% if row.product.is_active %}
+                                    <span class="product-status active">Ativo</span>
+                                {% else %}
+                                    <span class="product-status inactive">Inativo</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="product-actions">
+                                    <a
+                                        href="{% url 'catalog:product-update' row.product.id %}"
+                                        class="action-link"
+                                    >
+                                        Editar
+                                    </a>
+
+                                    <form
+                                        method="post"
+                                        action="{% url 'catalog:product-toggle-status' row.product.id %}"
+                                        onsubmit="return confirm('Deseja realmente alterar o status deste produto?');"
+                                    >
+                                        {% csrf_token %}
+
+                                        <button type="submit" class="action-link action-toggle">
+                                            {% if row.product.is_active %}
+                                                Desativar
+                                            {% else %}
+                                                Ativar
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+
+                {% if page_obj.has_previous %}
+                    <a href="?q={{ search|urlencode }}&status={{ status }}&page={{ page_obj.previous_page_number }}">
+                        ← Anterior
+                    </a>
+                {% endif %}
+
+                <span>
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?q={{ search|urlencode }}&status={{ status }}&page={{ page_obj.next_page_number }}">
+                        Próxima →
+                    </a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    {% else %}
+
+        <div class="empty-state product-empty">
+            <span class="empty-icon">▦</span>
+
+            {% if search %}
+                <strong>Nenhum produto encontrado</strong>
+                <p>Tente pesquisar usando outro nome ou código.</p>
+            {% else %}
+                <strong>Seu catálogo ainda está vazio</strong>
+                <p>Cadastre seu primeiro produto para começar a organizar sua operação.</p>
+
+                <a href="{% url 'catalog:product-create' %}" class="btn btn-primary">
+                    Cadastrar primeiro produto
+                </a>
+            {% endif %}
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

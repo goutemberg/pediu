@@ -1,0 +1,275 @@
+{% extends 'storefront/base.html' %}
+
+{% block title %}
+  {{ tenant.name }} | Catálogo
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    {% if branding.logo %}
+      <img class="store-logo" src="{{ branding.logo }}" alt="Logo {{ tenant.name }}" />
+    {% endif %}
+
+    <div>
+      <p class="eyebrow">LOJA ONLINE</p>
+      <h1>{{ tenant.name }}</h1>
+      <p>{{ branding.description|default:'Faça seu pedido sem sair de casa.' }}</p>
+
+      {% if tenant.phone %}
+        <a class="contact" href="https://wa.me/{{ tenant.phone|cut:' '|cut:'('|cut:')'|cut:'-'|cut:'+' }}">Fale com a loja no WhatsApp</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <form class="search" method="get">
+    <input name="q" value="{{ query }}" placeholder="Buscar ração, produto, marca..." />
+    <button>Buscar</button>
+  </form>
+
+  <nav class="chips">
+    <a class="chip {% if not selected_category %}active{% endif %}" href="{% url 'storefront:store' tenant.slug %}">Todos</a>
+
+    {% for category in categories %}
+      <a class="chip {% if selected_category == category.slug %}active{% endif %}" href="?categoria={{ category.slug }}">{{ category.name }}</a>
+    {% endfor %}
+  </nav>
+
+  <section class="product-grid">
+    {% for row in product_rows %}
+      <article class="product-card">
+        {% if row.product.image %}
+          <img class="product-image" src="{{ row.product.image.url }}" alt="{{ row.product.name }}" />
+        {% else %}
+          <div class="product-placeholder">🐾</div>
+        {% endif %}
+
+        <div class="product-info">
+          {% if row.product.category %}
+            <span class="category-label">{{ row.product.category.name }}</span>
+          {% endif %}
+
+          <h2>{{ row.product.name }}</h2>
+
+          <p class="unit">{{ row.product.get_unit_display }}</p>
+
+          <strong class="price">R$ {{ row.product.price|floatformat:2 }}</strong>
+
+          {% if row.available > 0 %}
+            <span class="stock">Disponível</span>
+
+            <form method="post" action="{% url 'storefront:cart-add' tenant.slug %}" class="add-form">
+              {% csrf_token %}
+
+              <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
+
+              <div class="quantity-control">
+                <button type="button" class="quantity-btn quantity-minus" aria-label="Diminuir quantidade">−</button>
+
+                <input type="number" name="quantity" class="quantity-input" min="{{ row.product.minimum_quantity }}" step="{{ row.product.quantity_multiple }}" value="{{ row.product.minimum_quantity|stringformat:'g' }}" data-min="{{ row.product.minimum_quantity|stringformat:'g' }}" data-step="{{ row.product.quantity_multiple|stringformat:'g' }}" inputmode="decimal" aria-label="Quantidade de {{ row.product.name }}" />
+
+                <button type="button" class="quantity-btn quantity-plus" aria-label="Aumentar quantidade">+</button>
+              </div>
+
+              <button type="submit" class="add-button">Adicionar</button>
+            </form>
+          {% else %}
+            <span class="unavailable">Indisponível no momento</span>
+          {% endif %}
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty">
+        <h2>Nenhum produto encontrado</h2>
+        <p>Tente buscar por outro nome ou categoria.</p>
+      </div>
+    {% endfor %}
+  </section>
+
+  <style>
+    .add-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      height: 44px;
+      border: 1px solid #dfe3e8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    
+    .quantity-btn {
+      width: 38px;
+      height: 100%;
+      border: none;
+      background: #166534;
+      color: #ffffff;
+      font-size: 23px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    .quantity-btn:hover {
+      background: #14532d;
+      color: #ffffff;
+    }
+    
+    .quantity-input {
+      width: 48px;
+      height: 100%;
+      border: none;
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+      border-radius: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 0;
+      outline: none;
+      background: #fff;
+      color: #222;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+    
+    .quantity-input::-webkit-inner-spin-button,
+    .quantity-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    .add-button {
+      flex: 1;
+      min-width: 0;
+      height: 44px;
+      border: none;
+      border-radius: 10px;
+      background: #166534;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .add-button:hover {
+      background: #14532d;
+    }
+    
+    .quantity-btn:active,
+    .add-button:active {
+      transform: scale(0.97);
+    }
+    
+    @media (max-width: 380px) {
+      .add-form {
+        gap: 6px;
+      }
+    
+      .quantity-btn {
+        width: 32px;
+      }
+    
+      .quantity-input {
+        width: 38px;
+      }
+    
+      .add-button {
+        font-size: 13px;
+      }
+    }
+    
+    .contact {
+      display: inline-block;
+      color: #ffffff;
+      text-decoration: none;
+      background: #166534;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+    
+    .contact:hover {
+      color: #ffffff;
+      text-decoration: none;
+      background: #14532d;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.add-form').forEach(function (form) {
+        const input = form.querySelector('.quantity-input')
+        const minus = form.querySelector('.quantity-minus')
+        const plus = form.querySelector('.quantity-plus')
+    
+        if (!input || !minus || !plus) return
+    
+        const min = Number(input.dataset.min)
+        const step = Number(input.dataset.step)
+    
+        function decimalPlaces(value) {
+          const text = String(value)
+          return text.includes('.') ? text.split('.')[1].length : 0
+        }
+    
+        function normalize(value) {
+          const precision = Math.max(decimalPlaces(min), decimalPlaces(step))
+    
+          return Number(value.toFixed(precision))
+        }
+    
+        function updateQuantity(direction) {
+          let current = Number(input.value)
+    
+          if (!Number.isFinite(current) || current < min) {
+            current = min
+          }
+    
+          const next = direction === 'plus' ? current + step : current - step
+    
+          input.value = Math.max(min, normalize(next))
+        }
+    
+        plus.addEventListener('click', function () {
+          updateQuantity('plus')
+        })
+    
+        minus.addEventListener('click', function () {
+          updateQuantity('minus')
+        })
+    
+        input.addEventListener('change', function () {
+          let value = Number(input.value)
+    
+          if (!Number.isFinite(value) || value < min) {
+            value = min
+          }
+    
+          input.value = normalize(value)
+        })
+    
+        form.addEventListener('submit', function (event) {
+          const value = Number(input.value)
+    
+          if (!Number.isFinite(value) || value < min || !Number.isInteger(((value - min) / step) * 1000000)) {
+            event.preventDefault()
+            input.value = min
+            alert('Informe uma quantidade válida para este produto.')
+          }
+        })
+      })
+    })
+  </script>
+{% endblock %}

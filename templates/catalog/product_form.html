@@ -1,0 +1,380 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  {{ page_title }} | pediu.
+{% endblock %}
+
+{% block breadcrumb %}
+  Produtos / {{ page_title }}
+{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">CATÁLOGO</span>
+      <h1>{{ page_title }}</h1>
+      <p>Cadastre um produto e configure suas informações comerciais e de estoque.</p>
+    </div>
+
+    <a href="{% url 'catalog:product-list' %}" class="btn btn-secondary">← Voltar</a>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="product-form">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-error">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-layout">
+      <div class="form-main">
+        <!-- INFORMAÇÕES DO PRODUTO -->
+        <div class="panel form-panel">
+          <div class="form-section-heading">
+            <div class="form-section-icon">▦</div>
+            <div>
+              <h3>Informações do produto</h3>
+              <p>Identificação e descrição do item.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- CÓDIGO DO PRODUTO -->
+            <div class="field-group field-full">
+              {% if is_edit %}
+                <label for="{{ form.current_code.id_for_label }}">Código do produto</label>
+
+                {{ form.current_code }}
+
+                {% if form.current_code.help_text %}
+                  <small class="field-help">{{ form.current_code.help_text }}</small>
+                {% endif %}
+              {% else %}
+                <label>Código do produto *</label>
+
+                <div class="code-mode-options">{{ form.code_mode }}</div>
+
+                {% for error in form.code_mode.errors %}
+                  <small class="field-error">{{ error }}</small>
+                {% endfor %}
+
+                <!-- INFORMAÇÃO DO CÓDIGO AUTOMÁTICO -->
+                <div id="automatic-code-info" class="code-mode-info">
+                  <span class="code-mode-icon">✦</span>
+
+                  <div>
+                    <strong>Código automático</strong>
+
+                    <p>O pediu. gerará um código exclusivo para sua empresa automaticamente ao salvar o produto.</p>
+
+                    <span class="code-preview">Exemplo: PROD-000001</span>
+                  </div>
+                </div>
+
+                <!-- CAMPO DE CÓDIGO MANUAL -->
+                <div id="manual-code-field" class="field-group manual-code-field" style="display: none;">
+                  <label for="{{ form.manual_code.id_for_label }}">Código personalizado *</label>
+
+                  {{ form.manual_code }}
+
+                  {% if form.manual_code.help_text %}
+                    <small class="field-help">{{ form.manual_code.help_text }}</small>
+                  {% endif %}
+
+                  {% for error in form.manual_code.errors %}
+                    <small class="field-error">{{ error }}</small>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- NOME -->
+            <div class="field-group">
+              <label for="{{ form.name.id_for_label }}">Nome do produto *</label>
+
+              {{ form.name }}
+
+              {% for error in form.name.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="field-group field-full">
+              <label for="{{ form.category.id_for_label }}">Categoria *</label>
+
+              {{ form.category }}
+
+              {% for error in form.category.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">As categorias disponíveis pertencem à sua empresa.</small>
+            </div>
+
+            <!-- DESCRIÇÃO -->
+            <div class="field-group field-full">
+              <label for="{{ form.description.id_for_label }}">Descrição</label>
+
+              {{ form.description }}
+
+              {% for error in form.description.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+            </div>
+
+            <!-- IMAGEM -->
+            <div class="field-group field-full">
+              <label for="{{ form.image.id_for_label }}">Imagem do produto</label>
+
+              {% if product and product.image %}
+                <div class="current-product-image">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                  <small>Imagem atual do produto</small>
+                </div>
+              {% endif %}
+
+              {{ form.image }}
+
+              {% for error in form.image.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">Envie uma imagem para facilitar a identificação do produto.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFORMAÇÕES COMERCIAIS -->
+        <div class="panel form-panel">
+          <div class="form-section-heading">
+            <div class="form-section-icon green-form-icon">R$</div>
+
+            <div>
+              <h3>Informações comerciais</h3>
+              <p>Preço e regras de quantidade para os pedidos.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="{{ form.price.id_for_label }}">Preço de venda *</label>
+
+              {{ form.price }}
+
+              {% for error in form.price.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+            </div>
+
+            <div class="field-group">
+              <label for="{{ form.unit.id_for_label }}">Unidade *</label>
+
+              {{ form.unit }}
+
+              {% for error in form.unit.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">Selecione como o produto será comercializado.</small>
+            </div>
+
+            <div class="field-group">
+              <label for="{{ form.minimum_quantity.id_for_label }}">Quantidade mínima *</label>
+
+              {{ form.minimum_quantity }}
+
+              {% for error in form.minimum_quantity.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">Menor quantidade permitida por pedido.</small>
+            </div>
+
+            <div class="field-group">
+              <label for="{{ form.quantity_multiple.id_for_label }}">Múltiplo de quantidade *</label>
+
+              {{ form.quantity_multiple }}
+
+              {% for error in form.quantity_multiple.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">Intervalo permitido para as quantidades solicitadas.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESTOQUE INICIAL: SOMENTE NO CADASTRO -->
+        {% if not is_edit %}
+          <div class="panel form-panel">
+            <div class="form-section-heading">
+              <div class="form-section-icon orange-form-icon">▤</div>
+
+              <div>
+                <h3>Controle de estoque</h3>
+                <p>Informe a quantidade física inicial deste produto.</p>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="{{ form.initial_stock.id_for_label }}">Estoque inicial</label>
+
+              {{ form.initial_stock }}
+
+              {% for error in form.initial_stock.errors %}
+                <small class="field-error">{{ error }}</small>
+              {% endfor %}
+
+              <small class="field-help">O sistema criará o saldo de estoque e registrará a entrada inicial.</small>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- AJUSTE DE ESTOQUE: SOMENTE NA EDIÇÃO -->
+        {% if is_edit %}
+          <div class="panel form-panel">
+            <div class="form-section-heading">
+              <div class="form-section-icon orange-form-icon">▤</div>
+
+              <div>
+                <h3>Controle de estoque</h3>
+                <p>Consulte o saldo atual ou registre um ajuste de estoque.</p>
+              </div>
+            </div>
+
+            <div class="product-stats">
+              <div class="product-stat">
+                <span>Estoque físico</span>
+                <strong>{{ physical_stock|floatformat:3 }}</strong>
+              </div>
+
+              <div class="product-stat">
+                <span>Reservado</span>
+                <strong>{{ reserved_stock|floatformat:3 }}</strong>
+              </div>
+
+              <div class="product-stat">
+                <span>Disponível</span>
+                <strong>{{ available_stock|floatformat:3 }}</strong>
+              </div>
+            </div>
+
+            <div class="stock-adjustment-area">
+              <div class="field-group">
+                <label for="stock_quantity">Nova quantidade física *</label>
+
+                <input type="number" id="stock_quantity" name="stock_quantity" class="form-control" step="0.001" min="0" required value="{{ request.POST.stock_quantity|default:physical_stock }}" placeholder="Ex.: 30.000" />
+
+                <small class="field-help">Informe o estoque físico total após o ajuste, não apenas a diferença.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="stock_adjustment_reason">Motivo do ajuste *</label>
+
+                <input type="text" id="stock_adjustment_reason" name="stock_adjustment_reason" class="form-control" maxlength="255" required value="{{ request.POST.stock_adjustment_reason|default:'' }}" placeholder="Ex.: Correção após inventário" />
+
+                <small class="field-help">O motivo ficará registrado no histórico de movimentações.</small>
+              </div>
+
+              <div class="stock-adjustment-notice">
+                <strong>Importante</strong>
+
+                <p>O sistema registrará automaticamente a diferença como entrada ou saída. Não será permitido reduzir o estoque físico abaixo da quantidade já reservada em pedidos.</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- CONFIGURAÇÕES LATERAIS -->
+      <aside class="form-aside">
+        <div class="panel status-panel">
+          <h3>Disponibilidade</h3>
+          <p>Defina se este produto poderá ser utilizado nos pedidos.</p>
+
+          <label class="checkbox-line">
+            {{ form.is_active }}
+
+            <span>
+              <strong>Produto ativo</strong>
+              <small>Disponível para utilização no sistema.</small>
+            </span>
+          </label>
+
+          {% for error in form.is_active.errors %}
+            <small class="field-error">{{ error }}</small>
+          {% endfor %}
+        </div>
+
+        <div class="form-tip">
+          <span>✦</span>
+          <strong>Dica</strong>
+
+          <p>Utilize códigos exclusivos para facilitar a organização e identificação dos produtos.</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="form-actions">
+      <a href="{% url 'catalog:product-list' %}" class="btn btn-secondary">Cancelar</a>
+
+      <button type="submit" class="btn btn-primary">
+        {% if is_edit %}
+          Salvar alterações →
+        {% else %}
+          Salvar produto →
+        {% endif %}
+      </button>
+    </div>
+  </form>
+
+  <!-- CONTROLE DO MODO DE CÓDIGO -->
+  {% if not is_edit %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const modeInputs = document.querySelectorAll('input[name="code_mode"]')
+      
+        const automaticInfo = document.getElementById('automatic-code-info')
+      
+        const manualField = document.getElementById('manual-code-field')
+      
+        const manualInput = document.getElementById('{{ form.manual_code.id_for_label }}')
+      
+        function updateCodeMode() {
+          const selected = document.querySelector('input[name="code_mode"]:checked')
+      
+          const isManual = selected && selected.value === 'manual'
+      
+          if (isManual) {
+            automaticInfo.style.display = 'none'
+            manualField.style.display = 'block'
+      
+            manualInput.disabled = false
+            manualInput.required = true
+          } else {
+            automaticInfo.style.display = 'flex'
+            manualField.style.display = 'none'
+      
+            manualInput.disabled = true
+            manualInput.required = false
+            manualInput.value = ''
+          }
+        }
+      
+        modeInputs.forEach(function (input) {
+          input.addEventListener('change', updateCodeMode)
+        })
+      
+        // Aplica o modo selecionado ao abrir a tela
+        // e também depois de um erro de validação.
+        updateCodeMode()
+      })
+    </script>
+  {% endif %}
+{% endblock %}

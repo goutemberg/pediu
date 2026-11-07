@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Nova loja | pediu.{% endblock %}
+{% block breadcrumb %}Nova loja{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><span class="eyebrow">EXPANDA SUA OPERAÇÃO</span><h1>Criar outra loja</h1><p>O mesmo usuário poderá administrar várias lojas.</p></div>
+</div>
+<div class="panel" style="max-width:680px;">
+  {% if form.non_field_errors %}<div class="alert alert-error">{{ form.non_field_errors }}</div>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Criar loja</button>
+  </form>
+</div>
+{% endblock %}

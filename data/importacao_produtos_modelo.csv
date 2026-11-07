@@ -1,0 +1,5 @@
+codigo,nome,descricao,categoria,preco,unidade,estoque,quantidade_minima,multiplo_compra,ativo
+422,Avitop Aarão Canto 15ml,,Suplementos,11.99,UN,0,1,1,true
+540,Coccidex Aarão 30 cápsulas,,Suplementos,68.00,UN,0,1,1,true
+1000,Ninho Bola Luxo,,Acessórios,6.99,UN,0,1,1,true
+729,Curió Nutrópica 5kg,,Alimentos,299.90,UN,0,1,1,true

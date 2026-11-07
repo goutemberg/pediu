@@ -1,0 +1,223 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  Visão geral | pediu.
+{% endblock %}
+{% block breadcrumb %}
+  Visão geral
+{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">PAINEL DE CONTROLE</span>
+      <h1>Olá, {{ request.user.first_name|default:request.user.username }}! 👋</h1>
+      <p>Acompanhe o desempenho da sua operação em um só lugar.</p>
+    </div>
+
+    <a href="{% url 'catalog:product-create' %}" class="btn btn-primary"><span>＋</span> Novo produto</a>
+  </div>
+
+  <div class="welcome-strip">
+    <div>
+      <span class="welcome-label">SUA OPERAÇÃO</span>
+      <h2>{{ tenant.name }}</h2>
+      <p>Confira os principais números da sua empresa.</p>
+    </div>
+
+    <div class="welcome-date">
+      <span>HOJE</span>
+      <strong>{{ today|date:'d/m/Y' }}</strong>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:24px;">
+    <div class="panel-heading">
+      <div>
+        <span class="eyebrow">SUA LOJA NA INTERNET</span>
+        <h3>Compartilhe seu link e receba pedidos</h3>
+        <p>Seus clientes podem acessar a vitrine pelo celular, sem criar uma conta.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <input class="form-control" type="text" value="{{ storefront_url }}" readonly aria-label="Link público da loja" style="flex:1;min-width:220px;" />
+      <button class="btn btn-primary" type="button" onclick="navigator.clipboard.writeText('{{ storefront_url|escapejs }}').then(() => { this.textContent = 'Link copiado!'; }).catch(() => { window.prompt('Copie o link da sua loja:', '{{ storefront_url|escapejs }}'); })">Copiar link</button>
+      <button class="btn" type="button" onclick="if (navigator.share) { navigator.share({ title: '{{ tenant.name|escapejs }}', text: 'Faça seu pedido pela nossa loja:', url: '{{ storefront_url|escapejs }}' }); } else { navigator.clipboard.writeText('{{ storefront_url|escapejs }}').then(() => alert('Link copiado!')); }">Compartilhar</button>
+      <a class="btn" href="{{ storefront_url }}" target="_blank" rel="noopener">Visualizar loja ↗</a>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <div>
+      <h2>Resumo da operação</h2>
+      <p>Indicadores atualizados com os dados cadastrados.</p>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon icon-purple">▤</span>
+        <span class="stat-period">HOJE</span>
+      </div>
+      <span class="stat-label">Pedidos recebidos</span>
+      <strong class="stat-value">{{ today_orders_count }}</strong>
+      <span class="stat-description">Pedidos criados hoje</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon icon-green">R$</span>
+        <span class="stat-period">HOJE</span>
+      </div>
+      <span class="stat-label">Faturamento concluído</span>
+      <strong class="stat-value">R$ {{ today_revenue|floatformat:2 }}</strong>
+      <span class="stat-description">Pedidos concluídos hoje</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon icon-blue">▦</span>
+        <span class="stat-period">CADASTRO</span>
+      </div>
+      <span class="stat-label">Produtos cadastrados</span>
+      <strong class="stat-value">{{ total_products }}</strong>
+      <span class="stat-description">{{ active_products }} produtos ativos</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon icon-orange">◷</span>
+        <span class="stat-period">GERAL</span>
+      </div>
+      <span class="stat-label">Pedidos concluídos</span>
+      <strong class="stat-value">{{ completed_orders }}</strong>
+      <span class="stat-description">De {{ total_orders }} pedidos registrados</span>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="panel">
+      <div class="panel-heading">
+        <div>
+          <h3>Pedidos por situação</h3>
+          <p>Distribuição atual dos pedidos.</p>
+        </div>
+        <span class="panel-icon">▤</span>
+      </div>
+
+      <div class="order-status-list">
+        <div class="status-row">
+          <span class="status-dot dot-pending"></span>
+          <span>Pendentes</span>
+          <strong>{{ order_summary.pending }}</strong>
+        </div>
+
+        <div class="status-row">
+          <span class="status-dot dot-approved"></span>
+          <span>Aprovados</span>
+          <strong>{{ order_summary.approved }}</strong>
+        </div>
+
+        <div class="status-row">
+          <span class="status-dot dot-preparing"></span>
+          <span>Em preparação</span>
+          <strong>{{ order_summary.preparing }}</strong>
+        </div>
+
+        <div class="status-row">
+          <span class="status-dot dot-ready"></span>
+          <span>Prontos</span>
+          <strong>{{ order_summary.ready }}</strong>
+        </div>
+
+        <div class="status-row">
+          <span class="status-dot dot-completed"></span>
+          <span>Concluídos</span>
+          <strong>{{ order_summary.completed }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <div>
+          <h3>Atenção ao estoque</h3>
+          <p>Produtos sem quantidade disponível.</p>
+        </div>
+        <span class="panel-icon warning-icon">!</span>
+      </div>
+
+      {% if unavailable_products %}
+        <div class="stock-alert-list">
+          {% for item in unavailable_products %}
+            <div class="stock-alert-item">
+              <div class="product-mini-icon">▦</div>
+
+              <div class="stock-product-info">
+                <strong>{{ item.product.name }}</strong>
+                <small>{{ item.product.code }}</small>
+              </div>
+
+              <span class="stock-empty">Sem saldo</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <span class="empty-icon">✓</span>
+          <strong>Nenhum alerta de estoque</strong>
+          <p>Não encontramos produtos sem disponibilidade.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="panel recent-panel">
+    <div class="panel-heading">
+      <div>
+        <h3>Pedidos recentes</h3>
+        <p>Últimos pedidos registrados na sua empresa.</p>
+      </div>
+    </div>
+
+    {% if recent_orders %}
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Data</th>
+              <th>Situação</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for order in recent_orders %}
+              <tr>
+                <td>
+                  <strong>#{{ order.number }}</strong>
+                </td>
+
+                <td>{{ order.created_at|date:'d/m/Y H:i' }}</td>
+
+                <td>
+                  <span class="order-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+                </td>
+
+                <td class="table-money">R$ {{ order.total|floatformat:2 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <span class="empty-icon">▤</span>
+        <strong>Seus pedidos aparecerão aqui</strong>
+        <p>Quando os primeiros pedidos forem registrados, você poderá acompanhá-los nesta área.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+FROM python:3.12-slim AS base
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential libpq-dev && rm -rf /var/lib/apt/lists/*
+COPY requirements/ requirements/
+RUN pip install --upgrade pip && pip install -r requirements/local.txt
+FROM base AS development
+COPY . .
+FROM development AS e2e
+RUN playwright install --with-deps chromium

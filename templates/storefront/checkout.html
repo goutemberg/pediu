@@ -1,0 +1,203 @@
+
+{% extends 'storefront/base.html' %}
+
+{% block title %}
+  Finalizar pedido | {{ tenant.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+  <a class="back" href="{% url 'storefront:cart' tenant.slug %}">
+    ← Voltar ao carrinho
+  </a>
+
+  <h1>Finalizar pedido</h1>
+
+  <p>Preencha seus dados e escolha como deseja receber.</p>
+</div>
+
+<form method="post" class="checkout-form">
+
+  {% csrf_token %}
+
+  <label>
+    Seu nome
+
+    <input
+      name="name"
+      maxlength="160"
+      required
+      autocomplete="name"
+      value="{{ request.POST.name }}"
+    >
+  </label>
+
+  <label>
+    Telefone / WhatsApp
+
+    <input
+      id="phone"
+      name="phone"
+      type="tel"
+      maxlength="15"
+      required
+      autocomplete="tel"
+      inputmode="numeric"
+      placeholder="(81) 99999-9999"
+      value="{{ request.POST.phone }}"
+    >
+  </label>
+
+  <fieldset>
+    <legend>Como deseja receber?</legend>
+
+    <label class="radio">
+      <input
+        type="radio"
+        name="fulfillment_method"
+        value="delivery"
+        {% if request.POST.fulfillment_method == 'delivery' %}checked{% endif %}
+      >
+      Entrega
+    </label>
+
+    <label class="radio">
+      <input
+        type="radio"
+        name="fulfillment_method"
+        value="pickup"
+        {% if not request.POST.fulfillment_method or request.POST.fulfillment_method == 'pickup' %}checked{% endif %}
+      >
+      Retirar na loja
+    </label>
+  </fieldset>
+
+  <label>
+    Endereço para entrega (preencha se escolheu entrega)
+
+    <textarea
+      id="delivery-address"
+      name="delivery_address"
+      rows="3"
+      placeholder="Rua, número, bairro e complemento"
+    >{{ request.POST.delivery_address }}</textarea>
+  </label>
+
+  <label>
+    Observações (opcional)
+
+    <textarea
+      name="notes"
+      rows="3"
+      placeholder="Referência, preferência ou informação adicional"
+    >{{ request.POST.notes }}</textarea>
+  </label>
+
+  <div class="payment-note">
+    <strong>Pagamento combinado diretamente com a loja</strong>
+
+    <p>
+      A loja confirmará as opções de pagamento e, se necessário,
+      o valor da entrega após receber seu pedido.
+    </p>
+  </div>
+
+  <div class="total-box">
+    <span>Total dos produtos</span>
+
+    <strong>R$ {{ total|floatformat:2 }}</strong>
+
+    <small>O frete não está incluído neste valor.</small>
+  </div>
+
+  <button class="button full" type="submit">
+    Enviar pedido
+  </button>
+
+</form>
+
+<style>
+  #delivery-address:disabled {
+    background: #eeeeee;
+    color: #999999;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Máscara de telefone
+    const phoneInput = document.getElementById('phone');
+
+    if (phoneInput) {
+
+      function formatPhone(value) {
+
+        let digits = value.replace(/\D/g, '').substring(0, 11);
+
+        if (digits.length === 0) return '';
+
+        if (digits.length <= 2) {
+          return '(' + digits;
+        }
+
+        const ddd = digits.substring(0, 2);
+        const number = digits.substring(2);
+
+        if (digits.length <= 10) {
+          if (number.length <= 4) {
+            return '(' + ddd + ') ' + number;
+          }
+
+          return '(' + ddd + ') ' +
+            number.substring(0, 4) + '-' +
+            number.substring(4);
+        }
+
+        return '(' + ddd + ') ' +
+          number.substring(0, 5) + '-' +
+          number.substring(5);
+      }
+
+      phoneInput.addEventListener('input', function () {
+        phoneInput.value = formatPhone(phoneInput.value);
+      });
+
+      phoneInput.value = formatPhone(phoneInput.value);
+    }
+
+    // Habilitar ou desabilitar endereço conforme recebimento
+    const fulfillmentOptions = document.querySelectorAll(
+      'input[name="fulfillment_method"]'
+    );
+
+    const addressField = document.getElementById('delivery-address');
+
+    function updateAddressField() {
+
+      const selectedOption = document.querySelector(
+        'input[name="fulfillment_method"]:checked'
+      );
+
+      const isDelivery = selectedOption &&
+        selectedOption.value === 'delivery';
+
+      addressField.disabled = !isDelivery;
+
+    }
+
+    fulfillmentOptions.forEach(function (option) {
+      option.addEventListener('change', updateAddressField);
+    });
+
+    // Aplica o estado inicial conforme a opção selecionada.
+    updateAddressField();
+
+  });
+</script>
+
+{% endblock %}

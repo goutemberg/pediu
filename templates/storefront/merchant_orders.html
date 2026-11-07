@@ -1,0 +1,512 @@
+
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<style>
+    .orders-page {
+        --orders-primary: #635bff;
+        --orders-text: #202238;
+        --orders-muted: #8589a3;
+        --orders-border: #ececf3;
+        --orders-surface: #ffffff;
+        color: var(--orders-text);
+        width: 100%;
+    }
+
+    .orders-page * {
+        box-sizing: border-box;
+    }
+
+    .orders-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+    }
+
+    .orders-header h1 {
+        font-size: 28px;
+        font-weight: 750;
+        letter-spacing: -0.8px;
+        margin: 0 0 8px;
+        color: var(--orders-text);
+    }
+
+    .orders-header p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--orders-muted);
+    }
+
+    .orders-count {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        border: 1px solid var(--orders-border);
+        border-radius: 10px;
+        background: white;
+        font-size: 13px;
+        color: var(--orders-muted);
+        white-space: nowrap;
+    }
+
+    .orders-count strong {
+        color: var(--orders-text);
+        font-size: 15px;
+    }
+
+    .orders-panel {
+        background: var(--orders-surface);
+        border: 1px solid var(--orders-border);
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .orders-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 22px;
+        border-bottom: 1px solid var(--orders-border);
+        flex-wrap: wrap;
+    }
+
+    .orders-toolbar h2 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--orders-text);
+    }
+
+    .orders-filter {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+    .orders-filter select {
+        min-width: 185px;
+        height: 40px;
+        padding: 0 34px 0 12px;
+        border: 1px solid var(--orders-border);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--orders-text);
+        font-size: 13px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .orders-filter select:focus {
+        border-color: var(--orders-primary);
+    }
+
+    .orders-filter button {
+        height: 40px;
+        padding: 0 17px;
+        border: none;
+        border-radius: 8px;
+        background: var(--orders-primary);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 650;
+        cursor: pointer;
+        transition: opacity .2s, transform .2s;
+    }
+
+    .orders-filter button:hover {
+        opacity: .9;
+        transform: translateY(-1px);
+    }
+
+    .orders-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+    }
+
+    .orders-table thead {
+        background: #fafaff;
+    }
+
+    .orders-table th {
+        padding: 14px 20px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: #9295aa;
+        text-transform: uppercase;
+        letter-spacing: .65px;
+        white-space: nowrap;
+    }
+
+    .orders-table td {
+        padding: 17px 20px;
+        border-top: 1px solid #f0f0f5;
+        vertical-align: middle;
+        font-size: 13px;
+    }
+
+    .orders-table tbody tr {
+        transition: background .18s;
+    }
+
+    .orders-table tbody tr:hover {
+        background: #fafaff;
+    }
+
+    .order-number {
+        display: block;
+        font-size: 13px;
+        font-weight: 750;
+        color: var(--orders-text);
+        margin-bottom: 5px;
+    }
+
+    .order-date {
+        display: block;
+        font-size: 11px;
+        color: var(--orders-muted);
+    }
+
+    .customer-name {
+        display: block;
+        font-weight: 650;
+        color: var(--orders-text);
+        margin-bottom: 5px;
+    }
+
+    .customer-phone {
+        display: block;
+        font-size: 11px;
+        color: var(--orders-muted);
+    }
+
+    .fulfillment {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: #555970;
+        font-weight: 550;
+        white-space: nowrap;
+    }
+
+    .order-total {
+        font-weight: 750;
+        font-size: 14px;
+        color: var(--orders-text);
+        white-space: nowrap;
+    }
+
+    .order-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 10px;
+        border-radius: 20px;
+        background: #f1f0ff;
+        color: #635bdb;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        background: currentColor;
+        border-radius: 50%;
+    }
+
+    .order-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 13px;
+        border: 1px solid #e5e3ff;
+        border-radius: 8px;
+        color: var(--orders-primary);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: all .2s;
+    }
+
+    .order-action:hover {
+        background: var(--orders-primary);
+        color: white;
+        border-color: var(--orders-primary);
+    }
+
+    .orders-empty {
+        padding: 55px 20px !important;
+        text-align: center;
+    }
+
+    .orders-empty-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 14px;
+        background: #f3f2ff;
+        color: var(--orders-primary);
+        border-radius: 14px;
+        font-size: 22px;
+    }
+
+    .orders-empty strong {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .orders-empty span {
+        font-size: 12px;
+        color: var(--orders-muted);
+    }
+
+    /* Indicador de atualização automática */
+    .orders-live {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        color: var(--orders-muted);
+        margin-top: 10px;
+    }
+
+    .orders-live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #16a34a;
+        animation: live-pulse 1.8s infinite;
+    }
+
+    @keyframes live-pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: .35;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .orders-header h1 {
+            font-size: 23px;
+        }
+
+        .orders-toolbar {
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 17px;
+        }
+
+        .orders-filter {
+            width: 100%;
+        }
+
+        .orders-filter select {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .orders-filter button {
+            padding: 0 13px;
+        }
+
+        .orders-count {
+            padding: 8px 12px;
+        }
+    }
+</style>
+
+<div class="orders-page">
+
+    <div class="orders-header">
+        <div>
+            <h1>Pedidos</h1>
+            <p>Acompanhe e gerencie os pedidos recebidos pela sua loja.</p>
+
+            <div class="orders-live">
+                <span class="orders-live-dot"></span>
+                Atualização automática ativada
+            </div>
+        </div>
+
+        <div class="orders-count">
+            <strong>{{ orders|length }}</strong>
+            pedido(s) listado(s)
+        </div>
+    </div>
+
+    <div class="orders-panel">
+
+        <div class="orders-toolbar">
+            <h2>Todos os pedidos</h2>
+
+            <form method="get" class="orders-filter">
+                <select name="status" aria-label="Filtrar pedidos por status">
+                    <option value="">Todos os status</option>
+
+                    {% for value,label in statuses %}
+                        <option value="{{ value }}"
+                            {% if selected_status == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <div class="orders-table-wrapper">
+            <table class="orders-table">
+
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Cliente</th>
+                        <th>Recebimento</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+                        <tr>
+
+                            <td>
+                                <span class="order-number">
+                                    {{ order.number }}
+                                </span>
+
+                                <span class="order-date">
+                                    {{ order.created_at|date:'d/m/Y H:i' }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="customer-name">
+                                    {{ order.customer_name_snapshot }}
+                                </span>
+
+                                <span class="customer-phone">
+                                    {{ order.customer_phone_snapshot }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="fulfillment">
+                                    {{ order.get_fulfillment_method_display }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="order-total">
+                                    R$ {{ order.total|floatformat:2 }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="order-status">
+                                    <span class="status-dot"></span>
+                                    {{ order.get_status_display }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <a class="order-action"
+                                   href="{% url 'storefront:merchant-order-detail' order.pk %}">
+                                    Abrir pedido →
+                                </a>
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="orders-empty">
+                                <div class="orders-empty-icon">⌕</div>
+                                <strong>Nenhum pedido encontrado</strong>
+                                <span>
+                                    Quando sua loja receber pedidos, eles aparecerão aqui.
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const REFRESH_INTERVAL = 5000;
+        let refreshTimer = null;
+
+        function scheduleRefresh() {
+
+            if (refreshTimer) {
+                clearTimeout(refreshTimer);
+            }
+
+            refreshTimer = setTimeout(function () {
+
+                // Só atualiza quando a aba está visível.
+                if (document.visibilityState === 'visible') {
+
+                    // Não interrompe a interação com os filtros.
+                    const activeElement = document.activeElement;
+                    const interactingWithFilter =
+                        activeElement &&
+                        activeElement.closest('.orders-filter');
+
+                    if (!interactingWithFilter) {
+                        window.location.reload();
+                        return;
+                    }
+                }
+
+                scheduleRefresh();
+
+            }, REFRESH_INTERVAL);
+        }
+
+        // Retoma a contagem quando o usuário volta para a aba.
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') {
+                scheduleRefresh();
+            }
+        });
+
+        scheduleRefresh();
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+-r base.txt
+gunicorn>=23,<24
+whitenoise>=6.9,<7
+Pillow>=10.0

@@ -1,0 +1,260 @@
+{% extends 'storefront/base.html' %}
+
+{% block title %}
+  Carrinho | {{ tenant.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <a class="back" href="{% url 'storefront:store' tenant.slug %}">← Continuar comprando</a>
+    <h1>Seu carrinho</h1>
+  </div>
+
+  {% for row in items %}
+    <article class="cart-row">
+      <div class="cart-product-info">
+        <strong class="cart-product-name">{{ row.product.name }}</strong>
+
+        <form method="post" action="{% url 'storefront:cart-update' tenant.slug %}" class="cart-quantity">
+          {% csrf_token %}
+
+          <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
+
+          <button type="button" class="quantity-btn quantity-minus" aria-label="Diminuir quantidade">−</button>
+
+          <input aria-label="Quantidade" type="number" name="quantity" class="quantity-input" min="{{ row.product.minimum_quantity }}" step="{{ row.product.quantity_multiple }}" value="{{ row.quantity }}" data-min="{{ row.product.minimum_quantity|stringformat:'g' }}" data-step="{{ row.product.quantity_multiple|stringformat:'g' }}" inputmode="decimal" />
+
+          <button type="button" class="quantity-btn quantity-plus" aria-label="Aumentar quantidade">+</button>
+        </form>
+
+        <p class="cart-unit-price">{{ row.product.get_unit_display }} × R$ {{ row.product.price|floatformat:2 }}</p>
+      </div>
+
+      <strong class="cart-line-total">R$ {{ row.line_total|floatformat:2 }}</strong>
+
+      <form method="post" action="{% url 'storefront:cart-remove' tenant.slug %}" class="cart-remove-form">
+        {% csrf_token %}
+
+        <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
+
+        <button class="remove" type="submit">Remover</button>
+      </form>
+    </article>
+  {% empty %}
+    <div class="empty">
+      <h2>Seu carrinho está vazio</h2>
+
+      <a class="button" href="{% url 'storefront:store' tenant.slug %}">Ver produtos</a>
+    </div>
+  {% endfor %}
+
+  {% if items %}
+    <div class="total-box">
+      <span>Subtotal</span>
+
+      <strong>R$ {{ total|floatformat:2 }}</strong>
+
+      <small>Entrega, se houver, será combinada diretamente com a loja.</small>
+
+      <a class="button full" href="{% url 'storefront:checkout' tenant.slug %}">Continuar para finalizar</a>
+    </div>
+  {% endif %}
+
+  <style>
+    .cart-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .cart-product-info {
+      flex: 1;
+      min-width: 180px;
+    }
+    
+    .cart-product-name {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .cart-quantity {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      height: 42px;
+      border: 1px solid #dfe3e8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+    
+    .quantity-btn {
+      width: 38px;
+      height: 100%;
+      border: none;
+      background: #166534;
+      color: #fff;
+      font-size: 23px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    .quantity-btn:hover {
+      background: #14532d;
+    }
+    
+    .quantity-btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+    
+    .quantity-input {
+      width: 54px;
+      height: 100%;
+      border: none;
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+      border-radius: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+      background: #fff;
+      padding: 0;
+      outline: none;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+    
+    .quantity-input::-webkit-inner-spin-button,
+    .quantity-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    .cart-unit-price {
+      margin-top: 7px;
+      color: #858585;
+      font-size: 14px;
+    }
+    
+    .cart-line-total {
+      white-space: nowrap;
+    }
+    
+    .cart-remove-form {
+      margin: 0;
+    }
+    
+    .quantity-btn:active {
+      transform: scale(0.96);
+    }
+    
+    @media (max-width: 600px) {
+      .cart-row {
+        gap: 12px;
+      }
+    
+      .cart-product-info {
+        flex-basis: 100%;
+      }
+    
+      .cart-line-total {
+        margin-right: auto;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.cart-quantity').forEach(function (form) {
+        const input = form.querySelector('.quantity-input')
+        const minus = form.querySelector('.quantity-minus')
+        const plus = form.querySelector('.quantity-plus')
+    
+        const row = form.closest('.cart-row')
+        const removeForm = row.querySelector('.cart-remove-form')
+    
+        if (!input || !minus || !plus || !removeForm) return
+    
+        const min = Number(input.dataset.min)
+        const step = Number(input.dataset.step)
+    
+        let submitting = false
+    
+        function decimalPlaces(value) {
+          const text = String(value)
+          return text.includes('.') ? text.split('.')[1].length : 0
+        }
+    
+        function normalize(value) {
+          const precision = Math.max(decimalPlaces(min), decimalPlaces(step))
+    
+          return Number(value.toFixed(precision))
+        }
+    
+        function submitForm() {
+          if (submitting) return
+    
+          submitting = true
+    
+          // Mantemos o input habilitado para enviar a quantidade ao Django.
+          minus.disabled = true
+          plus.disabled = true
+    
+          form.submit()
+        }
+    
+        plus.addEventListener('click', function () {
+          let current = Number(input.value)
+    
+          if (!Number.isFinite(current) || current < min) {
+            current = min
+          }
+    
+          input.value = normalize(current + step)
+    
+          submitForm()
+        })
+    
+        minus.addEventListener('click', function () {
+          let current = Number(input.value)
+    
+          if (!Number.isFinite(current) || current <= min) {
+            removeForm.requestSubmit()
+            return
+          }
+    
+          const next = normalize(current - step)
+    
+          if (next < min) {
+            removeForm.requestSubmit()
+            return
+          }
+    
+          input.value = next
+    
+          submitForm()
+        })
+    
+        input.addEventListener('change', function () {
+          let value = Number(input.value)
+    
+          if (!Number.isFinite(value) || value < min) {
+            value = min
+          }
+    
+          input.value = normalize(value)
+    
+          submitForm()
+        })
+      })
+    })
+  </script>
+{% endblock %}

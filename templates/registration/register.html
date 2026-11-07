@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criar conta e loja | pediu.</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="login-brand">pediu<span>.</span></div>
+    <span class="eyebrow">COMECE A VENDER</span>
+    <h1>Crie sua conta e sua loja</h1>
+    <p>Em poucos passos você terá um link para compartilhar com seus clientes.</p>
+    {% if form.non_field_errors %}<div class="alert alert-error">{{ form.non_field_errors }}</div>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <h2>Seus dados</h2>
+      {% for field in form %}
+        {% if field.name == 'store_name' %}<h2>Dados da loja</h2>{% endif %}
+        <div class="field-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary login-submit">Criar minha loja →</button>
+    </form>
+    <div class="login-footer">Já tem uma conta? <a href="{% url 'login' %}">Entrar</a></div>
+  </main>
+</body>
+</html>
