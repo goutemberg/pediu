@@ -1,0 +1,3462 @@
+[
+  {
+    "code": "422",
+    "name": "Avitop Aarão Canto 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO CANTO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "422.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "416",
+    "name": "Avitop Aarão Cálcio 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO CÁLCIO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "416.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "414",
+    "name": "Avitop Aarão Energético 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO ENERGÉTICO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "414.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "459",
+    "name": "Avitop Aarão Ferro 15 Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO FERRO 15 ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "459.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "462",
+    "name": "Avitop Aarão Muda 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO MUDA 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "462.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "463",
+    "name": "Avitop Aarão Reprodução 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO REPRODUÇÃO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "463.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "428",
+    "name": "Avitop Aarão Vitaminico 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP AARÃO VITAMINICO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "428.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "425",
+    "name": "Avitop Iodo Aarão 15Ml",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVITOP IODO AARÃO 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "425.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "169",
+    "name": "Calmax Aarão 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CALMAX AARÃO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "169.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "606",
+    "name": "Cidex-10 Aarão Polivitaminico 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CIDEX-10 AARÃO POLIVITAMINICO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "606.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "540",
+    "name": "Coccidex Aarão 30 Caps",
+    "price": "68.00",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "COCCIDEX AARÃO 30 CAPS. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "540.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "544",
+    "name": "Coccidex Aarão Liq.10Ml",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "COCCIDEX AARÃO LIQ.10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "544.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "57",
+    "name": "Eletric -Aarão 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "ELETRIC -AARÃO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "57.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "fit958",
+    "name": "Eletric Aarão 1L",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "ELETRIC AARÃO 1L. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "fit958.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "545",
+    "name": "G-Trox Plus Vermifugo Aarão 30Cps",
+    "price": "64.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "G-TROX PLUS VERMIFUGO AARÃO 30cps. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "545.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "168",
+    "name": "Magritox Aarao 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "MAGRITOX AARAO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "168.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "48",
+    "name": "R-Trill -Aarão Liq.10Ml",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "R-TRILL -AARÃO LIQ.10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "48.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "612",
+    "name": "R-Trill Plus Aarão 30Cps",
+    "price": "64.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "R-TRILL PLUS AARÃO 30CPS. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "612.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "25",
+    "name": "Suprema -E Aarão 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SUPREMA -E AARÃO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "25.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "18",
+    "name": "Suprema Opr Aarão 10Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SUPREMA OPR AARÃO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "18.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "586",
+    "name": "Suplemento Labcon Revitalizante 15Ml",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SUPLEMENTO LABCON REVITALIZANTE 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 1).",
+    "image": "586.jpg",
+    "catalog_page": 1
+  },
+  {
+    "code": "05.2",
+    "name": "Coccinon Amgercal 90Cps",
+    "price": "259.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "COCCINON AMGERCAL 90CPS. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "05.2.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "233",
+    "name": "Fert Vit 90Cps",
+    "price": "129.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "FERT VIT 90CPS. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "233.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "236",
+    "name": "Hidrafofort Power Torneio 90Cps",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "HIDRAFOFORT POWER TORNEIO 90CPS. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "236.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "230",
+    "name": "Hotbirds Reprodução E Fertilidade 20G",
+    "price": "54.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "HOTBIRDS REPRODUÇÃO E FERTILIDADE 20G. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "230.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "04",
+    "name": "Nalyt Baby 10G",
+    "price": "21.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NALYT BABY 10g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "04.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "04.3",
+    "name": "Nalyt Muda 10G",
+    "price": "19.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NALYT MUDA 10g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "04.3.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "04.2",
+    "name": "Nalyt Reprodução 10G",
+    "price": "19.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NALYT REPRODUÇÃO 10g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "04.2.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "223",
+    "name": "Promotor Saúde Alfafly 25G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "PROMOTOR SAÚDE ALFAFLY 25g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "223.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "220",
+    "name": "Óleo Performance Alfafly 5Ml",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "ÓLEO PERFORMANCE ALFAFLY 5ml. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "220.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "6901",
+    "name": "Averin Antibiótico 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVERIN ANTIBIÓTICO 20ml. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "6901.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "6708",
+    "name": "Biotrin Complexo Vitaminico 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "BIOTRIN COMPLEXO VITAMINICO 20ml. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "6708.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "931",
+    "name": "Biotrin Iodo 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "BIOTRIN IODO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "931.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "932",
+    "name": "Biotrin Vias Aéreas 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BIOTRIN VIAS AÉREAS 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "932.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "2403",
+    "name": "Biotron Saporito Pimenta 500G",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON SAPORITO PIMENTA 500g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "2403.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "3303",
+    "name": "Biotron- Curio Bicudo E Azulão 500G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON- CURIO BICUDO E AZULÃO 500g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "3303.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "703",
+    "name": "Biotron-Cc Fruta Mix 500G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON-CC FRUTA MIX 500g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "703.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "2204",
+    "name": "Biotron-Cc2030 Vermelha 1Kg",
+    "price": "37.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON-CC2030 VERMELHA 1KG. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "2204.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "4911",
+    "name": "Biotron-Coleiro 400G",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON-COLEIRO 400g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "4911.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "803",
+    "name": "Biotron-Saporito Mix 500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON-SAPORITO MIX 500g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "803.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "3103",
+    "name": "Biotron-Tico Tico -Canario Da Terra 500G",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "BIOTRON-TICO TICO -CANARIO DA TERRA 500g. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "3103.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "1604",
+    "name": "Nativos Biotron 5Kg",
+    "price": "89.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NATIVOS BIOTRON 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 2).",
+    "image": "1604.jpg",
+    "catalog_page": 2
+  },
+  {
+    "code": "806",
+    "name": "Papinha Biotron Cc-Albium 250G",
+    "price": "21.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAPINHA BIOTRON CC-ALBIUM 250g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "806.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "CB01",
+    "name": "Calcio Bloco Natural Cx 20Unid(Compra 5 Ganha 1)",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CALCIO BLOCO NATURAL CX 20UNID(compra 5 Ganha 1). Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "CB01.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "283",
+    "name": "Canto Lindo 100Ps Peito Seco 20Ml",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO 100PS PEITO SECO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "283.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "288",
+    "name": "Canto Lindo Cálcio 20Ml",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO CÁLCIO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "288.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "285",
+    "name": "Canto Lindo Iodo 20Ml",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO IODO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "285.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "280",
+    "name": "Canto Lindo Vermifugo 15Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO VERMIFUGO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "280.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "289",
+    "name": "Canto Lindo Vias Aéreas 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO VIAS AÉREAS 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "289.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "286",
+    "name": "Canto Lindo Vitaminico 20Ml",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CANTO LINDO VITAMINICO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "286.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "1652",
+    "name": "Thuya Naturrich 20Ml",
+    "price": "7.49",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "THUYA NATURRICH 20ml. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "1652.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "1553",
+    "name": "Thuya Provets Simões 20Ml",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "THUYA PROVETS SIMÕES 20ml. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "1553.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "308",
+    "name": "Calcilux -Versele-Laga Importado 10G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "CALCILUX -VERSELE-LAGA IMPORTADO 10g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "308.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "309",
+    "name": "Fert-Vit -Versele-Laga Importado 10G",
+    "price": "29.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "FERT-VIT -VERSELE-LAGA IMPORTADO 10g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "309.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "304",
+    "name": "Kit Dextronic E Aminobolic Torneio Importado 10Ml",
+    "price": "59.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "KIT DEXTRONIC E AMINOBOLIC TORNEIO IMPORTADO 10ml. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "304.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "325",
+    "name": "Muscle Power Torneio Cps",
+    "price": "48.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "MUSCLE POWER TORNEIO CPS. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "325.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "310",
+    "name": "Mutavit -Versele-Laga Importado 10G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "MUTAVIT -VERSELE-LAGA IMPORTADO 10g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "310.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "75",
+    "name": "Nekton -Booster (Torneio )30G",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NEKTON -BOOSTER (TORNEIO )30g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "75.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "82",
+    "name": "Nekton Biotin Muda 35G",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NEKTON BIOTIN MUDA 35g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "82.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "84",
+    "name": "Nekton Vitaminico (S) 35 G",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NEKTON VITAMINICO (S) 35 g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "84.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "303",
+    "name": "Oceférol Importado 10Ml",
+    "price": "54.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "OCEFÉROL IMPORTADO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "303.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "307",
+    "name": "Oro-Bath - Versele-Laga Sais De Banho Importado 10G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Higiene e banho",
+    "desc": "ORO-BATH - VERSELE-LAGA SAIS DE BANHO IMPORTADO 10g. Produto e apresentação conforme catálogo Preserva Pet (página 3).",
+    "image": "307.jpg",
+    "catalog_page": 3
+  },
+  {
+    "code": "306",
+    "name": "Suplemento Omni-Vit Versele-Laga 10G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SUPLEMENTO OMNI-VIT VERSELE-LAGA 10g. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "306.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "313",
+    "name": "Targmaxx Suplemento Aminoácido 10Ml",
+    "price": "64.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "TARGMAXX SUPLEMENTO AMINOÁCIDO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "313.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "61",
+    "name": "Banheira C/Gancho Cristal 90Ml-Injetefour",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA C/GANCHO CRISTAL 90ML-INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "61.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "35.2",
+    "name": "Banheira Grande Leitosa 670Ml",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA GRANDE LEITOSA 670ml. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "35.2.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "44.2S",
+    "name": "Banheira Injetfour Suspensa Leitosa 110Ml",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA INJETFOUR SUSPENSA LEITOSA 110ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "44.2S.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "45.2",
+    "name": "Banheira Med.Red.Leitosa Injetefour 210Ml",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA MED.RED.LEITOSA INJETEFOUR 210ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "45.2.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "44",
+    "name": "Banheira Peq.Red.Cristal 110Ml -Injetefour",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA PEQ.RED.CRISTAL 110ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "44.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "44.2",
+    "name": "Banheira Peq.Red.Leitosa Injetefour 110Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA PEQ.RED.LEITOSA INJETEFOUR 110ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "44.2.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "44.2-S",
+    "name": "Banheira Suspensa Redonda Injetfour 110Ml",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA SUSPENSA REDONDA INJETFOUR 110ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "44.2-S.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "46",
+    "name": "Banheira Vip Peq. 130Ml-Injetefour",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BANHEIRA VIP PEQ. 130ML-INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "46.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "08",
+    "name": "Beb.Caçulinha Palito Colorido 30Ml- Injetfour",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.CAÇULINHA PALITO COLORIDO 30ML- INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "08.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "73",
+    "name": "Beb.Original Curió Injetfour 45Ml",
+    "price": "25.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.ORIGINAL CURIÓ INJETFOUR 45ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "73.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "73.2",
+    "name": "Beb.Original Curió Âmbar Injetfour 45Ml",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.ORIGINAL CURIÓ ÂMBAR INJETFOUR 45ML. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "73.2.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "96",
+    "name": "Beb.Original Gigante M/F 230Ml",
+    "price": "27.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.ORIGINAL GIGANTE M/F 230ml. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "96.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "71.2",
+    "name": "Beb.Original Peq.Ambar 30Ml-Injetefour",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.ORIGINAL PEQ.AMBAR 30ML-INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "71.2.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "76",
+    "name": "Beb.Sapatinho 15Ml -Injetefour",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.SAPATINHO 15ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "76.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "91",
+    "name": "Beb.Torneio Med.Mf.Nat.30Ml -Injetefour",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.TORNEIO MED.MF.NAT.30ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "91.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "90",
+    "name": "Beb.Torneio Peq.Natural 15Ml -Injetefour",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "BEB.TORNEIO PEQ.NATURAL 15ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "90.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "97",
+    "name": "Bebedouro Transporte Mf 50Ml",
+    "price": "27.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BEBEDOURO TRANSPORTE MF 50ml. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "97.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "92",
+    "name": "Bebedouro Trinca Natural 30Ml -Injetefour",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "BEBEDOURO TRINCA NATURAL 30ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "92.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "C1.1",
+    "name": "Comed.Automatico M/F Natural 110Ml",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMED.AUTOMATICO M/F NATURAL 110ml. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "C1.1.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "C-01",
+    "name": "Comedouro Automatico M/F Sertão Injetfour",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO AUTOMATICO M/F SERTÃO INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 4).",
+    "image": "C-01.jpg",
+    "catalog_page": 4
+  },
+  {
+    "code": "89RS",
+    "name": "Comedouro Papa Tudo 170Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO PAPA TUDO 170ml. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "89RS.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "c4.1",
+    "name": "Comedouro Sertaozinho Natural M.Larga",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO SERTAOZINHO NATURAL M.LARGA. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "c4.1.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "660",
+    "name": "Comedouro Tamanho( G)",
+    "price": "6.49",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO TAMANHO( G). Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "660.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "659",
+    "name": "Comedouro Tamanho( M)",
+    "price": "5.49",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO TAMANHO( M). Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "659.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "651",
+    "name": "Comedouro Tamanho( P)",
+    "price": "3.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "COMEDOURO TAMANHO( P). Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "651.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527AZ",
+    "name": "Placa De Identificação Azulão",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA DE IDENTIFICAÇÃO AZULÃO. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527AZ.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527CT",
+    "name": "Placa De Identificação Canário Da Terra-Injetefour",
+    "price": "26.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA DE IDENTIFICAÇÃO CANÁRIO DA TERRA-INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527CT.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527TT",
+    "name": "Placa De Identificação Tico Tico",
+    "price": "26.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA DE IDENTIFICAÇÃO TICO TICO. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527TT.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527S",
+    "name": "Placa Identificação Sabia",
+    "price": "27.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA IDENTIFICAÇÃO SABIA. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527S.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527TZ",
+    "name": "Placa Identificação Tiziu",
+    "price": "29.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA IDENTIFICAÇÃO TIZIU. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527TZ.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "527T",
+    "name": "Placa Identificação Trinca Ferro -Injetefour",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PLACA IDENTIFICAÇÃO TRINCA FERRO -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "527T.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "AF",
+    "name": "Porta Alimentação Passaros Livres 1,4 L",
+    "price": "35.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA ALIMENTAÇÃO PASSAROS LIVRES 1,4 L. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "AF.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "PV",
+    "name": "Porta Frutas E Verduras Injetfour",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA FRUTAS E VERDURAS INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "PV.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "PF",
+    "name": "Porta Frutas Global Injetfour",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA FRUTAS GLOBAL INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "PF.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "PM",
+    "name": "Porta Milho Global Injetfour",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA MILHO GLOBAL INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "PM.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "31",
+    "name": "Porta Ovo 35Ml -Injetefour",
+    "price": "21.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA OVO 35ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "31.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "63",
+    "name": "Porta Tiririca 30Ml-Injetefour",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA TIRIRICA 30ML-INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "63.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "56",
+    "name": "Porta Vit.Gd.Cristal 30Ml -Injetefour",
+    "price": "27.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA VIT.GD.CRISTAL 30ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "56.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "55.3",
+    "name": "Porta Vit.Med.Cristal 18Ml -Injetefour",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA VIT.MED.CRISTAL 18ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "55.3.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "13.",
+    "name": "Porta Vit.Redondo 18Ml -Injetefour",
+    "price": "21.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA VIT.REDONDO 18ML -INJETEFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "13..jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "REP",
+    "name": "Repositor De Sementes Injetfour",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "REPOSITOR DE SEMENTES INJETFOUR. Produto e apresentação conforme catálogo Preserva Pet (página 5).",
+    "image": "REP.jpg",
+    "catalog_page": 5
+  },
+  {
+    "code": "27187",
+    "name": "Allax Fofadel 5Ml",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "ALLAX FOFADEL 5ml. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "27187.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "725",
+    "name": "Dolemil Jofadel 10G",
+    "price": "24.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "DOLEMIL JOFADEL 10g. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "725.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "726",
+    "name": "Gosmil Jofadel 30Ml",
+    "price": "21.00",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "GOSMIL JOFADEL 30ml. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "726.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "374",
+    "name": "Anti-Tóxico Mercepton 20Ml",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "ANTI-TÓXICO MERCEPTON 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "374.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "311",
+    "name": "Neo- Sulmentina Antibiotico 15Ml",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NEO- SULMENTINA ANTIBIOTICO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "311.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "301",
+    "name": "Orosol Lavizoo 10Ml",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "OROSOL LAVIZOO 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "301.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "312",
+    "name": "Tylotrat Antibiótico 20Ml",
+    "price": "23.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "TYLOTRAT ANTIBIÓTICO 20ml. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "312.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "316",
+    "name": "Vita Gold Potenciado 20Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "VITA GOLD POTENCIADO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "316.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S14",
+    "name": "Kit Gancho Dourado",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO DOURADO. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S14.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S130",
+    "name": "Kit Gancho Luxo Grafite (P)",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO LUXO GRAFITE (P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S130.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S120",
+    "name": "Kit Gancho Luxo Prata (P)",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO LUXO PRATA (P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S120.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S162",
+    "name": "Kit Gancho Super Luxo (P)",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO SUPER LUXO (P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S162.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S20",
+    "name": "Kit Gancho Super Luxo (P)",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO SUPER LUXO (P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S20.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "S110",
+    "name": "Kit Gancho Super Luxo (P)",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO SUPER LUXO (P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "S110.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "8910",
+    "name": "Kit Gancho Super Luxo( P)",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "KIT GANCHO SUPER LUXO( P). Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "8910.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "1679",
+    "name": "Mgz Extruzada Trinca Super Canto 900G",
+    "price": "99.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "MGZ EXTRUZADA TRINCA SUPER CANTO 900g. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "1679.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "339",
+    "name": "Mgz Mix Coleiros 350G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "MGZ MIX COLEIROS 350g. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "339.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "979",
+    "name": "Mgz Mix Curio/Azulão 350G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "MGZ MIX CURIO/AZULÃO 350g. Produto e apresentação conforme catálogo Preserva Pet (página 6).",
+    "image": "979.jpg",
+    "catalog_page": 6
+  },
+  {
+    "code": "125",
+    "name": "Cabeça Puleiro Luxo Malha Fina",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "CABEÇA PULEIRO LUXO MALHA FINA. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "125.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "001",
+    "name": "Capa Baianinha",
+    "price": "17.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "CAPA BAIANINHA. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "001.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "004",
+    "name": "Capa Baianinha Costa",
+    "price": "23.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "CAPA BAIANINHA COSTA. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "004.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "002",
+    "name": "Capa Casadeira 50Cm",
+    "price": "17.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "CAPA CASADEIRA 50CM. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "002.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "003",
+    "name": "Capa Casadeira 60Cm",
+    "price": "17.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "CAPA CASADEIRA 60CM. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "003.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1025",
+    "name": "Cartela Osso Siba Tarin 10 Unid",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "CARTELA OSSO SIBA TARIN 10 unid. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1025.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1000",
+    "name": "Ninho Bola Luxo",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO BOLA LUXO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1000.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "100",
+    "name": "Ninho Bola Super Luxo",
+    "price": "14.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO BOLA SUPER LUXO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "100.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1011",
+    "name": "Ninho Super Luxo",
+    "price": "9.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO SUPER LUXO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1011.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1012",
+    "name": "Ninho Super Luxo",
+    "price": "9.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO SUPER LUXO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1012.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1013",
+    "name": "Ninho Super Luxo Fibra De Coco",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO SUPER LUXO FIBRA DE COCO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1013.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1003",
+    "name": "Ninho Taça Coleiro Luxo",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO TAÇA COLEIRO LUXO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1003.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1001",
+    "name": "Ninho Taça Luxo Trinca",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "NINHO TAÇA LUXO TRINCA. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1001.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "1009",
+    "name": "Osso Siba Cx 20 Unid",
+    "price": "45.00",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "OSSO SIBA CX 20 UNID. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "1009.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "901",
+    "name": "Porta Vitamina Barril (M) Malha Larga",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "PORTA VITAMINA BARRIL (M) Malha larga. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "901.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "120",
+    "name": "Vara Curtiça Luxo Coleiro",
+    "price": "6.49",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "VARA CURTIÇA LUXO COLEIRO. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "120.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "895",
+    "name": "Vara Frisada C/Lixa (G)",
+    "price": "7.99",
+    "unit": "UN",
+    "cat": "Acessórios e viveiros",
+    "desc": "VARA FRISADA C/LIXA (G). Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "895.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "729",
+    "name": "Curio Nutropica 5Kg",
+    "price": "299.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "CURIO NUTROPICA 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "729.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "605",
+    "name": "Curió Nutropica 300G",
+    "price": "33.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "CURIÓ NUTROPICA 300g. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "605.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "614",
+    "name": "Farinhada Nutropica Mel,Ovos E Frutas 300G",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "FARINHADA NUTROPICA MEL,OVOS E FRUTAS 300g. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "614.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "610",
+    "name": "Nutropica Coleiro Natural 300G",
+    "price": "33.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA COLEIRO NATURAL 300g. Produto e apresentação conforme catálogo Preserva Pet (página 7).",
+    "image": "610.jpg",
+    "catalog_page": 7
+  },
+  {
+    "code": "608",
+    "name": "Nutropica Egg Max 300G",
+    "price": "59.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA EGG MAX 300G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "608.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "699",
+    "name": "Nutropica Egg-Maxx 2,5",
+    "price": "289.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA EGG-MAXX 2,5. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "699.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "600",
+    "name": "Nutropica Natural Trinca Ferro 1Kg",
+    "price": "74.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA NATURAL TRINCA FERRO 1kg. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "600.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "221",
+    "name": "Nutropica Ringneck 5Kg(Promoção)",
+    "price": "249.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA RINGNECK 5KG(PROMOÇÃO). Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "221.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "607",
+    "name": "Nutropica Trinca Natural 5Kg",
+    "price": "299.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "NUTROPICA TRINCA NATURAL 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "607.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "621",
+    "name": "Papagaio Nutropica Natural 300G",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAPAGAIO NUTROPICA NATURAL 300G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "621.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "599",
+    "name": "Painço Descascado Power 180G",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAINÇO DESCASCADO POWER 180g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "599.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2032",
+    "name": "Power Farinhada Jiló Tenebrio 150G",
+    "price": "6.49",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER FARINHADA JILÓ TENEBRIO 150g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2032.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2045",
+    "name": "Power Pitiguari 500G",
+    "price": "18.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER PITIGUARI 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2045.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2020",
+    "name": "Power Pitiguary Papa De Proteina De Insetos 100G",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER PITIGUARY PAPA DE PROTEINA DE INSETOS 100g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2020.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2024",
+    "name": "Power Proteina Insetos Sibite 100G",
+    "price": "7.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER PROTEINA INSETOS SIBITE 100g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2024.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2019",
+    "name": "Power Red Sibite 100G",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER RED SIBITE 100g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2019.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2026",
+    "name": "Power Ultra Sibite 100G",
+    "price": "7.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "POWER ULTRA SIBITE 100g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2026.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "1754",
+    "name": "Grit Granulo Sellecta 500G",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "GRIT GRANULO SELLECTA 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "1754.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "5532",
+    "name": "Sel. Corrupião Fruta E Insetos 500G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL. CORRUPIÃO FRUTA E INSETOS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "5532.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "1751",
+    "name": "Sel. Sabores 500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL. SABORES 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "1751.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "1749",
+    "name": "Sel. Sabores 5Kg",
+    "price": "79.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL. SABORES 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "1749.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "3447",
+    "name": "Sel. Sabores E Frutas 500G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL. SABORES E FRUTAS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "3447.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "1752",
+    "name": "Sel.Bird Frugivoros 500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.BIRD FRUGIVOROS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "1752.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "2178",
+    "name": "Sel.Bird Frugivoros 5Kg",
+    "price": "79.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.BIRD FRUGIVOROS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "2178.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "3207",
+    "name": "Sel.Calopsita Extrusado Natural C/Frutas 500G",
+    "price": "23.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.CALOPSITA EXTRUSADO NATURAL C/FRUTAS 500g. Produto e apresentação conforme catálogo Preserva Pet (página 8).",
+    "image": "3207.jpg",
+    "catalog_page": 8
+  },
+  {
+    "code": "3222",
+    "name": "Sel.Extrusado Calopsita Natural C/Frutas 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CALOPSITA NATURAL C/FRUTAS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "3222.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "2485",
+    "name": "Sel.Extrusado Canario 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CANARIO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "2485.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1522",
+    "name": "Sel.Extrusado Canario 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CANARIO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1522.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1468",
+    "name": "Sel.Extrusado Canario 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CANARIO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1468.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "2486",
+    "name": "Sel.Extrusado Coleiro 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "2486.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1951",
+    "name": "Sel.Extrusado Coleiro 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1951.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "2267",
+    "name": "Sel.Extrusado Coleiro 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "2267.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "5610",
+    "name": "Sel.Extrusado Coleiro Nutrição 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO NUTRIÇÃO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "5610.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "5611",
+    "name": "Sel.Extrusado Coleiro Nutrição 360G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO NUTRIÇÃO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "5611.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "5612",
+    "name": "Sel.Extrusado Coleiro Nutrição 5Kg",
+    "price": "159.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO COLEIRO NUTRIÇÃO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "5612.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1469",
+    "name": "Sel.Extrusado Curio/Bicudo E Azulão 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CURIO/BICUDO E AZULÃO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1469.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "2487",
+    "name": "Sel.Extrusado Curio/Bicudo/Azulão 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CURIO/BICUDO/AZULÃO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "2487.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1524",
+    "name": "Sel.Extrusado Curio/Bicudo/Azulão 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO CURIO/BICUDO/AZULÃO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1524.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "2488",
+    "name": "Sel.Extrusado Exóticos 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO EXÓTICOS 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "2488.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1523",
+    "name": "Sel.Extrusado Exóticos 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO EXÓTICOS 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1523.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "1470",
+    "name": "Sel.Extrusado Exóticos 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO EXÓTICOS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "1470.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4469",
+    "name": "Sel.Extrusado Loris 3Kg",
+    "price": "124.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO LORIS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4469.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4468",
+    "name": "Sel.Extrusado Loris 500G",
+    "price": "35.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO LORIS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4468.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4154",
+    "name": "Sel.Extrusado Natural Arara 3Kg",
+    "price": "99.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL ARARA 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4154.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4203",
+    "name": "Sel.Extrusado Natural Azulão 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL AZULÃO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4203.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4204",
+    "name": "Sel.Extrusado Natural Azulão 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL AZULÃO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4204.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4205",
+    "name": "Sel.Extrusado Natural Azulão 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL AZULÃO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 9).",
+    "image": "4205.jpg",
+    "catalog_page": 9
+  },
+  {
+    "code": "4206",
+    "name": "Sel.Extrusado Natural Bicudo 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL BICUDO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4206.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4207",
+    "name": "Sel.Extrusado Natural Bicudo 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL BICUDO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4207.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4208",
+    "name": "Sel.Extrusado Natural Bicudo 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL BICUDO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4208.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2489",
+    "name": "Sel.Extrusado Natural Calopsita 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CALOPSITA 180G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2489.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2023",
+    "name": "Sel.Extrusado Natural Calopsita 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CALOPSITA 360g. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2023.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2272",
+    "name": "Sel.Extrusado Natural Calopsita 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CALOPSITA 5kg. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2272.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2490",
+    "name": "Sel.Extrusado Natural Canario 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CANARIO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2490.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2025",
+    "name": "Sel.Extrusado Natural Canario 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CANARIO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2025.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2273",
+    "name": "Sel.Extrusado Natural Canario 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CANARIO 5kg. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2273.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2664",
+    "name": "Sel.Extrusado Natural Coleiro 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL COLEIRO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2664.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2665",
+    "name": "Sel.Extrusado Natural Coleiro 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL COLEIRO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2665.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2666",
+    "name": "Sel.Extrusado Natural Coleiro 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL COLEIRO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2666.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4243",
+    "name": "Sel.Extrusado Natural Curio 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CURIO 180G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4243.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4244",
+    "name": "Sel.Extrusado Natural Curio 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CURIO 360G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4244.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4245",
+    "name": "Sel.Extrusado Natural Curio 5Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL CURIO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4245.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "3940",
+    "name": "Sel.Extrusado Natural Galo E Cardeal 300G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL GALO E CARDEAL 300G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "3940.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "3994",
+    "name": "Sel.Extrusado Natural Galo E Cardeal 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL GALO E CARDEAL 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "3994.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "3435",
+    "name": "Sel.Extrusado Natural Maritaca, Rosela E Ring Neck 3Kg",
+    "price": "89.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL MARITACA, ROSELA E RING NECK 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "3435.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "3407",
+    "name": "Sel.Extrusado Natural Maritaca, Rosela E Ring Neck 500G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL MARITACA, ROSELA E RING NECK 500G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "3407.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2270",
+    "name": "Sel.Extrusado Natural Papagaio 3Kg",
+    "price": "79.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL PAPAGAIO 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2270.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "4471",
+    "name": "Sel.Extrusado Natural Tiziu 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO NATURAL TIZIU 360G. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "4471.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "2269",
+    "name": "Sel.Extrusado Papagaio E Arara 3Kg",
+    "price": "89.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PAPAGAIO E ARARA 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 10).",
+    "image": "2269.jpg",
+    "catalog_page": 10
+  },
+  {
+    "code": "3223",
+    "name": "Sel.Extrusado Papagaio E Arara C/Frutas 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PAPAGAIO E ARARA C/FRUTAS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3223.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3208",
+    "name": "Sel.Extrusado Papagaio E Arara Natural C/Frutas 350G",
+    "price": "18.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PAPAGAIO E ARARA NATURAL C/FRUTAS 350G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3208.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "1471",
+    "name": "Sel.Extrusado Periquito,Calopsita E Agapornis 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PERIQUITO,CALOPSITA E AGAPORNIS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "1471.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2484",
+    "name": "Sel.Extrusado Periquito/Agap/ Calopsita 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PERIQUITO/AGAP/ CALOPSITA 180G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2484.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "1521",
+    "name": "Sel.Extrusado Periquito/Agap/Calopsita 360G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO PERIQUITO/AGAP/CALOPSITA 360G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "1521.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2029",
+    "name": "Sel.Extrusado Roedores 440G",
+    "price": "10.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO ROEDORES 440g. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2029.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3995",
+    "name": "Sel.Extrusado Roedores 6Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO ROEDORES 6KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3995.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3867",
+    "name": "Sel.Extrusado Roedores Frutas E Legumes 350G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO ROEDORES FRUTAS E LEGUMES 350G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3867.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3996",
+    "name": "Sel.Extrusado Roedores Frutas E Legumes 5Kg",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO ROEDORES FRUTAS E LEGUMES 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3996.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3287",
+    "name": "Sel.Extrusado Sr- 200 Plus 180G",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR- 200 PLUS 180G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3287.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3431",
+    "name": "Sel.Extrusado Sr-190 Psitacideos Plus 350G",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-190 PSITACIDEOS PLUS 350G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3431.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3432",
+    "name": "Sel.Extrusado Sr-190 Psitacideos Plus 3Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-190 PSITACIDEOS PLUS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3432.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2832",
+    "name": "Sel.Extrusado Sr-200 Plus 360G",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-200 PLUS 360G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2832.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3273",
+    "name": "Sel.Extrusado Sr-200 Plus 500G",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-200 PLUS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3273.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2881",
+    "name": "Sel.Extrusado Sr-200 Plus 5Kg",
+    "price": "279.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-200 PLUS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2881.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3408",
+    "name": "Sel.Extrusado Sr-200 Psitacideos Plus 350G",
+    "price": "22.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-200 PSITACIDEOS PLUS 350g. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3408.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3288",
+    "name": "Sel.Extrusado Sr-240 Plus 150G",
+    "price": "22.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-240 PLUS 150G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3288.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2831",
+    "name": "Sel.Extrusado Sr-240 Plus 330G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-240 PLUS 330G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2831.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "2882",
+    "name": "Sel.Extrusado Sr-240 Plus 3Kg",
+    "price": "179.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-240 PLUS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "2882.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3274",
+    "name": "Sel.Extrusado Sr-240 Plus 500G",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO SR-240 PLUS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3274.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3503",
+    "name": "Sel.Extrusado Tucano Natural 3Kg",
+    "price": "99.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.EXTRUSADO TUCANO NATURAL 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3503.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3545",
+    "name": "Sel.Farinhada Amarela Ovos E Mel 5Kg",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA AMARELA OVOS E MEL 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 11).",
+    "image": "3545.jpg",
+    "catalog_page": 11
+  },
+  {
+    "code": "3904",
+    "name": "Sel.Farinhada Branca 1Kg",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA BRANCA 1KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3904.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3987",
+    "name": "Sel.Farinhada Branca 5Kg",
+    "price": "134.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA BRANCA 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3987.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "1491",
+    "name": "Sel.Farinhada Com Ovo 5Kg",
+    "price": "99.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA COM OVO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "1491.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "2588",
+    "name": "Sel.Farinhada Com Ovos 1Kg",
+    "price": "21.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA COM OVOS 1KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "2588.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3544",
+    "name": "Sel.Farinhada Ovos E Mel 500G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA OVOS E MEL 500G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3544.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3542",
+    "name": "Sel.Farinhada Psitacideos 500G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA PSITACIDEOS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3542.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3543",
+    "name": "Sel.Farinhada Psitacideos 5Kg",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA PSITACIDEOS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3543.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "5534",
+    "name": "Sel.Farinhada Silvestre C/Creatina 500G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA SILVESTRE C/CREATINA 500G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "5534.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "5535",
+    "name": "Sel.Farinhada Silvestre C/Creatina 5Kg",
+    "price": "139.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA SILVESTRE C/CREATINA 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "5535.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3908",
+    "name": "Sel.Farinhada Sr-230 Plus 500G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA SR-230 PLUS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3908.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3988",
+    "name": "Sel.Farinhada Sr-230 Plus 5Kg",
+    "price": "229.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA SR-230 PLUS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3988.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "5539",
+    "name": "Sel.Farinhada Umida Vitality 5Kg",
+    "price": "129.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA UMIDA VITALITY 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "5539.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "5540",
+    "name": "Sel.Farinhada Úmida Vitality 500G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.FARINHADA ÚMIDA VITALITY 500G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "5540.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "4639",
+    "name": "Sel.Nectar Beija -Flor 300G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.NECTAR BEIJA -FLOR 300G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "4639.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "4905",
+    "name": "Sel.Néctar Beija Flor 400G",
+    "price": "19.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.NÉCTAR BEIJA FLOR 400G. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "4905.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "2456",
+    "name": "Sel.Papa De Ovo 200G",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA DE OVO 200g. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "2456.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "2586",
+    "name": "Sel.Papa De Ovo Amarela 1Kg",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA DE OVO AMARELA 1KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "2586.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "1008",
+    "name": "Sel.Papa De Ovo Amarela 5Kg",
+    "price": "99.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA DE OVO AMARELA 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "1008.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "367",
+    "name": "Sel.Papa De Ovo Vermelha 5Kg",
+    "price": "155.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA DE OVO VERMELHA 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "367.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "1466",
+    "name": "Sel.Papa Filhotes Passeriformes 200G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES PASSERIFORMES 200g. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "1466.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "2920",
+    "name": "Sel.Papa Filhotes Passeriformes 2,5Kg",
+    "price": "114.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES PASSERIFORMES 2,5KG. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "2920.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "3275",
+    "name": "Sel.Papa Filhotes Passeriformes 500G",
+    "price": "29.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES PASSERIFORMES 500g. Produto e apresentação conforme catálogo Preserva Pet (página 12).",
+    "image": "3275.jpg",
+    "catalog_page": 12
+  },
+  {
+    "code": "1753",
+    "name": "Sel.Papa Filhotes Psitacideos 200G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES PSITACIDEOS 200g. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1753.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "1480",
+    "name": "Sel.Papa Filhotes Psitacideos 2,5Kg",
+    "price": "114.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES PSITACIDEOS 2,5KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1480.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3280",
+    "name": "Sel.Papa Filhotes Sr-250 Plus Micronizada 2,5 Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES SR-250 PLUS MICRONIZADA 2,5 KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3280.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4919",
+    "name": "Sel.Papa Filhotes Sr-250 Plus Flocado 500G",
+    "price": "44.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES SR-250 PLUS FLOCADO 500g. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4919.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4918",
+    "name": "Sel.Papa Filhotes Sr-250 Plus Microninizada 500G",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA FILHOTES SR-250 PLUS MICRONINIZADA 500G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4918.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4256",
+    "name": "Sel.Papa Loris 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA LORIS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4256.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4191",
+    "name": "Sel.Papa Loris 500G",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA LORIS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4191.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "2587",
+    "name": "Sel.Papa Ovo Vermelha 1Kg",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA OVO VERMELHA 1KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "2587.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "1173",
+    "name": "Sel.Papa Ovo Vermelha 200G",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPA OVO VERMELHA 200g. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1173.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3266",
+    "name": "Sel.Papagaio E Arara 350G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPAGAIO E ARARA 350G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3266.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3265",
+    "name": "Sel.Papagaio Extrusado Natural 350G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PAPAGAIO EXTRUSADO NATURAL 350G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3265.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3651",
+    "name": "Sel.Pro-Criador Psitacideos Medio Porte 15Kg",
+    "price": "379.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PRO-CRIADOR PSITACIDEOS MEDIO PORTE 15KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3651.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4134",
+    "name": "Sel.Pro-Criador Sr-190 Psitacideos Medio Porte 20Kg",
+    "price": "699.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.PRO-CRIADOR SR-190 PSITACIDEOS MEDIO PORTE 20KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4134.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "1086",
+    "name": "Sel.Sabia E Passaro Preto 500G",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABIA E PASSARO PRETO 500G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1086.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "1080",
+    "name": "Sel.Sabia E Passaro Preto 5Kg",
+    "price": "54.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABIA E PASSARO PRETO 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1080.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "1381",
+    "name": "Sel.Sabor E Frutas 5Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABOR E FRUTAS 5KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "1381.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4325",
+    "name": "Sel.Sabor E Frutas Psitacideos 3Kg",
+    "price": "84.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABOR E FRUTAS PSITACIDEOS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4325.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4324",
+    "name": "Sel.Sabor E Frutas Psitacideos 500G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABOR E FRUTAS PSITACIDEOS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4324.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "5451",
+    "name": "Sel.Sabor E Frutas Psitacideos 8Kg",
+    "price": "199.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SABOR E FRUTAS PSITACIDEOS 8KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "5451.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3409",
+    "name": "Sel.Sr-200 Psitacideos 3Kg",
+    "price": "149.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SR-200 PSITACIDEOS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3409.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3655",
+    "name": "Sel.Sr-250 Pro-Criador Papa Filhotes 10Kg",
+    "price": "569.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.SR-250 PRO-CRIADOR PAPA FILHOTES 10KG. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "3655.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "4470",
+    "name": "Sel.Tiziu Natural 180G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TIZIU NATURAL 180G. Produto e apresentação conforme catálogo Preserva Pet (página 13).",
+    "image": "4470.jpg",
+    "catalog_page": 13
+  },
+  {
+    "code": "3209",
+    "name": "Sel.Trinca Ferro Extrusado Natural C/Frutas 500G",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO EXTRUSADO NATURAL C/FRUTAS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "3209.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "3224",
+    "name": "Sel.Trinca Ferro Extrusado Natural Com/Frutas 3Kg",
+    "price": "129.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO EXTRUSADO NATURAL COM/FRUTAS 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "3224.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2469",
+    "name": "Sel.Trinca Ferro Extrusado Natural Mini 3Kg",
+    "price": "114.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO EXTRUSADO NATURAL MINI 3kg. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2469.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "3688",
+    "name": "Sel.Trinca Ferro Extrusado Natural Mini 500G",
+    "price": "24.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO EXTRUSADO NATURAL MINI 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "3688.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2470",
+    "name": "Sel.Trinca Ferro Mamão Extrusado Mini 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO MAMÃO EXTRUSADO MINI 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2470.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "3690",
+    "name": "Sel.Trinca Ferro Mamão Extrusado Mini 500G",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO MAMÃO EXTRUSADO MINI 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "3690.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2432",
+    "name": "Sel.Trinca Ferro Mamão Mini Extrusado 300G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO MAMÃO MINI EXTRUSADO 300G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2432.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2434",
+    "name": "Sel.Trinca Ferro Natural Mini Extrusado 300G",
+    "price": "17.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO NATURAL MINI EXTRUSADO 300G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2434.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2471",
+    "name": "Sel.Trinca Ferro Pimenta Extrusado Mini 3Kg",
+    "price": "109.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO PIMENTA EXTRUSADO MINI 3KG. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2471.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "3689",
+    "name": "Sel.Trinca Ferro Pimenta Extrusado Mini 500G",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO PIMENTA EXTRUSADO MINI 500g. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "3689.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "2433",
+    "name": "Sel.Trinca Ferro Pimenta Mini Extrusado 300G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.TRINCA FERRO PIMENTA MINI EXTRUSADO 300G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "2433.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5561",
+    "name": "Sel. Periquito 500G",
+    "price": "11.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL. PERIQUITO 500g. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5561.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5688",
+    "name": "Sel.Azulao Oleo De Coco &Tenebrio 500G",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.AZULAO OLEO DE COCO &TENEBRIO 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5688.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5690",
+    "name": "Sel.Coleiro Maxi Spirulina 500G",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEL.COLEIRO MAXI SPIRULINA 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5690.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5562",
+    "name": "Sellecta Calopsita E Frutas 500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA CALOPSITA E FRUTAS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5562.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5560",
+    "name": "Sellecta Canario Belga Do Reino 500G",
+    "price": "12.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA CANARIO BELGA DO REINO 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5560.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5564",
+    "name": "Sellecta Canario Da Terra 500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA CANARIO DA TERRA 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5564.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5563",
+    "name": "Sellecta Coleiro Campeão 500G",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA COLEIRO CAMPEÃO 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5563.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5558",
+    "name": "Sellecta Curio E Bicudo 500G",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA CURIO E BICUDO 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5558.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5559",
+    "name": "Sellecta Papagaio 400G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA PAPAGAIO 400G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5559.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5536",
+    "name": "Sellecta Trinca Ferro Com Frutas 500G",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA TRINCA FERRO COM FRUTAS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 14).",
+    "image": "5536.jpg",
+    "catalog_page": 14
+  },
+  {
+    "code": "5538",
+    "name": "Sellecta Trinca Ferro Frutas E Insetos 500G",
+    "price": "21.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA TRINCA FERRO FRUTAS E INSETOS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "5538.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "5537",
+    "name": "Sellecta Trinca Ferro Insetos 500G",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SELLECTA TRINCA FERRO INSETOS 500G. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "5537.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101142",
+    "name": "Alpiste Canadense",
+    "price": "49.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "ALPISTE CANADENSE. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101142.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101575",
+    "name": "Girassol Miudo",
+    "price": "44.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "GIRASSOL MIUDO. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101575.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101572",
+    "name": "Painço Comum",
+    "price": "37.50",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAINÇO COMUM. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101572.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101584",
+    "name": "Painço Preto",
+    "price": "44.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAINÇO PRETO. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101584.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101497",
+    "name": "Painço Verm",
+    "price": "45.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "PAINÇO VERM. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101497.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101574",
+    "name": "Sem. Milheto",
+    "price": "80.00",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SEM. MILHETO. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101574.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101501",
+    "name": "Sem.Girassol Graudo",
+    "price": "49.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "SEM.GIRASSOL GRAUDO. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101501.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "101577",
+    "name": "Sem.Senha",
+    "price": "39.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "SEM.SENHA. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "101577.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "1650",
+    "name": "Seta Calcio B12 15Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA CALCIO B12 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "1650.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "1888",
+    "name": "Seta Diet Aminoácido Anti-Toxico 15Ml",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA DIET AMINOÁCIDO ANTI-TOXICO 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "1888.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "509",
+    "name": "Seta Eletrovitt Torneio 15Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA ELETROVITT TORNEIO 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "509.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "153",
+    "name": "Seta Enrologic 10Ml",
+    "price": "16.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA ENROLOGIC 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "153.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "1651",
+    "name": "Seta Forte 15Ml",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA FORTE 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "1651.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "721",
+    "name": "Seta Iodo 15Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA IODO 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "721.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "1649",
+    "name": "Seta Muda 15Ml",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA MUDA 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "1649.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "22",
+    "name": "Seta Ps 10Gr",
+    "price": "9.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA PS 10GR. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "22.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "1647",
+    "name": "Seta Reprodução 15 Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA REPRODUÇÃO 15 ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "1647.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "95",
+    "name": "Seta Vermilogic 10Ml",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA VERMILOGIC 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "95.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "0508",
+    "name": "Seta Vita E 15Ml",
+    "price": "15.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "SETA VITA E 15ML. Produto e apresentação conforme catálogo Preserva Pet (página 15).",
+    "image": "0508.jpg",
+    "catalog_page": 15
+  },
+  {
+    "code": "142",
+    "name": "Fertizol Plus Torneio 20Ml",
+    "price": "49.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "FERTIZOL PLUS TORNEIO 20ML. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "142.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "697",
+    "name": "Alpiste Tal Passaros 4 Kg",
+    "price": "54.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "ALPISTE TAL PASSAROS 4 KG. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "697.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "400",
+    "name": "Areia Mineral Tal Passaros Fina 700G",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Higiene e banho",
+    "desc": "AREIA MINERAL TAL PASSAROS FINA 700g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "400.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "431",
+    "name": "Argila Mix Tal Pássaros",
+    "price": "11.00",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "ARGILA MIX TAL PÁSSAROS. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "431.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "549",
+    "name": "Calopsita Farinhada De Manga Cx500G",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "CALOPSITA FARINHADA DE MANGA CX500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "549.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "404",
+    "name": "Canjiquinha Tal Pássaros Fina 350G",
+    "price": "5.49",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "CANJIQUINHA TAL PÁSSAROS FINA 350g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "404.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "450",
+    "name": "Coleiro Super Premium Tal Passaros Alcon Verde 4Kg",
+    "price": "84.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "COLEIRO SUPER PREMIUM TAL PASSAROS ALCON VERDE 4KG. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "450.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "410.2",
+    "name": "Coleiro Tal Passaros 500G (Verde)",
+    "price": "11.49",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "COLEIRO TAL PASSAROS 500G (Verde). Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "410.2.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "410.1",
+    "name": "Coleiro Tal Passaros 500G(Vermelha)",
+    "price": "11.49",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "COLEIRO TAL PASSAROS 500G(vermelha). Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "410.1.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "409",
+    "name": "Coleiro Tal Pássaros S. Premium Cx 500G (Vermelha )",
+    "price": "11.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "COLEIRO TAL PÁSSAROS S. PREMIUM CX 500g (Vermelha ). Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "409.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "406",
+    "name": "Coleiro Tal Pássaros Premium 500G",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "COLEIRO TAL PÁSSAROS PREMIUM 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "406.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "434",
+    "name": "Mist.Azulão Tal Pássaros 500G",
+    "price": "7.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "MIST.AZULÃO TAL PÁSSAROS 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "434.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "440",
+    "name": "Mist.Azulão Tenebrio 500G",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "MIST.AZULÃO TENEBRIO 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "440.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "460",
+    "name": "Ostra Fina Tal Pássaros 700G",
+    "price": "6.49",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "OSTRA FINA TAL PÁSSAROS 700g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "460.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "471",
+    "name": "Tico Tico Tal Pássaros 500G",
+    "price": "7.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "TICO TICO TAL PÁSSAROS 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "471.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "429",
+    "name": "Trinca Ferro Sementeira 500G",
+    "price": "8.99",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "TRINCA FERRO SEMENTEIRA 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "429.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "210",
+    "name": "Viagra Coleiro 200G",
+    "price": "119.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "VIAGRA COLEIRO 200g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "210.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "526",
+    "name": "Vitamina Canario Tal Passaros Jiló 500G",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "VITAMINA CANARIO TAL PASSAROS JILÓ 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "526.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "525",
+    "name": "Vitamina Canario Tal Pássaros Milho Verde 500G",
+    "price": "6.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "VITAMINA CANARIO TAL PÁSSAROS MILHO VERDE 500g. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "525.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "200",
+    "name": "Avecox Vansil 15Ml",
+    "price": "23.90",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "AVECOX VANSIL 15ml. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "200.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "201",
+    "name": "Enro Flec Vansil 10Ml",
+    "price": "14.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "ENRO FLEC VANSIL 10ml. Produto e apresentação conforme catálogo Preserva Pet (página 16).",
+    "image": "201.jpg",
+    "catalog_page": 16
+  },
+  {
+    "code": "80",
+    "name": "Neocolin Antibiótico Vansil 10Ml",
+    "price": "13.99",
+    "unit": "UN",
+    "cat": "Saúde e suplementos",
+    "desc": "NEOCOLIN ANTIBIÓTICO VANSIL 10ML. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "80.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3061",
+    "name": "Aminomix Pet 100G",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "AMINOMIX PET 100g. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3061.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3065",
+    "name": "Caldmix 100Ml",
+    "price": "34.90",
+    "unit": "UN",
+    "cat": "Alimentos e rações",
+    "desc": "CALDMIX 100ml. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3065.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3056",
+    "name": "Glicopan Gold 30Ml",
+    "price": "41.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "GLICOPAN GOLD 30ML. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3056.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3057",
+    "name": "Hemolitan Gold 30Ml",
+    "price": "41.99",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "HEMOLITAN GOLD 30ML. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3057.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3064",
+    "name": "Hemolitan Pet 30 Ml",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "HEMOLITAN PET 30 ML. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3064.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3058",
+    "name": "Hidrovit 50Ml",
+    "price": "31.90",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "HIDROVIT 50ML. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3058.jpg",
+    "catalog_page": 17
+  },
+  {
+    "code": "3062",
+    "name": "Promater 100G",
+    "price": "98.00",
+    "unit": "UN",
+    "cat": "Outros produtos",
+    "desc": "PROMATER 100g. Produto e apresentação conforme catálogo Preserva Pet (página 17).",
+    "image": "3062.jpg",
+    "catalog_page": 17
+  }
+]
