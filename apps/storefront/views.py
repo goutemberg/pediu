@@ -36,6 +36,31 @@ def _cart_key(tenant):
     return f"storefront_cart_{tenant.pk}"
 
 
+def _cart_quantity_count(request, tenant):
+    """Soma as quantidades de todos os produtos no carrinho da loja."""
+    cart = request.session.get(_cart_key(tenant), {})
+    if not isinstance(cart, dict):
+        return 0
+
+    total = Decimal("0")
+    for value in cart.values():
+        try:
+            quantity = Decimal(str(value))
+        except (InvalidOperation, TypeError, ValueError):
+            continue
+
+        if quantity.is_finite() and quantity > 0:
+            total += quantity
+
+    return int(total) if total == total.to_integral_value() else float(total)
+
+
+def _wants_json(request):
+    return request.headers.get(
+        "x-requested-with"
+    ) == "XMLHttpRequest" or "application/json" in request.headers.get("accept", "")
+
+
 def _reservation_expiration(order):
     """
     Retorna a data/hora de vencimento da reserva do pedido.
@@ -153,17 +178,29 @@ def store(request, slug):
         else {}
     )
 
+    context = {
+        "tenant": tenant,
+        "categories": categories,
+        "product_rows": product_rows,
+        "query": query,
+        "selected_category": category_slug,
+        "branding": branding,
+        "cart_quantity_count": _cart_quantity_count(request, tenant),
+    }
+
+    # Nas trocas de categoria via AJAX, atualiza somente os cards dos produtos.
+    # Requisições normais continuam renderizando a página completa.
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return render(
+            request,
+            "storefront/_product_grid.html",
+            context,
+        )
+
     return render(
         request,
         "storefront/store.html",
-        {
-            "tenant": tenant,
-            "categories": categories,
-            "product_rows": product_rows,
-            "query": query,
-            "selected_category": category_slug,
-            "branding": branding,
-        },
+        context,
     )
 
 
@@ -178,36 +215,76 @@ def cart_add(request, slug):
         pk=request.POST.get("product_id"),
     )
 
+    wants_json = _wants_json(request)
+
     try:
         quantity = Decimal(request.POST.get("quantity", "1"))
-
         if not quantity.is_finite() or quantity <= 0:
             raise InvalidOperation
-
     except (InvalidOperation, TypeError, ValueError):
-        messages.error(request, "Informe uma quantidade válida.")
+        error = "Informe uma quantidade válida."
+        if wants_json:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": error,
+                    "cart_quantity_count": _cart_quantity_count(request, tenant),
+                },
+                status=400,
+            )
+        messages.error(request, error)
         return redirect("storefront:store", slug=slug)
 
     cart = request.session.get(_cart_key(tenant), {})
-    current = Decimal(str(cart.get(str(product.pk), "0")))
-    quantity += current
+    if not isinstance(cart, dict):
+        cart = {}
 
+    try:
+        current = Decimal(str(cart.get(str(product.pk), "0")))
+        if not current.is_finite() or current < 0:
+            current = Decimal("0")
+    except (InvalidOperation, TypeError, ValueError):
+        current = Decimal("0")
+
+    new_quantity = quantity + current
     minimum = Decimal(str(product.minimum_quantity))
     multiple = Decimal(str(product.quantity_multiple))
 
-    if quantity < minimum or quantity % multiple:
-        messages.error(
-            request,
+    if new_quantity < minimum or multiple <= 0 or new_quantity % multiple:
+        error = (
             f"A quantidade deve respeitar o mínimo de {minimum} "
-            f"e múltiplos de {multiple}.",
+            f"e múltiplos de {multiple}."
         )
+        if wants_json:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": error,
+                    "cart_quantity_count": _cart_quantity_count(request, tenant),
+                },
+                status=400,
+            )
+        messages.error(request, error)
     else:
-        cart[str(product.pk)] = str(quantity)
+        cart[str(product.pk)] = str(new_quantity)
         request.session[_cart_key(tenant)] = cart
         request.session.modified = True
+        count = _cart_quantity_count(request, tenant)
+
+        if wants_json:
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": "Produto adicionado ao carrinho!",
+                    "cart_quantity_count": count,
+                    "product_id": product.pk,
+                    "product_quantity": str(new_quantity),
+                }
+            )
+
         messages.success(request, "Produto adicionado ao carrinho.")
 
-    return redirect("storefront:cart", slug=slug)
+    return redirect("storefront:store", slug=slug)
 
 
 @require_POST
@@ -278,6 +355,7 @@ def cart(request, slug):
             "tenant": tenant,
             "items": items,
             "total": total,
+            "cart_quantity_count": _cart_quantity_count(request, tenant),
         },
     )
 
@@ -357,6 +435,7 @@ def checkout(request, slug):
             "tenant": tenant,
             "items": items,
             "total": total,
+            "cart_quantity_count": _cart_quantity_count(request, tenant),
         },
     )
 
@@ -376,6 +455,7 @@ def order_confirmation(request, slug, public_id):
         {
             "tenant": tenant,
             "order": order,
+            "cart_quantity_count": _cart_quantity_count(request, tenant),
             "reservation_expires_at": _reservation_expiration(order),
         },
     )
