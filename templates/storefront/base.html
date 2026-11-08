@@ -86,65 +86,65 @@
     <div id="store-toast" class="store-toast" role="status" aria-live="polite"></div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        const toast = document.getElementById('store-toast')
-        const cartCount = document.getElementById('cart-count')
-        let toastTimeout
-      
+        const toast = document.getElementById('store-toast');
+        const cartCount = document.getElementById('cart-count');
+        let toastTimeout;
+
         function showStoreToast(message, isError) {
-          if (!toast) return
-          toast.textContent = message || 'Não foi possível adicionar o produto.'
-          toast.classList.toggle('is-error', Boolean(isError))
-          toast.classList.add('is-visible')
-          window.clearTimeout(toastTimeout)
+          if (!toast) return;
+          toast.textContent = message || 'Não foi possível adicionar o produto.';
+          toast.classList.toggle('is-error', Boolean(isError));
+          toast.classList.add('is-visible');
+          window.clearTimeout(toastTimeout);
           toastTimeout = window.setTimeout(function () {
-            toast.classList.remove('is-visible')
-          }, 3000)
+            toast.classList.remove('is-visible');
+          }, 3000);
         }
-      
+
         function updateCartCount(value) {
-          if (!cartCount) return
-          const count = Number(value || 0)
-          cartCount.textContent = count > 0 ? String(count) : ''
+          if (!cartCount) return;
+          const count = Number(value || 0);
+          cartCount.textContent = count > 0 ? String(count) : '';
         }
-      
-        document.querySelectorAll('.add-form').forEach(function (form) {
-          form.addEventListener('submit', async function (event) {
-            event.preventDefault()
-            const button = form.querySelector('.add-button[type="submit"]')
-            if (button && button.disabled) return
-            const originalText = button ? button.textContent : ''
+
+        // Delegação permite que formulários adicionados por AJAX continuem funcionando.
+        document.addEventListener('submit', async function (event) {
+          const form = event.target.closest('.add-form');
+          if (!form) return;
+          event.preventDefault();
+
+          const button = form.querySelector('.add-button[type="submit"]');
+          if (button && button.disabled) return;
+          const originalText = button ? button.textContent : '';
+          if (button) {
+            button.disabled = true;
+            button.textContent = 'Adicionando...';
+          }
+
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              credentials: 'same-origin',
+              headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+            });
+            let data = {};
+            try { data = await response.json(); } catch (_) {}
+            if (!response.ok || !data.success) {
+              throw new Error(data.message || 'Não foi possível adicionar o produto.');
+            }
+            updateCartCount(data.cart_quantity_count);
+            showStoreToast(data.message || 'Produto adicionado ao carrinho!', false);
+          } catch (error) {
+            showStoreToast(error.message, true);
+          } finally {
             if (button) {
-              button.disabled = true
-              button.textContent = 'Adicionando...'
+              button.disabled = false;
+              button.textContent = originalText;
             }
-      
-            try {
-              const response = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                credentials: 'same-origin',
-                headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' }
-              })
-              let data = {}
-              try {
-                data = await response.json()
-              } catch (_) {}
-              if (!response.ok || !data.success) {
-                throw new Error(data.message || 'Não foi possível adicionar o produto.')
-              }
-              updateCartCount(data.cart_quantity_count)
-              showStoreToast(data.message || 'Produto adicionado ao carrinho!', false)
-            } catch (error) {
-              showStoreToast(error.message, true)
-            } finally {
-              if (button) {
-                button.disabled = false
-                button.textContent = originalText
-              }
-            }
-          })
-        })
-      })
+          }
+        });
+      });
     </script>
   </body>
 </html>

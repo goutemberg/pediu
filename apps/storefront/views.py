@@ -4,15 +4,20 @@ from decimal import Decimal, InvalidOperation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Sum, Q
+from django.utils import timezone
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django_ratelimit.decorators import ratelimit
 
 from apps.catalog.models import Category, Product
 from apps.core.tenancy import get_active_tenant
 from apps.core.permissions import require_roles, OWNER, MANAGER, STAFF
-from apps.inventory.models import StockBalance
+from apps.inventory.models import StockBalance, StockReservation
 from apps.orders.models import Order
 from apps.orders.services import (
     create_order,
@@ -34,6 +39,33 @@ def _active_tenant(slug):
 
 def _cart_key(tenant):
     return f"storefront_cart_{tenant.pk}"
+
+
+def _storefront_return_key(tenant):
+    return f"storefront_last_catalog_url_{tenant.pk}"
+
+
+def _reserved_quantities(tenant, product_ids):
+    """Calcula reservas ativas em uma consulta agrupada, sem N+1 por produto."""
+    if not product_ids:
+        return {}
+
+    now = timezone.now()
+    reserving_order_statuses = ["approved", "preparing", "ready", "completed"]
+    reservations = (
+        StockReservation.objects.filter(
+            tenant=tenant,
+            product_id__in=product_ids,
+            status=StockReservation.Status.ACTIVE,
+        )
+        .filter(
+            Q(order__status="pending", expires_at__gt=now)
+            | Q(order__status__in=reserving_order_statuses)
+        )
+        .values("product_id")
+        .annotate(total=Sum("quantity"))
+    )
+    return {row["product_id"]: row["total"] or Decimal("0.000") for row in reservations}
 
 
 def _cart_quantity_count(request, tenant):
@@ -91,14 +123,6 @@ def _cart_items(request, tenant):
         pk__in=ids,
     ).select_related("category")
 
-    balances = {
-        b.product_id: b
-        for b in StockBalance.objects.filter(
-            tenant=tenant,
-            product__in=products,
-        )
-    }
-
     result, total = [], Decimal("0.00")
 
     for product in products:
@@ -110,15 +134,12 @@ def _cart_items(request, tenant):
         if not quantity.is_finite() or quantity <= 0:
             continue
 
-        balance = balances.get(product.pk)
-        available = balance.available_quantity if balance else Decimal("0")
         line_total = product.price * quantity
 
         result.append(
             {
                 "product": product,
                 "quantity": quantity,
-                "available": available,
                 "line_total": line_total,
             }
         )
@@ -133,19 +154,19 @@ def store(request, slug):
     categories = Category.objects.filter(
         tenant=tenant,
         is_active=True,
-    ).order_by("name")
+    ).only("id", "name", "slug").order_by("name")
 
-    products = (
-        Product.objects.filter(
-            tenant=tenant,
-            is_active=True,
-        )
-        .select_related("category")
-        .order_by("name")
-    )
+    query = request.GET.get("q", "").strip()[:100]
+    category_slug = request.GET.get("categoria", "").strip()[:120]
 
-    query = request.GET.get("q", "").strip()
-    category_slug = request.GET.get("categoria", "").strip()
+    products = Product.objects.filter(
+        tenant=tenant,
+        is_active=True,
+    ).select_related("category").only(
+        "id", "tenant_id", "category_id", "code", "name", "price", "unit",
+        "minimum_quantity", "quantity_multiple", "image",
+        "category__id", "category__name", "category__slug",
+    ).order_by("name", "pk")
 
     if query:
         products = products.filter(name__icontains=query)
@@ -153,22 +174,33 @@ def store(request, slug):
     if category_slug:
         products = products.filter(category__slug=category_slug)
 
+    paginator = Paginator(products, 24)
+    try:
+        page_obj = paginator.page(request.GET.get("pagina", 1))
+    except (PageNotAnInteger, EmptyPage, ValueError, TypeError):
+        page_obj = paginator.page(paginator.num_pages or 1)
+
+    page_products = list(page_obj.object_list)
+    product_ids = [product.pk for product in page_products]
+
     balances = {
-        b.product_id: b
-        for b in StockBalance.objects.filter(
+        balance.product_id: balance.physical_quantity
+        for balance in StockBalance.objects.filter(
             tenant=tenant,
-            product__in=products,
-        )
+            product_id__in=product_ids,
+        ).only("product_id", "physical_quantity")
     }
+    reserved = _reserved_quantities(tenant, product_ids)
 
     product_rows = [
         {
-            "product": p,
+            "product": product,
             "available": (
-                balances[p.pk].available_quantity if p.pk in balances else Decimal("0")
+                Decimal(str(balances.get(product.pk, 0)))
+                - reserved.get(product.pk, Decimal("0.000"))
             ),
         }
-        for p in products
+        for product in page_products
     ]
 
     settings = tenant.settings if isinstance(tenant.settings, dict) else {}
@@ -178,6 +210,14 @@ def store(request, slug):
         else {}
     )
 
+    # Guarda a última URL de catálogo segura para o link "Continuar comprando".
+    return_query = request.GET.copy()
+    return_query.pop("pagina", None)
+    return_url = request.path
+    if return_query:
+        return_url = f"{return_url}?{return_query.urlencode()}"
+    request.session[_storefront_return_key(tenant)] = return_url
+
     context = {
         "tenant": tenant,
         "categories": categories,
@@ -186,22 +226,20 @@ def store(request, slug):
         "selected_category": category_slug,
         "branding": branding,
         "cart_quantity_count": _cart_quantity_count(request, tenant),
+        "page_obj": page_obj,
+        "has_next": page_obj.has_next(),
+        "next_page": page_obj.next_page_number() if page_obj.has_next() else None,
     }
 
-    # Nas trocas de categoria via AJAX, atualiza somente os cards dos produtos.
-    # Requisições normais continuam renderizando a página completa.
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return render(
-            request,
-            "storefront/_product_grid.html",
-            context,
-        )
+        if request.headers.get("x-storefront-append") == "1":
+            response = render(request, "storefront/_product_cards.html", context)
+            response["X-Has-Next"] = "1" if page_obj.has_next() else "0"
+            response["X-Next-Page"] = str(page_obj.next_page_number()) if page_obj.has_next() else ""
+            return response
+        return render(request, "storefront/_product_grid.html", context)
 
-    return render(
-        request,
-        "storefront/store.html",
-        context,
-    )
+    return render(request, "storefront/store.html", context)
 
 
 @require_POST
@@ -348,6 +386,18 @@ def cart(request, slug):
     tenant = _active_tenant(slug)
     items, total = _cart_items(request, tenant)
 
+    fallback_url = reverse("storefront:store", kwargs={"slug": tenant.slug})
+    saved_url = request.session.get(_storefront_return_key(tenant), fallback_url)
+    if (
+        not isinstance(saved_url, str)
+        or not url_has_allowed_host_and_scheme(
+            saved_url,
+            allowed_hosts={request.get_host()},
+        )
+        or not saved_url.startswith(fallback_url)
+    ):
+        saved_url = fallback_url
+
     return render(
         request,
         "storefront/cart.html",
@@ -356,6 +406,7 @@ def cart(request, slug):
             "items": items,
             "total": total,
             "cart_quantity_count": _cart_quantity_count(request, tenant),
+            "continue_shopping_url": saved_url,
         },
     )
 

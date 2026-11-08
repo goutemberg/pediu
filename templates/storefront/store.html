@@ -26,23 +26,26 @@
     <button>Buscar</button>
   </form>
 
-  <nav class="chips" id="category-nav" aria-label="Categorias">
+  <nav class="chips" id="category-nav" aria-label="Categorias" aria-busy="false">
     <a class="chip {% if not selected_category %}active{% endif %}"
-      href="{% url 'storefront:store' tenant.slug %}{% if query %}
-        ?q={{ query|urlencode }}
-      {% endif %}">
+      href="{% url 'storefront:store' tenant.slug %}{% if query %}?q={{ query|urlencode }}{% endif %}"
+      {% if not selected_category %}aria-current="page"{% endif %}>
       Todos
     </a>
 
     {% for category in categories %}
       <a class="chip {% if selected_category == category.slug %}active{% endif %}"
-        href="?{% if query %}
-          q={{ query|urlencode }}&amp;
-        {% endif %}categoria={{ category.slug }}">
+        href="{% url 'storefront:store' tenant.slug %}?{% if query %}q={{ query|urlencode }}&amp;{% endif %}categoria={{ category.slug|urlencode }}"
+        {% if selected_category == category.slug %}aria-current="page"{% endif %}>
         {{ category.name }}
       </a>
     {% endfor %}
   </nav>
+
+  <div class="catalog-loading" id="catalog-loading" hidden role="status" aria-live="polite">
+    <span class="catalog-spinner" aria-hidden="true"></span>
+    <span>Carregando produtos...</span>
+  </div>
 
   {% include 'storefront/_product_grid.html' %}
 
@@ -207,6 +210,50 @@
     }
   </style>
 
+
+  <style>
+    .catalog-loading {
+      position: sticky;
+      top: 70px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: fit-content;
+      margin: 0 auto 12px;
+      padding: 10px 16px;
+      border: 1px solid #e7e7ef;
+      border-radius: 999px;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 5px 18px rgba(20,20,40,.08);
+      color: #4e5065;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    .catalog-loading[hidden] { display: none; }
+    .catalog-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #dedfea;
+      border-top-color: var(--store-primary);
+      border-radius: 50%;
+      animation: catalog-spin .7s linear infinite;
+    }
+    @keyframes catalog-spin { to { transform: rotate(360deg); } }
+    #product-grid { transition: opacity .14s ease; }
+    #product-grid.is-loading { opacity: .48; pointer-events: none; }
+    #category-nav.is-loading { opacity: .65; pointer-events: none; }
+    .load-more-wrap { display: flex; justify-content: center; padding: 24px 0 8px; }
+    .load-more-button { min-width: 210px; }
+    .load-more-button:disabled { opacity: .65; cursor: wait; }
+    .product-image { display: block; aspect-ratio: 1 / 1; object-fit: contain; }
+    .product-card { content-visibility: auto; contain-intrinsic-size: 340px; }
+    @media (prefers-reduced-motion: reduce) {
+      .catalog-spinner { animation: none; }
+      #product-grid { transition: none; }
+    }
+  </style>
   <script>
     ;(function () {
       function decimalPlaces(value) {
@@ -261,6 +308,7 @@
     
         if (!Number.isFinite(value) || !Number.isFinite(multiple) || value < min || Math.abs(multiple - Math.round(multiple)) > 0.000001) {
           event.preventDefault()
+          event.stopImmediatePropagation()
           input.value = min
           alert('Informe uma quantidade válida para este produto.')
         }
@@ -269,66 +317,167 @@
   </script>
   <script>
     ;(function () {
-      const nav = document.getElementById('category-nav')
-      if (!nav || !document.getElementById('product-grid')) return
-    
-      let activeRequest = null
-    
-      async function loadCategory(url, updateHistory) {
-        if (activeRequest) activeRequest.abort()
-        activeRequest = new AbortController()
-    
-        const currentGrid = document.getElementById('product-grid')
-        if (currentGrid) currentGrid.classList.add('is-loading')
-        nav.setAttribute('aria-busy', 'true')
-    
-        try {
-          const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Accept: 'text/html'
-            },
-            signal: activeRequest.signal
-          })
-    
-          if (!response.ok) throw new Error('Falha ao carregar produtos')
-          const html = await response.text()
-          const currentGrid = document.getElementById('product-grid')
-          if (!currentGrid) throw new Error('Área de produtos não encontrada')
-          currentGrid.outerHTML = html
-    
-          const currentUrl = new URL(url, window.location.origin)
-          const selectedCategory = currentUrl.searchParams.get('categoria') || ''
-          nav.querySelectorAll('.chip').forEach(function (chip) {
-            const chipUrl = new URL(chip.href, window.location.origin)
-            const chipCategory = chipUrl.searchParams.get('categoria') || ''
-            chip.classList.toggle('active', chipCategory === selectedCategory)
-            if (chipCategory === selectedCategory) chip.setAttribute('aria-current', 'page')
-            else chip.removeAttribute('aria-current')
-          })
-    
-          if (updateHistory) window.history.pushState({}, '', url)
-        } catch (error) {
-          if (error.name !== 'AbortError') window.location.href = url
-        } finally {
-          nav.removeAttribute('aria-busy')
-          const currentGrid = document.getElementById('product-grid')
-          if (currentGrid) currentGrid.classList.remove('is-loading')
+      const nav = document.getElementById('category-nav');
+      const loading = document.getElementById('catalog-loading');
+      const cache = new Map();
+      const CACHE_TTL = 15000;
+      let requestController = null;
+      let requestSequence = 0;
+      let appendController = null;
+
+      if (!nav || !document.getElementById('product-grid')) return;
+
+      function currentUrl(url) {
+        const parsed = new URL(url, window.location.origin);
+        parsed.searchParams.delete('pagina');
+        return parsed;
+      }
+
+      function setLoading(isLoading) {
+        const grid = document.getElementById('product-grid');
+        nav.classList.toggle('is-loading', isLoading);
+        nav.setAttribute('aria-busy', String(isLoading));
+        if (grid) {
+          grid.classList.toggle('is-loading', isLoading);
+          grid.setAttribute('aria-busy', String(isLoading));
+        }
+        if (loading) loading.hidden = !isLoading;
+      }
+
+      function updateActiveCategory(url) {
+        const selected = new URL(url, window.location.origin).searchParams.get('categoria') || '';
+        nav.querySelectorAll('a.chip').forEach(function (chip) {
+          const chipUrl = new URL(chip.href, window.location.origin);
+          const category = chipUrl.searchParams.get('categoria') || '';
+          const active = category === selected;
+          chip.classList.toggle('active', active);
+          if (active) chip.setAttribute('aria-current', 'page');
+          else chip.removeAttribute('aria-current');
+        });
+      }
+
+      function renderGrid(html) {
+        const parsed = new DOMParser().parseFromString(html, 'text/html');
+        const newGrid = parsed.querySelector('#product-grid');
+        const newLoadMore = parsed.querySelector('#load-more-wrap');
+        const oldGrid = document.getElementById('product-grid');
+        const oldLoadMore = document.getElementById('load-more-wrap');
+        if (!newGrid || !oldGrid) throw new Error('Não foi possível atualizar os produtos.');
+        oldGrid.replaceWith(newGrid);
+        if (oldLoadMore && newLoadMore) {
+          oldLoadMore.replaceWith(newLoadMore);
+        } else if (!oldLoadMore && newLoadMore) {
+          newGrid.after(newLoadMore);
+        } else if (oldLoadMore && !newLoadMore) {
+          oldLoadMore.remove();
         }
       }
-    
+
+      async function loadCategory(url, updateHistory) {
+        const target = currentUrl(url);
+        const targetUrl = target.pathname + target.search;
+        const sequence = ++requestSequence;
+        if (requestController) requestController.abort();
+        if (appendController) appendController.abort();
+        requestController = new AbortController();
+
+        const cached = cache.get(targetUrl);
+        let historyUpdated = false;
+        if (cached && Date.now() - cached.savedAt < CACHE_TTL) {
+          try {
+            renderGrid(cached.html);
+            updateActiveCategory(targetUrl);
+            if (updateHistory) {
+              window.history.pushState({ storefront: true }, '', targetUrl);
+              historyUpdated = true;
+            }
+          } catch (_) { cache.delete(targetUrl); }
+        }
+        setLoading(true);
+
+        try {
+          const response = await fetch(targetUrl, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'text/html' },
+            signal: requestController.signal
+          });
+          if (!response.ok) throw new Error('Falha ao carregar produtos.');
+          const html = await response.text();
+          if (sequence !== requestSequence) return;
+          renderGrid(html);
+          cache.set(targetUrl, { html: html, savedAt: Date.now() });
+          updateActiveCategory(targetUrl);
+          if (updateHistory && !historyUpdated) window.history.pushState({ storefront: true }, '', targetUrl);
+        } catch (error) {
+          if (error.name !== 'AbortError' && sequence === requestSequence) {
+            if (!cached) window.location.assign(targetUrl);
+          }
+        } finally {
+          if (sequence === requestSequence) {
+            setLoading(false);
+            requestController = null;
+          }
+        }
+      }
+
       nav.addEventListener('click', function (event) {
-        const link = event.target.closest('a.chip')
-        if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-        event.preventDefault()
-        if (link.classList.contains('active')) return
-        loadCategory(link.href, true)
-      })
-    
+        const link = event.target.closest('a.chip');
+        if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        const target = currentUrl(link.href);
+        const current = currentUrl(window.location.href);
+        if (target.pathname === current.pathname && target.search === current.search) return;
+        loadCategory(target.href, true);
+      });
+
+      document.addEventListener('click', async function (event) {
+        const button = event.target.closest('#load-more-products');
+        if (!button || button.disabled) return;
+        const grid = document.getElementById('product-grid');
+        const wrap = document.getElementById('load-more-wrap');
+        if (!grid || !wrap) return;
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('pagina', button.dataset.nextPage || '2');
+        button.disabled = true;
+        button.textContent = 'Carregando...';
+        if (appendController) appendController.abort();
+        appendController = new AbortController();
+        try {
+          const response = await fetch(url.pathname + url.search, {
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-Storefront-Append': '1', 'Accept': 'text/html' },
+            signal: appendController.signal
+          });
+          if (!response.ok) throw new Error('Falha ao carregar mais produtos.');
+          const html = await response.text();
+          if (!grid.isConnected) return;
+          const parsed = new DOMParser().parseFromString('<div>' + html + '</div>', 'text/html');
+          const holder = parsed.body.firstElementChild;
+          while (holder && holder.firstElementChild) grid.appendChild(holder.firstElementChild);
+          const hasNext = response.headers.get('X-Has-Next') === '1';
+          const nextPage = response.headers.get('X-Next-Page');
+          if (hasNext && nextPage) {
+            button.dataset.nextPage = nextPage;
+            button.disabled = false;
+            button.textContent = 'Carregar mais produtos';
+          } else {
+            wrap.remove();
+          }
+        } catch (error) {
+          if (error.name !== 'AbortError') {
+            button.disabled = false;
+            button.textContent = 'Tentar novamente';
+          }
+        } finally {
+          appendController = null;
+        }
+      });
+
       window.addEventListener('popstate', function () {
-        loadCategory(window.location.href, false)
-      })
-    })()
+        loadCategory(window.location.href, false);
+      });
+    })();
   </script>
 {% endblock %}

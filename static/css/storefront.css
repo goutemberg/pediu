@@ -615,3 +615,49 @@ body {
     opacity: .45;
     pointer-events: none
 }
+/* Catálogo: reserva espaço para as miniaturas e mantém a grade estável. */
+.product-image,
+.product-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: 170px;
+    object-fit: contain;
+}
+
+.product-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 340px;
+}
+
+.load-more-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 8px;
+}
+
+.load-more-button {
+    min-width: 210px;
+}
+
+.load-more-button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+#product-grid[aria-busy="true"] {
+    cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #product-grid {
+        transition: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .product-image,
+    .product-placeholder {
+        height: 135px;
+    }
+}

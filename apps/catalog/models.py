@@ -150,5 +150,21 @@ class Product(models.Model):
 
         ordering = ["name"]
 
+    @property
+    def image_thumbnail_url(self):
+        """Retorna a miniatura WebP ou a imagem original como fallback."""
+        if not self.image:
+            return ""
+
+        from pathlib import PurePosixPath
+
+        path = PurePosixPath(self.image.name)
+        thumbnail_name = str(path.with_name(f"{path.stem}_thumb.webp"))
+
+        if self.image.storage.exists(thumbnail_name):
+            return self.image.storage.url(thumbnail_name)
+
+        return self.image.url
+
     def __str__(self):
         return f"{self.code} - {self.name}"

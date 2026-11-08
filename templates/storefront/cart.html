@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="page-heading">
-    <a class="back" href="{% url 'storefront:store' tenant.slug %}">← Continuar comprando</a>
+    <a class="back" id="continue-shopping" href="{{ continue_shopping_url|default_if_none:'' }}">← Continuar comprando</a>
     <h1>Seu carrinho</h1>
   </div>
 
@@ -171,6 +171,7 @@
     }
   </style>
 
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.cart-quantity').forEach(function (form) {
@@ -256,5 +257,29 @@
         })
       })
     })
+  </script>
+
+  <script>
+    (function () {
+      const link = document.getElementById('continue-shopping');
+      if (!link) return;
+      link.addEventListener('click', function (event) {
+        try {
+          const referrer = new URL(document.referrer);
+          const target = new URL(link.href, window.location.origin);
+          const tenantStorePrefix = target.pathname.replace(/\/$/, '') + '/';
+          const isSameStore = referrer.origin === window.location.origin &&
+            referrer.pathname.startsWith(tenantStorePrefix) &&
+            !referrer.pathname.includes('/carrinho/') &&
+            !referrer.pathname.includes('/checkout/');
+          if (isSameStore && window.history.length > 1) {
+            event.preventDefault();
+            window.history.back();
+          }
+        } catch (_) {
+          // O href seguro permanece como fallback.
+        }
+      });
+    })();
   </script>
 {% endblock %}

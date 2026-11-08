@@ -83,6 +83,43 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Armazenamento persistente opcional para mídia (AWS S3 ou serviço compatível).
+# Sem AWS_STORAGE_BUCKET_NAME, o projeto mantém o armazenamento local atual.
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
+if AWS_STORAGE_BUCKET_NAME:
+    media_options = {
+        "bucket_name": AWS_STORAGE_BUCKET_NAME,
+        "region_name": env("AWS_S3_REGION_NAME", default="us-east-1"),
+        "default_acl": None,
+        "file_overwrite": False,
+        "querystring_auth": False,
+        "location": "media",
+        "object_parameters": {"CacheControl": "max-age=31536000, public"},
+    }
+    endpoint_url = env("AWS_S3_ENDPOINT_URL", default="")
+    custom_domain = env("AWS_S3_CUSTOM_DOMAIN", default="")
+    if endpoint_url:
+        media_options["endpoint_url"] = endpoint_url
+    if custom_domain:
+        media_options["custom_domain"] = custom_domain
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": media_options,
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Rate limiting: LocMem para desenvolvimento/testes. Em produção com múltiplas

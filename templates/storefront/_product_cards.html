@@ -1,0 +1,62 @@
+{% for row in product_rows %}
+  <article class="product-card">
+    {% if row.product.image %}
+      <img
+        class="product-image"
+        src="{{ row.product.image_thumbnail_url }}"
+        data-original-src="{{ row.product.image.url }}"
+        {% if page_obj.number == 1 and forloop.counter <= 4 %}loading="eager"{% else %}loading="lazy"{% endif %}
+        {% if page_obj.number == 1 and forloop.counter == 1 %}fetchpriority="high"{% endif %}
+        onerror="this.onerror=null;this.src=this.dataset.originalSrc;"
+        decoding="async"
+        width="600"
+        height="600"
+        alt="{{ row.product.name }}"
+      />
+    {% else %}
+      <div class="product-placeholder" aria-hidden="true">🐾</div>
+    {% endif %}
+
+    <div class="product-info">
+      {% if row.product.category %}
+        <span class="category-label">{{ row.product.category.name }}</span>
+      {% endif %}
+
+      <h2>{{ row.product.name }}</h2>
+      <p class="unit">{{ row.product.get_unit_display }}</p>
+      <strong class="price">R$ {{ row.product.price|floatformat:2 }}</strong>
+
+      {% if row.available > 0 %}
+        <span class="stock">Disponível</span>
+        <form method="post" action="{% url 'storefront:cart-add' tenant.slug %}" class="add-form">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
+          <div class="quantity-control">
+            <button type="button" class="quantity-btn quantity-minus" aria-label="Diminuir quantidade">−</button>
+            <input
+              type="number"
+              name="quantity"
+              class="quantity-input"
+              min="{{ row.product.minimum_quantity }}"
+              step="{{ row.product.quantity_multiple }}"
+              value="{{ row.product.minimum_quantity|stringformat:'g' }}"
+              data-min="{{ row.product.minimum_quantity|stringformat:'g' }}"
+              data-step="{{ row.product.quantity_multiple|stringformat:'g' }}"
+              inputmode="decimal"
+              aria-label="Quantidade de {{ row.product.name }}"
+            />
+            <button type="button" class="quantity-btn quantity-plus" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button type="submit" class="add-button">Adicionar</button>
+        </form>
+      {% else %}
+        <span class="unavailable">Indisponível no momento</span>
+      {% endif %}
+    </div>
+  </article>
+{% empty %}
+  <div class="empty product-empty">
+    <h2>Nenhum produto encontrado</h2>
+    <p>Tente buscar por outro nome ou categoria.</p>
+  </div>
+{% endfor %}
