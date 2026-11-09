@@ -226,6 +226,7 @@ def store(request, slug):
         "query": query,
         "selected_category": category_slug,
         "branding": branding,
+        "order_settings": get_order_settings(tenant),
         "cart_quantity_count": _cart_quantity_count(request, tenant),
         "page_obj": page_obj,
         "has_next": page_obj.has_next(),
@@ -406,6 +407,21 @@ def cart(request, slug):
             "tenant": tenant,
             "items": items,
             "total": total,
+            "order_settings": get_order_settings(tenant),
+            "minimum_order_remaining": max(
+                get_order_settings(tenant)["minimum_order_value"] - total,
+                Decimal("0.00"),
+            ),
+            "minimum_order_met": (
+                not get_order_settings(tenant)["minimum_order_enabled"]
+                or total >= get_order_settings(tenant)["minimum_order_value"]
+            ),
+            "minimum_order_progress": min(
+                100,
+                int((total / get_order_settings(tenant)["minimum_order_value"] * 100))
+                if get_order_settings(tenant)["minimum_order_enabled"]
+                and get_order_settings(tenant)["minimum_order_value"] > 0 else 100,
+            ),
             "cart_quantity_count": _cart_quantity_count(request, tenant),
             "continue_shopping_url": saved_url,
         },

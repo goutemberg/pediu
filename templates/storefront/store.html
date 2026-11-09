@@ -21,6 +21,14 @@
     </div>
   </section>
 
+  {% if order_settings.minimum_order_enabled %}
+    <aside class="minimum-order-hint" aria-label="Pedido mínimo">
+      <span class="minimum-order-hint-icon">ⓘ</span>
+      <span><strong>Pedido mínimo de R$ {{ order_settings.minimum_order_value|floatformat:2 }}</strong>
+      <small>Adicione produtos ao carrinho para atingir o valor mínimo de compra.</small></span>
+    </aside>
+  {% endif %}
+
   <form class="search" method="get">
     <input name="q" value="{{ query }}" placeholder="Buscar ração, produto, marca..." />
     <button>Buscar</button>
@@ -50,6 +58,20 @@
   {% include 'storefront/_product_grid.html' %}
 
   <style>
+    .minimum-order-hint {
+      display:flex; align-items:flex-start; gap:12px;
+      margin:18px 0; padding:14px 16px;
+      border:1px solid #dbe5ff; border-radius:12px;
+      background:#f5f8ff; color:#243b70;
+    }
+    .minimum-order-hint-icon {
+      display:grid; place-items:center; flex:0 0 28px;
+      width:28px; height:28px; border-radius:50%;
+      background:#e3ebff; font-weight:800;
+    }
+    .minimum-order-hint small {
+      display:block; margin-top:3px; color:#5f6f91; font-size:13px;
+    }
     .add-form {
       display: flex;
       align-items: center;

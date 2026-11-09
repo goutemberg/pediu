@@ -49,6 +49,28 @@
   {% endfor %}
 
   {% if items %}
+    {% if order_settings.minimum_order_enabled %}
+      <section class="minimum-order-progress {% if minimum_order_met %}is-complete{% endif %}" aria-live="polite">
+        {% if minimum_order_met %}
+          <div class="minimum-order-progress-heading">
+            <span class="progress-icon">✓</span>
+            <div><strong>Pedido mínimo atingido!</strong><small>Você já pode continuar para finalizar seu pedido.</small></div>
+          </div>
+        {% else %}
+          <div class="minimum-order-progress-heading">
+            <span class="progress-icon">🛍</span>
+            <div><strong>Falta pouco para concluir seu pedido</strong><small>Adicione mais R$ {{ minimum_order_remaining|floatformat:2 }} para atingir o mínimo.</small></div>
+          </div>
+        {% endif %}
+        <div class="minimum-order-progress-values">
+          <span>R$ {{ total|floatformat:2 }}</span>
+          <span>Meta: R$ {{ order_settings.minimum_order_value|floatformat:2 }}</span>
+        </div>
+        <div class="minimum-order-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ minimum_order_progress }}">
+          <span style="width: {{ minimum_order_progress }}%"></span>
+        </div>
+      </section>
+    {% endif %}
     <div class="total-box">
       <span>Subtotal</span>
 
@@ -56,9 +78,47 @@
 
       <small>Entrega, se houver, será combinada diretamente com a loja.</small>
 
-      <a class="button full" href="{% url 'storefront:checkout' tenant.slug %}">Continuar para finalizar</a>
+      <a class="button full {% if order_settings.minimum_order_enabled and not minimum_order_met %}is-disabled{% endif %}"
+         href="{% if not order_settings.minimum_order_enabled or minimum_order_met %}{% url 'storefront:checkout' tenant.slug %}{% else %}#{% endif %}"
+         {% if order_settings.minimum_order_enabled and not minimum_order_met %}aria-disabled="true" tabindex="-1"{% endif %}>
+        Continuar para finalizar
+      </a>
     </div>
   {% endif %}
+
+  <style>
+    .minimum-order-progress {
+      margin:22px 0 16px; padding:18px;
+      border:1px solid #f1d7a7; border-radius:14px;
+      background:#fffaf0;
+    }
+    .minimum-order-progress.is-complete {
+      border-color:#b9e4c9; background:#f2fbf5;
+    }
+    .minimum-order-progress-heading { display:flex; align-items:center; gap:12px; }
+    .progress-icon {
+      display:grid; place-items:center; width:36px; height:36px;
+      flex:0 0 36px; border-radius:50%; background:#ffedc7;
+      color:#8a5700; font-weight:800;
+    }
+    .is-complete .progress-icon { background:#d8f3e1; color:#187344; }
+    .minimum-order-progress-heading small {
+      display:block; margin-top:4px; color:#6f7480; font-size:13px;
+    }
+    .minimum-order-progress-values {
+      display:flex; justify-content:space-between; gap:12px;
+      margin:16px 0 7px; font-size:13px; font-weight:700;
+    }
+    .minimum-order-track {
+      height:9px; overflow:hidden; border-radius:99px; background:#eee7da;
+    }
+    .minimum-order-track span {
+      display:block; height:100%; border-radius:99px;
+      background:#d18a18; transition:width .25s ease;
+    }
+    .is-complete .minimum-order-track span { background:#219653; }
+    .button.is-disabled { opacity:.5; pointer-events:none; cursor:not-allowed; }
+  </style>
 
   <style>
     .cart-row {
