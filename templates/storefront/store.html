@@ -157,6 +157,18 @@
     .add-button:hover {
       background: #14532d;
     }
+
+    .stock-low {
+      color: #b45309;
+      font-weight: 700;
+    }
+
+    .add-button:disabled,
+    .quantity-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
     
     .quantity-btn:active,
     .add-button:active {
@@ -378,6 +390,35 @@
         const precision = Math.max(decimalPlaces(min), decimalPlaces(step))
         return Number(value.toFixed(precision))
       }
+
+      function updateQuantityControls(form) {
+        const input = form.querySelector('.quantity-input')
+        const submit = form.querySelector('.add-button[type="submit"]')
+        const plus = form.querySelector('.quantity-plus')
+        const minus = form.querySelector('.quantity-minus')
+        if (!input) return
+
+        const min = Number(input.dataset.min)
+        const max = Number(input.dataset.max)
+        const step = Number(input.dataset.step)
+        const value = Number(input.value)
+        const valid = Number.isFinite(value) && value >= min && value <= max
+          && step > 0 && Math.abs((value - min) / step - Math.round((value - min) / step)) < 0.000001
+
+        if (submit) {
+          submit.disabled = !valid
+          submit.dataset.stockLimited = valid ? 'false' : 'true'
+          submit.textContent = valid ? 'Adicionar' : 'Quantidade acima do estoque'
+        }
+        if (plus) plus.disabled = !Number.isFinite(max) || value + step > max + 0.000001
+        if (minus) minus.disabled = !Number.isFinite(value) || value - step < min - 0.000001
+      }
+
+      function refreshAllQuantityControls() {
+        document.querySelectorAll('.add-form').forEach(updateQuantityControls)
+      }
+
+      document.addEventListener('DOMContentLoaded', refreshAllQuantityControls)
     
       document.addEventListener('click', function (event) {
         const button = event.target.closest('.quantity-minus, .quantity-plus')
@@ -393,7 +434,10 @@
         if (!Number.isFinite(current) || current < min) current = min
     
         const direction = button.classList.contains('quantity-plus') ? 1 : -1
-        input.value = Math.max(min, normalize(current + direction * step, min, step))
+        const max = Number(input.dataset.max)
+        const next = normalize(current + direction * step, min, step)
+        input.value = direction > 0 ? Math.min(next, max) : Math.max(min, next)
+        updateQuantityControls(form)
       })
     
       document.addEventListener('change', function (event) {
@@ -405,6 +449,12 @@
         let value = Number(input.value)
         if (!Number.isFinite(value) || value < min) value = min
         input.value = normalize(value, min, step)
+        updateQuantityControls(input.closest('.add-form'))
+      })
+
+      document.addEventListener('input', function (event) {
+        const input = event.target.closest('.quantity-input')
+        if (input) updateQuantityControls(input.closest('.add-form'))
       })
     
       document.addEventListener('submit', function (event) {
@@ -417,9 +467,10 @@
         const min = Number(input.dataset.min)
         const step = Number(input.dataset.step)
         const value = Number(input.value)
+        const max = Number(input.dataset.max)
         const multiple = (value - min) / step
     
-        if (!Number.isFinite(value) || !Number.isFinite(multiple) || value < min || Math.abs(multiple - Math.round(multiple)) > 0.000001) {
+        if (!Number.isFinite(value) || !Number.isFinite(multiple) || value < min || value > max || Math.abs(multiple - Math.round(multiple)) > 0.000001) {
           event.preventDefault()
           event.stopImmediatePropagation()
           input.value = min

@@ -60,8 +60,8 @@
         background: #b42318;
       }
       .add-button:disabled {
-        opacity: 0.7;
-        cursor: wait;
+        opacity: 0.55;
+        cursor: not-allowed;
       }
     </style>
   </head>
@@ -146,6 +146,30 @@
           if (cartLink) cartLink.textContent = met ? 'Finalizar pedido' : 'Ver carrinho';
         }
 
+        function updateProductStockLimit(form, data) {
+          const input = form.querySelector('.quantity-input');
+          const button = form.querySelector('.add-button[type="submit"]');
+          const plus = form.querySelector('.quantity-plus');
+          if (!input || !button) return;
+
+          const maxAddable = Number(data.product_max_addable || 0);
+          input.dataset.max = String(maxAddable);
+          input.max = String(maxAddable);
+          const min = Number(input.dataset.min || 1);
+          const step = Number(input.dataset.step || 1);
+          let value = Number(input.value);
+          if (Number.isFinite(maxAddable) && maxAddable >= min && value > maxAddable) {
+            input.value = String(min);
+            value = min;
+          }
+          const canAdd = Number.isFinite(maxAddable) && maxAddable >= min
+            && Number.isFinite(value) && value >= min && value <= maxAddable;
+          button.dataset.stockLimited = canAdd ? 'false' : 'true';
+          button.disabled = !canAdd;
+          button.textContent = canAdd ? 'Adicionar' : 'Limite no carrinho';
+          if (plus) plus.disabled = !Number.isFinite(maxAddable) || value + step > maxAddable + 0.000001;
+        }
+
         // Delegação permite que formulários adicionados por AJAX continuem funcionando.
         document.addEventListener('submit', async function (event) {
           const form = event.target.closest('.add-form');
@@ -169,18 +193,21 @@
             });
             let data = {};
             try { data = await response.json(); } catch (_) {}
+            if (data.product_max_addable !== undefined) updateProductStockLimit(form, data);
             if (!response.ok || !data.success) {
               throw new Error(data.message || 'Não foi possível adicionar o produto.');
             }
             updateCartCount(data.cart_quantity_count);
             updateMinimumOrderProgress(data);
+            updateProductStockLimit(form, data);
             showStoreToast(data.message || 'Produto adicionado ao carrinho!', false);
           } catch (error) {
             showStoreToast(error.message, true);
           } finally {
             if (button) {
-              button.disabled = false;
-              button.textContent = originalText;
+              const stockLimited = button.dataset.stockLimited === 'true';
+              button.disabled = stockLimited;
+              button.textContent = stockLimited ? 'Limite no carrinho' : originalText;
             }
           }
         });

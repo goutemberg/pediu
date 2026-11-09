@@ -27,28 +27,39 @@
       <strong class="price">R$ {{ row.product.price|floatformat:2 }}</strong>
 
       {% if row.available > 0 %}
-        <span class="stock">Disponível</span>
-        <form method="post" action="{% url 'storefront:cart-add' tenant.slug %}" class="add-form">
-          {% csrf_token %}
-          <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
-          <div class="quantity-control">
-            <button type="button" class="quantity-btn quantity-minus" aria-label="Diminuir quantidade">−</button>
-            <input
-              type="number"
-              name="quantity"
-              class="quantity-input"
-              min="{{ row.product.minimum_quantity }}"
-              step="{{ row.product.quantity_multiple }}"
-              value="{{ row.product.minimum_quantity|stringformat:'g' }}"
-              data-min="{{ row.product.minimum_quantity|stringformat:'g' }}"
-              data-step="{{ row.product.quantity_multiple|stringformat:'g' }}"
-              inputmode="decimal"
-              aria-label="Quantidade de {{ row.product.name }}"
-            />
-            <button type="button" class="quantity-btn quantity-plus" aria-label="Aumentar quantidade">+</button>
-          </div>
-          <button type="submit" class="add-button">Adicionar</button>
-        </form>
+        {% if row.is_low_stock %}
+          <span class="stock stock-low">Estoque baixo · {{ row.available|floatformat:3 }} disponível(is)</span>
+        {% else %}
+          <span class="stock">Disponível · {{ row.available|floatformat:3 }}</span>
+        {% endif %}
+
+        {% if row.max_addable >= row.product.minimum_quantity %}
+          <form method="post" action="{% url 'storefront:cart-add' tenant.slug %}" class="add-form">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ row.product.pk }}" />
+            <div class="quantity-control">
+              <button type="button" class="quantity-btn quantity-minus" aria-label="Diminuir quantidade">−</button>
+              <input
+                type="number"
+                name="quantity"
+                class="quantity-input"
+                min="{{ row.product.minimum_quantity }}"
+                max="{{ row.max_addable|stringformat:'g' }}"
+                step="{{ row.product.quantity_multiple }}"
+                value="{{ row.product.minimum_quantity|stringformat:'g' }}"
+                data-min="{{ row.product.minimum_quantity|stringformat:'g' }}"
+                data-max="{{ row.max_addable|stringformat:'g' }}"
+                data-step="{{ row.product.quantity_multiple|stringformat:'g' }}"
+                inputmode="decimal"
+                aria-label="Quantidade de {{ row.product.name }}"
+              />
+              <button type="button" class="quantity-btn quantity-plus" aria-label="Aumentar quantidade">+</button>
+            </div>
+            <button type="submit" class="add-button">Adicionar</button>
+          </form>
+        {% else %}
+          <span class="unavailable">Limite disponível já está no carrinho</span>
+        {% endif %}
       {% else %}
         <span class="unavailable">Indisponível no momento</span>
       {% endif %}

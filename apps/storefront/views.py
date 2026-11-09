@@ -18,6 +18,7 @@ from apps.catalog.models import Category, Product
 from apps.core.tenancy import get_active_tenant
 from apps.core.permissions import require_roles, OWNER, MANAGER, STAFF
 from apps.inventory.models import StockBalance, StockReservation
+from apps.inventory.stock_settings import get_minimum_stock
 from apps.orders.models import Order
 from apps.orders.services import (
     create_order,
@@ -193,16 +194,32 @@ def store(request, slug):
     }
     reserved = _reserved_quantities(tenant, product_ids)
 
-    product_rows = [
-        {
+    raw_cart = request.session.get(_cart_key(tenant), {})
+    if not isinstance(raw_cart, dict):
+        raw_cart = {}
+
+    minimum_stock = get_minimum_stock(tenant)
+    product_rows = []
+    for product in page_products:
+        available = (
+            Decimal(str(balances.get(product.pk, 0)))
+            - reserved.get(product.pk, Decimal("0.000"))
+        )
+        try:
+            in_cart = Decimal(str(raw_cart.get(str(product.pk), "0")))
+            if not in_cart.is_finite() or in_cart < 0:
+                in_cart = Decimal("0.000")
+        except (InvalidOperation, TypeError, ValueError):
+            in_cart = Decimal("0.000")
+
+        max_addable = max(available - in_cart, Decimal("0.000"))
+        product_rows.append({
             "product": product,
-            "available": (
-                Decimal(str(balances.get(product.pk, 0)))
-                - reserved.get(product.pk, Decimal("0.000"))
-            ),
-        }
-        for product in page_products
-    ]
+            "available": available,
+            "in_cart": in_cart,
+            "max_addable": max_addable,
+            "is_low_stock": Decimal("0.000") < available <= minimum_stock,
+        })
 
     settings = tenant.settings if isinstance(tenant.settings, dict) else {}
     branding = (
@@ -305,6 +322,36 @@ def cart_add(request, slug):
     minimum = Decimal(str(product.minimum_quantity))
     multiple = Decimal(str(product.quantity_multiple))
 
+    balance = StockBalance.objects.filter(tenant=tenant, product=product).first()
+    physical_quantity = balance.physical_quantity if balance else Decimal("0.000")
+    reserved_quantity = _reserved_quantities(tenant, [product.pk]).get(
+        product.pk, Decimal("0.000")
+    )
+    available_quantity = max(physical_quantity - reserved_quantity, Decimal("0.000"))
+
+    if new_quantity > available_quantity:
+        remaining = max(available_quantity - current, Decimal("0.000"))
+        error = (
+            "Estoque insuficiente. "
+            f"Você já tem {current.normalize()} no carrinho e pode adicionar "
+            f"no máximo mais {remaining.normalize()} unidade(s)."
+        )
+        if wants_json:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": error,
+                    "cart_quantity_count": _cart_quantity_count(request, tenant),
+                    "product_id": product.pk,
+                    "product_available_quantity": str(available_quantity),
+                    "product_in_cart_quantity": str(current),
+                    "product_max_addable": str(remaining),
+                },
+                status=400,
+            )
+        messages.error(request, error)
+        return redirect("storefront:store", slug=slug)
+
     if new_quantity < minimum or multiple <= 0 or new_quantity % multiple:
         error = (
             f"A quantidade deve respeitar o mínimo de {minimum} "
@@ -343,6 +390,9 @@ def cart_add(request, slug):
                     "cart_quantity_count": count,
                     "product_id": product.pk,
                     "product_quantity": str(new_quantity),
+                    "product_available_quantity": str(available_quantity),
+                    "product_in_cart_quantity": str(new_quantity),
+                    "product_max_addable": str(max(available_quantity - new_quantity, Decimal("0.000"))),
                     "cart_subtotal": str(cart_subtotal),
                     "minimum_order_enabled": minimum_enabled,
                     "minimum_order_value": str(minimum_value),
@@ -393,10 +443,22 @@ def cart_update(request, slug):
         minimum = Decimal(str(product.minimum_quantity))
         multiple = Decimal(str(product.quantity_multiple))
 
-        if quantity < minimum or quantity % multiple:
+        if quantity < minimum or multiple <= 0 or quantity % multiple:
             raise ValidationError(
                 f"A quantidade deve respeitar o mínimo de {minimum} "
                 f"e múltiplos de {multiple}."
+            )
+
+        balance = StockBalance.objects.filter(tenant=tenant, product=product).first()
+        physical_quantity = balance.physical_quantity if balance else Decimal("0.000")
+        reserved_quantity = _reserved_quantities(tenant, [product.pk]).get(
+            product.pk, Decimal("0.000")
+        )
+        available_quantity = max(physical_quantity - reserved_quantity, Decimal("0.000"))
+        if quantity > available_quantity:
+            raise ValidationError(
+                f"Estoque insuficiente. Há apenas {available_quantity.normalize()} "
+                "unidade(s) disponíveis."
             )
 
     except (InvalidOperation, TypeError, ValueError):
