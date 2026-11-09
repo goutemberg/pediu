@@ -312,6 +312,15 @@ def cart_add(request, slug):
         count = _cart_quantity_count(request, tenant)
 
         if wants_json:
+            _, cart_subtotal = _cart_items(request, tenant)
+            order_settings = get_order_settings(tenant)
+            minimum_enabled = order_settings["minimum_order_enabled"]
+            minimum_value = order_settings["minimum_order_value"]
+            remaining = max(minimum_value - cart_subtotal, Decimal("0.00"))
+            progress = (
+                min(100, int(cart_subtotal / minimum_value * 100))
+                if minimum_enabled and minimum_value > 0 else 100
+            )
             return JsonResponse(
                 {
                     "success": True,
@@ -319,6 +328,12 @@ def cart_add(request, slug):
                     "cart_quantity_count": count,
                     "product_id": product.pk,
                     "product_quantity": str(new_quantity),
+                    "cart_subtotal": str(cart_subtotal),
+                    "minimum_order_enabled": minimum_enabled,
+                    "minimum_order_value": str(minimum_value),
+                    "minimum_order_remaining": str(remaining),
+                    "minimum_order_met": (not minimum_enabled or cart_subtotal >= minimum_value),
+                    "minimum_order_progress": progress,
                 }
             )
 
@@ -407,21 +422,6 @@ def cart(request, slug):
             "tenant": tenant,
             "items": items,
             "total": total,
-            "order_settings": get_order_settings(tenant),
-            "minimum_order_remaining": max(
-                get_order_settings(tenant)["minimum_order_value"] - total,
-                Decimal("0.00"),
-            ),
-            "minimum_order_met": (
-                not get_order_settings(tenant)["minimum_order_enabled"]
-                or total >= get_order_settings(tenant)["minimum_order_value"]
-            ),
-            "minimum_order_progress": min(
-                100,
-                int((total / get_order_settings(tenant)["minimum_order_value"] * 100))
-                if get_order_settings(tenant)["minimum_order_enabled"]
-                and get_order_settings(tenant)["minimum_order_value"] > 0 else 100,
-            ),
             "cart_quantity_count": _cart_quantity_count(request, tenant),
             "continue_shopping_url": saved_url,
         },
@@ -431,7 +431,6 @@ def cart(request, slug):
 @ratelimit(key="ip", rate="15/m", method="POST", block=True)
 def checkout(request, slug):
     tenant = _active_tenant(slug)
-    order_settings = get_order_settings(tenant)
     items, total = _cart_items(request, tenant)
 
     if not items:
@@ -443,10 +442,6 @@ def checkout(request, slug):
         address = request.POST.get("delivery_address", "").strip()
         if fulfillment not in Order.Fulfillment.values:
             messages.error(request, "Selecione uma modalidade de recebimento válida.")
-            return redirect("storefront:checkout", slug=slug)
-        allowed_mode = order_settings["fulfillment_mode"]
-        if allowed_mode != "both" and fulfillment != allowed_mode:
-            messages.error(request, "Essa modalidade de recebimento não está disponível nesta loja.")
             return redirect("storefront:checkout", slug=slug)
         if fulfillment == Order.Fulfillment.DELIVERY and not address:
             messages.error(request, "Informe o endereço para entrega.")
@@ -509,15 +504,6 @@ def checkout(request, slug):
             "items": items,
             "total": total,
             "cart_quantity_count": _cart_quantity_count(request, tenant),
-            "order_settings": order_settings,
-            "minimum_order_remaining": max(
-                order_settings["minimum_order_value"] - total,
-                Decimal("0.00"),
-            ),
-            "minimum_order_met": (
-                not order_settings["minimum_order_enabled"]
-                or total >= order_settings["minimum_order_value"]
-            ),
         },
     )
 

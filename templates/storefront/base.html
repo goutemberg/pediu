@@ -107,6 +107,40 @@
           cartCount.textContent = count > 0 ? String(count) : '';
         }
 
+        function updateMinimumOrderProgress(data) {
+          const panel = document.getElementById('catalog-order-progress');
+          if (!panel || !data || !data.minimum_order_enabled) return;
+
+          const money = function (value) {
+            return Number(value || 0).toLocaleString('pt-BR', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          };
+          const subtotal = Number(data.cart_subtotal || 0);
+          const minimum = Number(data.minimum_order_value || panel.dataset.minimum || 0);
+          const remaining = Number(data.minimum_order_remaining || 0);
+          const met = Boolean(data.minimum_order_met);
+          const progress = Math.max(0, Math.min(100, Number(data.minimum_order_progress || 0)));
+
+          panel.classList.toggle('is-complete', met);
+          panel.dataset.subtotal = String(subtotal);
+          const subtotalEl = document.getElementById('catalog-order-subtotal');
+          const minimumEl = document.getElementById('catalog-order-minimum');
+          const messageEl = document.getElementById('catalog-order-progress-message');
+          const fill = document.getElementById('catalog-order-track-fill');
+          const bar = panel.querySelector('[role="progressbar"]');
+          if (subtotalEl) subtotalEl.textContent = 'R$ ' + money(subtotal);
+          if (minimumEl) minimumEl.textContent = money(minimum);
+          if (messageEl) {
+            messageEl.textContent = met
+              ? 'Pedido mínimo atingido! Você já pode finalizar sua compra.'
+              : 'Adicione produtos ao carrinho. Faltam R$ ' + money(remaining) + ' para atingir o mínimo.';
+          }
+          if (fill) fill.style.width = progress + '%';
+          if (bar) bar.setAttribute('aria-valuenow', String(progress));
+        }
+
         // Delegação permite que formulários adicionados por AJAX continuem funcionando.
         document.addEventListener('submit', async function (event) {
           const form = event.target.closest('.add-form');
@@ -134,6 +168,7 @@
               throw new Error(data.message || 'Não foi possível adicionar o produto.');
             }
             updateCartCount(data.cart_quantity_count);
+            updateMinimumOrderProgress(data);
             showStoreToast(data.message || 'Produto adicionado ao carrinho!', false);
           } catch (error) {
             showStoreToast(error.message, true);

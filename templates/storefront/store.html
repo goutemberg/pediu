@@ -22,11 +22,26 @@
   </section>
 
   {% if order_settings.minimum_order_enabled %}
-    <aside class="minimum-order-hint" aria-label="Pedido mínimo">
-      <span class="minimum-order-hint-icon">ⓘ</span>
-      <span><strong>Pedido mínimo de R$ {{ order_settings.minimum_order_value|floatformat:2 }}</strong>
-      <small>Adicione produtos ao carrinho para atingir o valor mínimo de compra.</small></span>
-    </aside>
+    <section id="catalog-order-progress" class="catalog-order-progress {% if cart_subtotal >= order_settings.minimum_order_value %}is-complete{% endif %}"
+             data-minimum-enabled="true"
+             data-minimum="{{ order_settings.minimum_order_value|floatformat:2 }}"
+             data-subtotal="{{ cart_subtotal|default:'0.00' }}"
+             aria-live="polite">
+      <div class="catalog-order-progress-top">
+        <div>
+          <strong id="catalog-order-progress-title">Seu pedido</strong>
+          <small>Pedido mínimo de R$ <span id="catalog-order-minimum">{{ order_settings.minimum_order_value|floatformat:2 }}</span></small>
+        </div>
+        <strong id="catalog-order-subtotal">R$ {{ cart_subtotal|default:'0.00'|floatformat:2 }}</strong>
+      </div>
+      <div class="catalog-order-track" role="progressbar" aria-label="Progresso do pedido mínimo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ minimum_order_progress|default:0 }}">
+        <span id="catalog-order-track-fill" style="width: {{ minimum_order_progress|default:0 }}%"></span>
+      </div>
+      <p id="catalog-order-progress-message">
+        {% if minimum_order_met %}Pedido mínimo atingido! Você já pode finalizar sua compra.
+        {% else %}Adicione produtos ao carrinho. Faltam R$ {{ minimum_order_remaining|default:order_settings.minimum_order_value|floatformat:2 }} para atingir o mínimo.{% endif %}
+      </p>
+    </section>
   {% endif %}
 
   <form class="search" method="get">
@@ -58,20 +73,6 @@
   {% include 'storefront/_product_grid.html' %}
 
   <style>
-    .minimum-order-hint {
-      display:flex; align-items:flex-start; gap:12px;
-      margin:18px 0; padding:14px 16px;
-      border:1px solid #dbe5ff; border-radius:12px;
-      background:#f5f8ff; color:#243b70;
-    }
-    .minimum-order-hint-icon {
-      display:grid; place-items:center; flex:0 0 28px;
-      width:28px; height:28px; border-radius:50%;
-      background:#e3ebff; font-weight:800;
-    }
-    .minimum-order-hint small {
-      display:block; margin-top:3px; color:#5f6f91; font-size:13px;
-    }
     .add-form {
       display: flex;
       align-items: center;
