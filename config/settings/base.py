@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "rest_framework",
     "apps.core",
     "apps.accounts",
@@ -84,10 +86,26 @@ STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Armazenamento persistente opcional para mídia (AWS S3 ou serviço compatível).
-# Sem AWS_STORAGE_BUCKET_NAME, o projeto mantém o armazenamento local atual.
+# Armazenamento persistente de mídia.
+# Prioridade: Cloudinary (quando configurado), AWS S3 e, por último, disco local.
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME", default=""),
+    "API_KEY": env("CLOUDINARY_API_KEY", default=""),
+    "API_SECRET": env("CLOUDINARY_API_SECRET", default=""),
+}
+CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
+
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
-if AWS_STORAGE_BUCKET_NAME:
+if CLOUDINARY_CONFIGURED:
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+elif AWS_STORAGE_BUCKET_NAME:
     media_options = {
         "bucket_name": AWS_STORAGE_BUCKET_NAME,
         "region_name": env("AWS_S3_REGION_NAME", default="us-east-1"),
