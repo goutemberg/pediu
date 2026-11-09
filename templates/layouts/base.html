@@ -272,13 +272,19 @@
           </a>
 
           <!-- ESTOQUE -->
-          <a href="#" class="nav-link disabled-link">
+          <a
+            href="{% url 'inventory:stock-list' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'inventory' %}active{% endif %}"
+          >
             <span class="nav-icon">◫</span>
             <span>Estoque</span>
           </a>
 
           <!-- CLIENTES -->
-          <a href="#" class="nav-link disabled-link">
+          <a
+            href="{% url 'customers:customer-list' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'customers' %}active{% endif %}"
+          >
             <span class="nav-icon">♙</span>
             <span>Clientes</span>
           </a>

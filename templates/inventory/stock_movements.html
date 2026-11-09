@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+{% block title %}Movimentações de estoque | pediu.<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterForm = document.querySelector(".product-filters");
+        const kindFilter = filterForm?.querySelector('select[name="kind"]');
+
+        if (filterForm && kindFilter) {
+            kindFilter.addEventListener("change", function () {
+                // O formulário GET envia o tipo selecionado e reinicia a paginação.
+                filterForm.requestSubmit();
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% block breadcrumb %}Estoque · Histórico<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterForm = document.querySelector(".product-filters");
+        const kindFilter = filterForm?.querySelector('select[name="kind"]');
+
+        if (filterForm && kindFilter) {
+            kindFilter.addEventListener("change", function () {
+                // O formulário GET envia o tipo selecionado e reinicia a paginação.
+                filterForm.requestSubmit();
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><span class="eyebrow">GESTÃO · ESTOQUE</span><h1>Histórico de movimentações</h1><p>{% if product %}{{ product.name }}{% else %}Todas as movimentações da empresa{% endif %}</p></div>
+    <a href="{% url 'inventory:stock-list' %}" class="btn btn-secondary">Voltar ao estoque</a>
+</div>
+<div class="panel">
+    <form method="get" class="product-filters" style="padding:18px 20px;">
+        <select class="form-control" name="kind">
+            <option value="">Todos os tipos</option>
+            {% for value,label in movement_kinds %}
+                <option value="{{ value }}" {% if kind == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        {% if kind %}<a class="clear-filter" href="{% if product %}{% url 'inventory:product-movements' product.pk %}{% else %}{% url 'inventory:stock-movements' %}{% endif %}">Limpar</a>{% endif %}
+    </form>
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Referência</th><th>Motivo</th></tr></thead>
+            <tbody>
+            {% for movement in movements %}
+                <tr>
+                    <td>{{ movement.created_at|date:"d/m/Y H:i" }}</td>
+                    <td>{{ movement.product.name }}</td>
+                    <td>{{ movement.get_kind_display }}</td>
+                    <td>{{ movement.quantity|floatformat:3 }}</td>
+                    <td>{{ movement.reference|default:"—" }}</td>
+                    <td>{{ movement.note|default:"—" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" style="padding:45px;text-align:center;color:#9295aa;">Nenhuma movimentação encontrada.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}<a href="?kind={{ kind }}&page={{ page_obj.previous_page_number }}">← Anterior</a>{% endif %}
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?kind={{ kind }}&page={{ page_obj.next_page_number }}">Próxima →</a>{% endif %}
+    </div>
+    {% endif %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterForm = document.querySelector(".product-filters");
+        const kindFilter = filterForm?.querySelector('select[name="kind"]');
+
+        if (filterForm && kindFilter) {
+            kindFilter.addEventListener("change", function () {
+                // O formulário GET envia o tipo selecionado e reinicia a paginação.
+                filterForm.requestSubmit();
+            });
+        }
+    });
+</script>
+{% endblock %}

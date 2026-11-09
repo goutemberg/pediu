@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+{% block title %}Clientes | pediu.{% endblock %}
+{% block breadcrumb %}Clientes{% endblock %}
+{% block content %}
+<style>
+.customer-page{color:#202238}.customer-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px}.customer-head h1{margin:0 0 7px;font-size:27px;letter-spacing:-.6px}.customer-head p{margin:0;color:#8589a3;font-size:14px}.customer-panel{background:#fff;border:1px solid #ececf3;border-radius:14px;overflow:hidden}.customer-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:17px 20px;border-bottom:1px solid #ececf3}.customer-toolbar strong{font-size:14px}.customer-search{display:flex;gap:8px}.customer-search input{width:min(340px,65vw);min-height:40px;border:1px solid #dedfeb;border-radius:8px;padding:0 12px;font:14px inherit;color:#30334a}.customer-table-wrap{overflow-x:auto}.customer-table{width:100%;min-width:760px;border-collapse:collapse}.customer-table th{padding:13px 17px;text-align:left;background:#fafaff;color:#9295aa;font-size:10px;text-transform:uppercase;letter-spacing:.5px}.customer-table td{padding:15px 17px;border-top:1px solid #f0f0f5;font-size:13px}.customer-name{font-weight:700;color:#30334a;text-decoration:none}.customer-name:hover{color:#635bff}.customer-muted{color:#8589a3}.customer-actions a{color:#635bff;text-decoration:none;font-weight:700}.customer-empty{padding:48px 20px;text-align:center;color:#8589a3}.customer-pagination{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 20px;color:#8589a3;font-size:12px}.customer-pagination a{color:#635bff;text-decoration:none;font-weight:700;margin-left:12px}@media(max-width:600px){.customer-head h1{font-size:23px}.customer-search{width:100%}.customer-search input{width:100%}.customer-toolbar{align-items:stretch}.customer-pagination{flex-wrap:wrap}}
+</style>
+<div class="customer-page">
+  <div class="customer-head">
+    <div><span class="eyebrow">GESTÃO</span><h1>Clientes</h1><p>Consulte seus clientes e acompanhe o histórico de pedidos de cada um.</p></div>
+    {% if can_manage %}<a class="btn btn-primary" href="{% url 'customers:customer-create' %}">＋ Novo cliente</a>{% endif %}
+  </div>
+  <div class="customer-panel">
+    <div class="customer-toolbar">
+      <strong>{{ total_customers }} cliente{{ total_customers|pluralize }}</strong>
+      <form class="customer-search" method="get" action="{% url 'customers:customer-list' %}">
+        <input type="search" name="q" value="{{ search }}" placeholder="Buscar por nome, telefone ou e-mail" aria-label="Buscar clientes">
+      </form>
+    </div>
+    {% if customers %}
+    <div class="customer-table-wrap"><table class="customer-table">
+      <thead><tr><th>Cliente</th><th>Telefone</th><th>E-mail</th><th>Pedidos</th><th>Último pedido</th><th></th></tr></thead>
+      <tbody>{% for customer in customers %}
+      <tr>
+        <td><a class="customer-name" href="{% url 'customers:customer-detail' customer.id %}">{{ customer.name }}</a></td>
+        <td>{{ customer.phone }}</td>
+        <td class="customer-muted">{{ customer.email|default:"—" }}</td>
+        <td>{{ customer.orders_count }}</td>
+        <td class="customer-muted">{% if customer.last_order_at %}{{ customer.last_order_at|date:"d/m/Y H:i" }}{% else %}—{% endif %}</td>
+        <td class="customer-actions"><a href="{% url 'customers:customer-detail' customer.id %}">Ver detalhes</a></td>
+      </tr>{% endfor %}</tbody>
+    </table></div>
+    {% else %}
+      <div class="customer-empty">{% if search %}Nenhum cliente encontrado para esta busca.{% else %}Ainda não há clientes cadastrados. Os clientes também são cadastrados automaticamente quando fazem o primeiro pedido.{% endif %}</div>
+    {% endif %}
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="customer-pagination">
+      <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+      <span>{% if page_obj.has_previous %}<a href="?{% if search %}q={{ search|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}{% if page_obj.has_next %}<a href="?{% if search %}q={{ search|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">Próxima</a>{% endif %}</span>
+    </div>{% endif %}
+  </div>
+</div>
+<script>
+(function(){const input=document.querySelector('.customer-search input');if(!input)return;let timer;input.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(()=>input.form.submit(),350)});})();
+</script>
+{% endblock %}

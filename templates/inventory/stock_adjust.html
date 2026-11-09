@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+{% block title %}Movimentar estoque | pediu.{% endblock %}
+{% block breadcrumb %}Estoque · Movimentação{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><span class="eyebrow">GESTÃO · ESTOQUE</span><h1>Movimentar estoque</h1><p>{{ product.name }} · Código {{ product.code }}</p></div>
+    <a href="{% url 'inventory:stock-list' %}" class="btn btn-secondary">Voltar ao estoque</a>
+</div>
+<div class="stats-grid" style="max-width:850px;margin-bottom:22px;">
+    <div class="stat-card"><span class="stat-label">Estoque físico</span><strong class="stat-value">{{ physical|floatformat:3 }}</strong></div>
+    <div class="stat-card"><span class="stat-label">Reservado</span><strong class="stat-value">{{ reserved|floatformat:3 }}</strong></div>
+    <div class="stat-card"><span class="stat-label">Disponível</span><strong class="stat-value">{{ available|floatformat:3 }}</strong></div>
+</div>
+<div class="panel" style="max-width:850px;padding:26px;">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="action">Tipo de movimentação</label>
+            <select class="form-control" id="action" name="action" required>
+                <option value="in">Entrada de estoque</option>
+                <option value="out">Saída de estoque</option>
+                <option value="adjustment">Ajustar saldo físico para</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantidade</label>
+            <input class="form-control" id="quantity" name="quantity" type="number" min="0.001" step="0.001" placeholder="Ex.: 10.000" required>
+            <small class="form-help">Para ajuste, informe o novo saldo físico total. Para entrada ou saída, informe a quantidade movimentada.</small>
+        </div>
+        <div class="form-group">
+            <label for="reason">Motivo</label>
+            <input class="form-control" id="reason" name="reason" maxlength="255" placeholder="Ex.: Compra de fornecedor, avaria, inventário..." required>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:22px;">
+            <button type="submit" class="btn btn-primary">Registrar movimentação</button>
+            <a href="{% url 'inventory:stock-list' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

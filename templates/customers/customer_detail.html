@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ customer.name }} | Clientes | pediu.{% endblock %}
+{% block breadcrumb %}Detalhes do cliente{% endblock %}
+{% block content %}
+<style>
+.customer-detail{color:#202238}.customer-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:22px}.customer-detail-head h1{margin:0 0 6px;font-size:27px}.customer-detail-head p{margin:0;color:#8589a3;font-size:14px}.customer-detail-actions{display:flex;gap:9px;flex-wrap:wrap}.customer-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:22px}.customer-info-card,.customer-orders{background:#fff;border:1px solid #ececf3;border-radius:14px}.customer-info-card{padding:18px}.customer-info-card span{display:block;color:#8589a3;font-size:11px;margin-bottom:8px}.customer-info-card strong{font-size:14px;overflow-wrap:anywhere}.customer-notes{padding:18px;background:#fff;border:1px solid #ececf3;border-radius:14px;margin-bottom:22px}.customer-notes h2,.customer-orders h2{font-size:15px;margin:0 0 13px}.customer-notes p{font-size:13px;color:#62667d;white-space:pre-wrap;margin:0}.customer-orders{overflow:hidden}.customer-orders-header{padding:18px 20px;border-bottom:1px solid #ececf3}.customer-orders-header h2{margin:0}.customer-order-table{width:100%;border-collapse:collapse;min-width:650px}.customer-order-table th{padding:13px 17px;text-align:left;background:#fafaff;color:#9295aa;font-size:10px;text-transform:uppercase;letter-spacing:.5px}.customer-order-table td{padding:14px 17px;border-top:1px solid #f0f0f5;font-size:13px}.customer-order-table a{color:#635bff;text-decoration:none;font-weight:700}.customer-empty{padding:35px;text-align:center;color:#8589a3;font-size:13px}.customer-table-wrap{overflow-x:auto}.customer-pagination{padding:15px 20px;display:flex;justify-content:space-between;color:#8589a3;font-size:12px}.customer-pagination a{color:#635bff;text-decoration:none;font-weight:700;margin-left:12px}@media(max-width:750px){.customer-info-grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.customer-info-grid{grid-template-columns:1fr}.customer-detail-head h1{font-size:23px}}
+</style>
+<div class="customer-detail">
+  <div class="customer-detail-head">
+    <div><span class="eyebrow">CLIENTE</span><h1>{{ customer.name }}</h1><p>Cadastro desde {{ customer.created_at|date:"d/m/Y" }}</p></div>
+    <div class="customer-detail-actions"><a class="btn btn-secondary" href="{% url 'customers:customer-list' %}">Voltar</a>{% if can_manage %}<a class="btn btn-primary" href="{% url 'customers:customer-update' customer.id %}">Editar cliente</a>{% endif %}</div>
+  </div>
+  <div class="customer-info-grid">
+    <div class="customer-info-card"><span>TELEFONE</span><strong>{{ customer.phone }}</strong></div>
+    <div class="customer-info-card"><span>E-MAIL</span><strong>{{ customer.email|default:"—" }}</strong></div>
+    <div class="customer-info-card"><span>TOTAL DE PEDIDOS</span><strong>{{ orders_count }}</strong></div>
+  </div>
+  {% if customer.notes %}<div class="customer-notes"><h2>Observações</h2><p>{{ customer.notes }}</p></div>{% endif %}
+  <div class="customer-orders">
+    <div class="customer-orders-header"><h2>Histórico de pedidos</h2></div>
+    {% if orders %}
+    <div class="customer-table-wrap"><table class="customer-order-table">
+      <thead><tr><th>Pedido</th><th>Data</th><th>Status</th><th>Total</th><th></th></tr></thead>
+      <tbody>{% for order in orders %}
+      <tr><td>{{ order.number }}</td><td>{{ order.created_at|date:"d/m/Y H:i" }}</td><td>{{ order.get_status_display }}</td><td>R$ {{ order.total|floatformat:2 }}</td><td><a href="{% url 'storefront:merchant-order-detail' order.id %}">Abrir pedido</a></td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+    {% else %}<div class="customer-empty">Este cliente ainda não possui pedidos.</div>{% endif %}
+    {% if page_obj.paginator.num_pages > 1 %}<div class="customer-pagination"><span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span><span>{% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}{% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Próxima</a>{% endif %}</span></div>{% endif %}
+  </div>
+</div>
+{% endblock %}

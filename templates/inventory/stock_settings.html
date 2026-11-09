@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% block title %}Configurações de estoque | pediu.{% endblock %}
+{% block breadcrumb %}Estoque · Configurações{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">GESTÃO · ESTOQUE</span>
+        <h1>Estoque mínimo</h1>
+        <p>Defina o limite padrão utilizado para identificar produtos com estoque baixo.</p>
+    </div>
+    <a href="{% url 'inventory:stock-list' %}" class="btn btn-secondary">Voltar ao estoque</a>
+</div>
+
+<div class="panel" style="max-width:680px;padding:26px;">
+    <div style="padding:18px 20px;margin-bottom:24px;border:1px solid #dbeafe;border-radius:12px;background:#f8fbff;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#64748b;margin-bottom:8px;">
+            Estoque mínimo atualmente configurado
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px;">
+            <strong style="font-size:30px;line-height:1.2;color:#1e40af;font-weight:750;">
+                {{ minimum_stock|floatformat:3 }}
+            </strong>
+            <span style="font-size:13px;color:#64748b;">unidades</span>
+        </div>
+        <p style="margin:8px 0 0;font-size:13px;color:#64748b;">
+            Esse é o limite que está sendo utilizado atualmente para avaliar o estoque dos produtos desta empresa.
+        </p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="minimum_stock">Novo estoque mínimo padrão</label>
+            <input class="form-control" id="minimum_stock" name="minimum_stock" type="number" min="0" step="0.001" value="{{ minimum_stock }}" required>
+            <small class="form-help">
+                O novo limite será aplicado a todos os produtos desta empresa. Produtos com quantidade disponível igual ou inferior a esse valor serão sinalizados como estoque baixo.
+            </small>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:22px;">
+            <button type="submit" class="btn btn-primary">Salvar configuração</button>
+            <a href="{% url 'inventory:stock-list' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

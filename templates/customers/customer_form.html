@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ page_title }} | pediu.{% endblock %}
+{% block breadcrumb %}{{ breadcrumb_title }}{% endblock %}
+{% block content %}
+<style>
+.customer-form-page{max-width:820px;color:#202238}.customer-form-head{margin-bottom:22px}.customer-form-head h1{margin:0 0 7px;font-size:27px}.customer-form-head p{margin:0;color:#8589a3;font-size:14px}.customer-form-card{background:#fff;border:1px solid #ececf3;border-radius:14px;padding:24px}.customer-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}.customer-field{display:flex;flex-direction:column;gap:7px}.customer-field.full{grid-column:1/-1}.customer-field label{font-size:12px;font-weight:700;color:#555970}.customer-field input,.customer-field textarea{width:100%;box-sizing:border-box;border:1px solid #dedfeb;border-radius:8px;padding:11px 12px;font-family:inherit;font-size:14px;color:#30334a}.customer-field textarea{min-height:120px;resize:vertical}.customer-field input:focus,.customer-field textarea:focus{outline:none;border-color:#635bff;box-shadow:0 0 0 3px rgba(99,91,255,.1)}.customer-form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.customer-cancel{display:inline-flex;align-items:center;padding:10px 15px;border-radius:8px;text-decoration:none;color:#686c82;background:#f3f3f8;font-size:13px;font-weight:700}@media(max-width:600px){.customer-fields{grid-template-columns:1fr}.customer-field.full{grid-column:auto}.customer-form-card{padding:17px}}
+</style>
+<div class="customer-form-page">
+  <div class="customer-form-head"><span class="eyebrow">GESTÃO DE CLIENTES</span><h1>{{ page_title }}</h1><p>Preencha os dados para manter o cadastro organizado.</p></div>
+  <form method="post" class="customer-form-card">
+    {% csrf_token %}
+    <div class="customer-fields">
+      <div class="customer-field"><label for="id_name">Nome *</label><input id="id_name" name="name" maxlength="160" required value="{{ form_data.name }}"></div>
+      <div class="customer-field"><label for="id_phone">Telefone *</label><input id="id_phone" name="phone" maxlength="30" required value="{{ form_data.phone }}" placeholder="(00) 00000-0000"></div>
+      <div class="customer-field full"><label for="id_email">E-mail</label><input id="id_email" type="email" name="email" maxlength="254" value="{{ form_data.email }}" placeholder="cliente@email.com"></div>
+      <div class="customer-field full"><label for="id_notes">Observações</label><textarea id="id_notes" name="notes" placeholder="Informações adicionais sobre o cliente">{{ form_data.notes }}</textarea></div>
+    </div>
+    <div class="customer-form-actions"><a class="customer-cancel" href="{% if customer %}{% url 'customers:customer-detail' customer.id %}{% else %}{% url 'customers:customer-list' %}{% endif %}">Cancelar</a><button class="btn btn-primary" type="submit">Salvar cliente</button></div>
+  </form>
+</div>
+{% endblock %}

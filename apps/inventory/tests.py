@@ -526,3 +526,124 @@ def test_expire_reservations_does_not_expire_future_reservations(
 
     assert expired_count == 0
     assert reservation.status == StockReservation.Status.ACTIVE
+
+
+# ---------------------------------------------------------
+# CONFIGURAÇÃO DO ESTOQUE MÍNIMO POR EMPRESA
+# ---------------------------------------------------------
+
+@pytest.mark.django_db
+def test_minimum_stock_uses_company_default(tenant):
+    from apps.inventory.stock_settings import get_minimum_stock
+
+    assert get_minimum_stock(tenant) == Decimal("5.000")
+
+
+@pytest.mark.django_db
+def test_minimum_stock_setting_preserves_other_tenant_settings(tenant):
+    from apps.inventory.stock_settings import get_minimum_stock, set_minimum_stock
+
+    tenant.settings = {"theme": "light", "custom": {"enabled": True}}
+    tenant.save(update_fields=["settings"])
+    value = set_minimum_stock(tenant, "7.500")
+    tenant.refresh_from_db()
+
+    assert value == Decimal("7.500")
+    assert get_minimum_stock(tenant) == Decimal("7.500")
+    assert tenant.settings["theme"] == "light"
+    assert tenant.settings["custom"] == {"enabled": True}
+
+
+@pytest.mark.django_db
+def test_minimum_stock_rejects_negative_value(tenant):
+    from apps.inventory.stock_settings import set_minimum_stock
+
+    with pytest.raises(ValueError):
+        set_minimum_stock(tenant, "-1")
+
+
+@pytest.mark.django_db
+def test_minimum_stock_is_independent_per_tenant(tenant, another_tenant):
+    from apps.inventory.stock_settings import get_minimum_stock, set_minimum_stock
+
+    set_minimum_stock(tenant, "8.000")
+
+    assert get_minimum_stock(tenant) == Decimal("8.000")
+    assert get_minimum_stock(another_tenant) == Decimal("5.000")
+
+
+# ---------------------------------------------------------
+# TELAS DA GESTÃO DE ESTOQUE
+# ---------------------------------------------------------
+
+@pytest.mark.django_db
+def test_stock_list_is_scoped_to_active_tenant(client, user, membership, product, another_tenant):
+    from apps.catalog.models import Product
+
+    Product.objects.create(
+        tenant=another_tenant,
+        code="OTHER-001",
+        name="Produto de outra empresa",
+        price="9.90",
+    )
+    client.force_login(user)
+
+    response = client.get("/estoque/")
+
+    assert response.status_code == 200
+    assert "Produto de Teste" in response.content.decode()
+    assert "Produto de outra empresa" not in response.content.decode()
+
+
+@pytest.mark.django_db
+def test_stock_settings_page_saves_company_default(client, user, membership, tenant):
+    client.force_login(user)
+
+    response = client.post("/estoque/configuracoes/", {"minimum_stock": "6.250"})
+
+    assert response.status_code == 302
+    tenant.refresh_from_db()
+    assert tenant.settings["inventory_minimum_stock"] == "6.250"
+
+
+@pytest.mark.django_db
+def test_stock_adjustment_records_entry(client, user, membership, product):
+    client.force_login(user)
+
+    response = client.post(
+        f"/estoque/{product.pk}/movimentar/",
+        {"action": "in", "quantity": "3.000", "reason": "Reposição"},
+    )
+
+    assert response.status_code == 302
+    product.stock_balance.refresh_from_db()
+    assert product.stock_balance.physical_quantity == Decimal("13.000")
+    assert StockMovement.objects.filter(
+        product=product,
+        kind=StockMovement.Kind.IN,
+        quantity=Decimal("3.000"),
+        note="Reposição",
+    ).exists()
+
+
+@pytest.mark.django_db
+def test_stock_adjustment_cannot_remove_reserved_stock(client, user, membership, product, tenant):
+    order = create_order(tenant)
+    StockReservation.objects.create(
+        tenant=tenant,
+        product=product,
+        order=order,
+        quantity=Decimal("4.000"),
+        expires_at=timezone.now() + timedelta(minutes=20),
+    )
+    client.force_login(user)
+
+    response = client.post(
+        f"/estoque/{product.pk}/movimentar/",
+        {"action": "out", "quantity": "7.000", "reason": "Saída indevida"},
+    )
+
+    assert response.status_code == 200
+    product.stock_balance.refresh_from_db()
+    assert product.stock_balance.physical_quantity == Decimal("10.000")
+    assert not StockMovement.objects.filter(note="Saída indevida").exists()

@@ -1,0 +1,146 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Estoque | pediu.{% endblock %}
+{% block breadcrumb %}Estoque{% endblock %}
+
+{% block content %}
+<style>
+    .stock-page { --stock-primary:#635bff; --stock-text:#202238; --stock-muted:#8589a3; --stock-border:#ececf3; color:var(--stock-text); }
+    .stock-header { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; margin-bottom:26px; flex-wrap:wrap; }
+    .stock-header h1 { margin:0 0 7px; font-size:28px; font-weight:750; letter-spacing:-.7px; }
+    .stock-header p { margin:0; color:var(--stock-muted); font-size:14px; }
+    .stock-actions { display:flex; gap:9px; flex-wrap:wrap; }
+    .stock-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:24px; }
+    .stock-stat { background:#fff; border:1px solid var(--stock-border); border-radius:14px; padding:19px; min-width:0; }
+    .stock-stat span { display:block; color:var(--stock-muted); font-size:12px; margin-bottom:9px; }
+    .stock-stat strong { display:block; font-size:25px; letter-spacing:-.5px; }
+    .stock-stat small { display:block; color:#a0a3b5; font-size:11px; margin-top:7px; }
+    .stock-panel { background:#fff; border:1px solid var(--stock-border); border-radius:15px; overflow:hidden; }
+    .stock-toolbar { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:18px 20px; border-bottom:1px solid var(--stock-border); }
+    .stock-toolbar h2 { margin:0; font-size:15px; }
+    .stock-filters { display:flex; gap:9px; flex-wrap:wrap; }
+    .stock-filters input,.stock-filters select { min-height:42px; border:1px solid #dedfeb; border-radius:9px; padding:0 13px; font-family:inherit; font-size:14px; font-weight:500; letter-spacing:.05px; color:#30334a; background:#fff; }
+    .stock-filters input { min-width:250px; }
+    .stock-filters input::placeholder { color:#9296aa; font-weight:400; }
+    .stock-filters select { min-width:190px; cursor:pointer; }
+    .stock-filters input:focus,.stock-filters select:focus { outline:none; border-color:#635bff; box-shadow:0 0 0 3px rgba(99,91,255,.12); }
+    .stock-foot { font-size:13px; font-weight:500; color:#73778f; }
+    .stock-foot a { font-size:13px; padding:6px 8px; border-radius:6px; }
+    .stock-foot a:hover { background:#f2f1ff; }
+    .stock-table-wrap { overflow-x:auto; }
+    .stock-table { width:100%; min-width:850px; border-collapse:collapse; }
+    .stock-table th { padding:14px 17px; text-align:left; color:#9295aa; background:#fafaff; font-size:10px; text-transform:uppercase; letter-spacing:.5px; white-space:nowrap; }
+    .stock-table td { padding:15px 17px; border-top:1px solid #f0f0f5; font-size:13px; white-space:nowrap; }
+    .stock-product strong { display:block; font-size:13px; }
+    .stock-product small { color:var(--stock-muted); font-size:11px; }
+    .stock-pill { display:inline-flex; border-radius:20px; padding:6px 9px; font-size:10px; font-weight:750; }
+    .stock-pill.ok { background:#eaf8f1; color:#15945f; }
+    .stock-pill.low { background:#fff6e6; color:#b7791f; }
+    .stock-pill.out { background:#fff0f0; color:#d14d4d; }
+    .stock-row-actions { display:flex; gap:12px; }
+    .stock-row-actions a { color:var(--stock-primary); font-size:12px; font-weight:700; text-decoration:none; }
+    .stock-empty { padding:48px 20px; text-align:center; color:var(--stock-muted); }
+    .stock-foot { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; color:var(--stock-muted); font-size:12px; }
+    .stock-foot a { color:var(--stock-primary); text-decoration:none; font-weight:700; }
+    @media(max-width:900px){.stock-stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:560px){.stock-stats{grid-template-columns:1fr 1fr;gap:9px}.stock-stat{padding:14px}.stock-stat strong{font-size:21px}.stock-header h1{font-size:23px}.stock-filters,.stock-filters input,.stock-filters select{width:100%;min-width:0}}
+</style>
+
+<div class="stock-page">
+    <div class="stock-header">
+        <div>
+            <span class="eyebrow">GESTÃO</span>
+            <h1>Estoque</h1>
+            <p>Acompanhe saldos, reservas e movimentações dos seus produtos.</p>
+        </div>
+        <div class="stock-actions">
+            <a href="{% url 'inventory:stock-movements' %}" class="btn btn-secondary">Histórico</a>
+            {% if can_manage %}
+                <a href="{% url 'inventory:stock-settings' %}" class="btn btn-secondary">Configurar estoque mínimo</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="stock-stats">
+        <div class="stock-stat"><span>Produtos listados</span><strong>{{ totals.products }}</strong><small>Conforme os filtros aplicados</small></div>
+        <div class="stock-stat"><span>Estoque físico</span><strong>{{ totals.physical|floatformat:3 }}</strong><small>Quantidade total cadastrada</small></div>
+        <div class="stock-stat"><span>Quantidade reservada</span><strong>{{ totals.reserved|floatformat:3 }}</strong><small>Comprometida com pedidos</small></div>
+        <div class="stock-stat"><span>Estoque disponível</span><strong>{{ totals.available|floatformat:3 }}</strong><small>{{ totals.low }} baixo · {{ totals.out }} sem estoque</small></div>
+    </div>
+
+    <div class="stock-panel">
+        <div class="stock-toolbar">
+            <h2>Posição de estoque</h2>
+            <form method="get" class="stock-filters" id="stockFilters">
+                <input type="search" name="q" value="{{ search }}" placeholder="Buscar produto ou código..." aria-label="Buscar produto">
+                <select name="status" id="stockStatusFilter" aria-label="Filtrar situação">
+                    <option value="all" {% if status_filter == "all" %}selected{% endif %}>Todas as situações</option>
+                    <option value="ok" {% if status_filter == "ok" %}selected{% endif %}>Normal</option>
+                    <option value="low" {% if status_filter == "low" %}selected{% endif %}>Estoque baixo</option>
+                    <option value="out" {% if status_filter == "out" %}selected{% endif %}>Sem estoque</option>
+                </select>
+                <noscript><button class="btn btn-secondary" type="submit">Aplicar</button></noscript>
+                {% if search or status_filter != "all" %}<a class="clear-filter" href="{% url 'inventory:stock-list' %}">Limpar</a>{% endif %}
+            </form>
+        </div>
+
+        <div class="stock-table-wrap">
+            <table class="stock-table">
+                <thead><tr><th>Produto</th><th>Código</th><th>Estoque físico</th><th>Reservado</th><th>Disponível</th><th>Situação</th><th>Ações</th></tr></thead>
+                <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td class="stock-product"><strong>{{ row.product.name }}</strong><small>{{ row.product.unit }}</small></td>
+                        <td>{{ row.product.code }}</td>
+                        <td>{{ row.physical|floatformat:3 }}</td>
+                        <td>{{ row.reserved|floatformat:3 }}</td>
+                        <td><strong>{{ row.available|floatformat:3 }}</strong></td>
+                        <td><span class="stock-pill {{ row.status }}">{{ row.status_label }}</span></td>
+                        <td><div class="stock-row-actions">
+                            {% if can_manage %}
+                                <a href="{% url 'inventory:stock-adjust' row.product.pk %}">Movimentar</a>
+                            {% endif %}
+                            <a href="{% url 'inventory:product-movements' row.product.pk %}">Histórico</a>
+                        </div></td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="7" class="stock-empty">Nenhum produto encontrado para os filtros informados.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="stock-foot">
+            <span>
+                Exibindo {{ page_obj.start_index }}–{{ page_obj.end_index }}
+                de {{ page_obj.paginator.count }} produtos
+                · Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                {% if tenant_product_count != page_obj.paginator.count %}
+                    ({{ tenant_product_count }} cadastrados na empresa)
+                {% endif %}
+            </span>
+            <div>
+                {% if page_obj.has_previous %}<a href="?q={{ search|urlencode }}&status={{ status_filter }}&page={{ page_obj.previous_page_number }}">← Anterior</a>{% endif %}
+                {% if page_obj.has_next %}<a href="?q={{ search|urlencode }}&status={{ status_filter }}&page={{ page_obj.next_page_number }}">Próxima →</a>{% endif %}
+            </div>
+        </div>
+    </div>
+    <p style="color:#9295aa;font-size:11px;margin:12px 2px;">Estoque baixo considera a quantidade disponível igual ou inferior ao limite padrão de {{ minimum_stock|floatformat:3 }} por empresa.</p>
+</div>
+<script>
+(function () {
+    const form = document.getElementById("stockFilters");
+    const status = document.getElementById("stockStatusFilter");
+
+    if (!form || !status) return;
+
+    status.addEventListener("change", function () {
+        // Reinicia a paginação e mantém o termo de busca atual.
+        const page = form.querySelector('input[name="page"]');
+        if (page) page.remove();
+        form.submit();
+    });
+})();
+</script>
+{% endblock %}
+

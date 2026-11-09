@@ -25,6 +25,8 @@ urlpatterns = [
     ),
     path("", include("apps.accounts.urls")),
     path("produtos/", include("apps.catalog.urls")),
+    path("estoque/", include("apps.inventory.urls")),
+    path("", include("apps.customers.urls")),
     path("", include("apps.storefront.urls")),
     path("", include("apps.dashboard.urls")),
     path("api/v1/", include("apps.core.api_urls")),

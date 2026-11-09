@@ -107,24 +107,6 @@
         border-color: var(--orders-primary);
     }
 
-    .orders-filter button {
-        height: 40px;
-        padding: 0 17px;
-        border: none;
-        border-radius: 8px;
-        background: var(--orders-primary);
-        color: #fff;
-        font-size: 13px;
-        font-weight: 650;
-        cursor: pointer;
-        transition: opacity .2s, transform .2s;
-    }
-
-    .orders-filter button:hover {
-        opacity: .9;
-        transform: translateY(-1px);
-    }
-
     .orders-table-wrapper {
         width: 100%;
         overflow-x: auto;
@@ -220,6 +202,43 @@
         font-size: 11px;
         font-weight: 700;
         white-space: nowrap;
+    }
+
+    /* Cores por status: apenas apresentação; não altera o fluxo dos pedidos. */
+    .order-status--pending {
+        background: #fff5df;
+        color: #a86408;
+    }
+
+    .order-status--approved {
+        background: #eaf2ff;
+        color: #245db5;
+    }
+
+    .order-status--preparing {
+        background: #f1eaff;
+        color: #7041b8;
+    }
+
+    .order-status--ready {
+        background: #e5f7fb;
+        color: #08758a;
+    }
+
+    .order-status--completed {
+        background: #e7f7ed;
+        color: #187443;
+    }
+
+    .order-status--rejected,
+    .order-status--cancelled {
+        background: #fdebec;
+        color: #b42332;
+    }
+
+    .order-status--expired {
+        background: #eef0f4;
+        color: #626b7a;
     }
 
     .status-dot {
@@ -326,10 +345,6 @@
             min-width: 0;
         }
 
-        .orders-filter button {
-            padding: 0 13px;
-        }
-
         .orders-count {
             padding: 8px 12px;
         }
@@ -361,7 +376,7 @@
             <h2>Todos os pedidos</h2>
 
             <form method="get" class="orders-filter">
-                <select name="status" aria-label="Filtrar pedidos por status">
+                <select id="orderStatusFilter" name="status" aria-label="Filtrar pedidos por status">
                     <option value="">Todos os status</option>
 
                     {% for value,label in statuses %}
@@ -372,7 +387,6 @@
                     {% endfor %}
                 </select>
 
-                <button type="submit">Filtrar</button>
             </form>
         </div>
 
@@ -428,7 +442,16 @@
                             </td>
 
                             <td>
-                                <span class="order-status">
+                                <span class="order-status
+                                    {% if order.status == 'pending' %}order-status--pending
+                                    {% elif order.status == 'approved' %}order-status--approved
+                                    {% elif order.status == 'preparing' %}order-status--preparing
+                                    {% elif order.status == 'ready' %}order-status--ready
+                                    {% elif order.status == 'completed' %}order-status--completed
+                                    {% elif order.status == 'rejected' %}order-status--rejected
+                                    {% elif order.status == 'cancelled' %}order-status--cancelled
+                                    {% elif order.status == 'expired' %}order-status--expired
+                                    {% endif %}">
                                     <span class="status-dot"></span>
                                     {{ order.get_status_display }}
                                 </span>
@@ -465,6 +488,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        // Aplica o filtro assim que o usuário escolhe um status.
+        const statusFilter = document.getElementById('orderStatusFilter');
+        const filterForm = statusFilter ? statusFilter.closest('form') : null;
+
+        if (statusFilter && filterForm) {
+            statusFilter.addEventListener('change', function () {
+                filterForm.submit();
+            });
+        }
 
         const REFRESH_INTERVAL = 5000;
         let refreshTimer = null;

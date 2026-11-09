@@ -1,0 +1,17 @@
+PEDIU — ATUALIZAÇÃO DO MÓDULO CLIENTES
+
+Esta versão parte do projeto enviado pelo usuário e inclui:
+- Listagem de clientes por empresa ativa, com busca e paginação.
+- Cadastro manual e edição de clientes (proprietário/gerente).
+- Detalhes do cliente e histórico de pedidos.
+- Menu Clientes habilitado.
+- Rotas do módulo incluídas em config/urls.py.
+
+A criação automática do cliente no primeiro pedido já existia em apps/orders/services.py
+e foi preservada. O relacionamento Order.customer e os snapshots do pedido também
+foram preservados. Não foi criada migração porque o modelo Customer já existe.
+
+Validação realizada nesta preparação:
+- Sintaxe Python dos arquivos alterados: OK.
+- Integridade do ZIP gerado: será verificada.
+- Django check/testes: não executados neste ambiente porque Django não está instalado.
