@@ -14,6 +14,7 @@ from django.db import transaction
 from django.utils import timezone
 
 from apps.tenants.models import Tenant
+from apps.tenants.order_settings import get_order_settings
 from apps.customers.models import Customer
 from apps.catalog.models import Product
 from apps.inventory.models import StockBalance, StockReservation
@@ -277,6 +278,10 @@ def create_order(
     delivery_address = str(delivery_address or "").strip()
     if fulfillment_method not in ("delivery", "pickup"):
         raise ValidationError("Forma de recebimento inválida.")
+    order_settings = get_order_settings(tenant)
+    allowed_mode = order_settings["fulfillment_mode"]
+    if allowed_mode != "both" and fulfillment_method != allowed_mode:
+        raise ValidationError("Essa modalidade de recebimento não está disponível nesta loja.")
     if fulfillment_method == "delivery" and not delivery_address:
         raise ValidationError("Informe o endereço para entrega.")
     if len(delivery_address) > 1000:
@@ -364,6 +369,15 @@ def create_order(
         )
 
     subtotal = _money(subtotal)
+
+    if order_settings["minimum_order_enabled"]:
+        minimum_value = order_settings["minimum_order_value"]
+        if subtotal < minimum_value:
+            missing = _money(minimum_value - subtotal)
+            raise ValidationError(
+                f"O pedido mínimo desta loja é R$ {minimum_value:.2f}. "
+                f"Adicione mais R$ {missing:.2f} em produtos para continuar."
+            )
 
     OrderItem.objects.bulk_create(order_items)
 

@@ -52,28 +52,24 @@
   <fieldset>
     <legend>Como deseja receber?</legend>
 
+    {% if order_settings.fulfillment_mode == 'delivery' or order_settings.fulfillment_mode == 'both' %}
     <label class="radio">
-      <input
-        type="radio"
-        name="fulfillment_method"
-        value="delivery"
-        {% if request.POST.fulfillment_method == 'delivery' %}checked{% endif %}
-      >
+      <input type="radio" name="fulfillment_method" value="delivery"
+        {% if request.POST.fulfillment_method == 'delivery' or not request.POST.fulfillment_method and order_settings.fulfillment_mode == 'delivery' %}checked{% endif %}>
       Entrega
     </label>
+    {% endif %}
 
+    {% if order_settings.fulfillment_mode == 'pickup' or order_settings.fulfillment_mode == 'both' %}
     <label class="radio">
-      <input
-        type="radio"
-        name="fulfillment_method"
-        value="pickup"
-        {% if not request.POST.fulfillment_method or request.POST.fulfillment_method == 'pickup' %}checked{% endif %}
-      >
+      <input type="radio" name="fulfillment_method" value="pickup"
+        {% if request.POST.fulfillment_method == 'pickup' or not request.POST.fulfillment_method and order_settings.fulfillment_mode != 'delivery' %}checked{% endif %}>
       Retirar na loja
     </label>
+    {% endif %}
   </fieldset>
 
-  <label>
+  <label id="delivery-address-label">
     Endereço para entrega (preencha se escolheu entrega)
 
     <textarea
@@ -103,6 +99,14 @@
     </p>
   </div>
 
+  {% if order_settings.minimum_order_enabled and not minimum_order_met %}
+  <div class="payment-note" role="alert">
+    <strong>Pedido mínimo de R$ {{ order_settings.minimum_order_value|floatformat:2 }}</strong>
+    <p>Seu pedido está em R$ {{ total|floatformat:2 }}. Adicione mais
+      R$ {{ minimum_order_remaining|floatformat:2 }} em produtos para finalizar.</p>
+  </div>
+  {% endif %}
+
   <div class="total-box">
     <span>Total dos produtos</span>
 
@@ -111,7 +115,7 @@
     <small>O frete não está incluído neste valor.</small>
   </div>
 
-  <button class="button full" type="submit">
+  <button class="button full" type="submit" {% if not minimum_order_met %}disabled{% endif %}>
     Enviar pedido
   </button>
 
@@ -188,6 +192,10 @@
 
       addressField.disabled = !isDelivery;
 
+      const addressLabel = document.getElementById('delivery-address-label');
+      if (addressLabel) {
+        addressLabel.hidden = !isDelivery;
+      }
     }
 
     fulfillmentOptions.forEach(function (option) {

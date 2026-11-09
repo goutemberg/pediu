@@ -28,6 +28,7 @@ from apps.orders.services import (
     transition_order,
 )
 from apps.tenants.models import Tenant
+from apps.tenants.order_settings import get_order_settings
 
 
 def _active_tenant(slug):
@@ -414,6 +415,7 @@ def cart(request, slug):
 @ratelimit(key="ip", rate="15/m", method="POST", block=True)
 def checkout(request, slug):
     tenant = _active_tenant(slug)
+    order_settings = get_order_settings(tenant)
     items, total = _cart_items(request, tenant)
 
     if not items:
@@ -425,6 +427,10 @@ def checkout(request, slug):
         address = request.POST.get("delivery_address", "").strip()
         if fulfillment not in Order.Fulfillment.values:
             messages.error(request, "Selecione uma modalidade de recebimento válida.")
+            return redirect("storefront:checkout", slug=slug)
+        allowed_mode = order_settings["fulfillment_mode"]
+        if allowed_mode != "both" and fulfillment != allowed_mode:
+            messages.error(request, "Essa modalidade de recebimento não está disponível nesta loja.")
             return redirect("storefront:checkout", slug=slug)
         if fulfillment == Order.Fulfillment.DELIVERY and not address:
             messages.error(request, "Informe o endereço para entrega.")
@@ -487,6 +493,15 @@ def checkout(request, slug):
             "items": items,
             "total": total,
             "cart_quantity_count": _cart_quantity_count(request, tenant),
+            "order_settings": order_settings,
+            "minimum_order_remaining": max(
+                order_settings["minimum_order_value"] - total,
+                Decimal("0.00"),
+            ),
+            "minimum_order_met": (
+                not order_settings["minimum_order_enabled"]
+                or total >= order_settings["minimum_order_value"]
+            ),
         },
     )
 

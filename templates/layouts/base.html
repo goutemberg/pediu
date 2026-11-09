@@ -280,6 +280,15 @@
             <span>Estoque</span>
           </a>
 
+          <!-- CONFIGURAÇÕES DA LOJA -->
+          <a
+            href="{% url 'tenants:order-settings' %}"
+            class="nav-link {% if request.resolver_match.namespace == 'tenants' and request.resolver_match.url_name == 'order-settings' %}active{% endif %}"
+          >
+            <span class="nav-icon">⚙</span>
+            <span>Configurações da loja</span>
+          </a>
+
           <!-- CLIENTES -->
           <a
             href="{% url 'customers:customer-list' %}"
