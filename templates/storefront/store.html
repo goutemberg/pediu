@@ -37,10 +37,15 @@
       <div class="catalog-order-track" role="progressbar" aria-label="Progresso do pedido mínimo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ minimum_order_progress|default:0 }}">
         <span id="catalog-order-track-fill" style="width: {{ minimum_order_progress|default:0 }}%"></span>
       </div>
-      <p id="catalog-order-progress-message">
-        {% if minimum_order_met %}Pedido mínimo atingido! Você já pode finalizar sua compra.
-        {% else %}Adicione produtos ao carrinho. Faltam R$ {{ minimum_order_remaining|default:order_settings.minimum_order_value|floatformat:2 }} para atingir o mínimo.{% endif %}
-      </p>
+      <div class="catalog-order-progress-bottom">
+        <p id="catalog-order-progress-message">
+          {% if minimum_order_met %}Pedido mínimo atingido! Você já pode finalizar sua compra.
+          {% else %}Faltam R$ {{ minimum_order_remaining|floatformat:2 }} para atingir o mínimo.{% endif %}
+        </p>
+        <a id="catalog-order-cart-link" href="{% url 'storefront:cart' tenant.slug %}" class="catalog-order-cart-link">
+          {% if minimum_order_met %}Finalizar pedido{% else %}Ver carrinho{% endif %}
+        </a>
+      </div>
     </section>
   {% endif %}
 
@@ -272,9 +277,94 @@
     .load-more-button:disabled { opacity: .65; cursor: wait; }
     .product-image { display: block; aspect-ratio: 1 / 1; object-fit: contain; }
     .product-card { content-visibility: auto; contain-intrinsic-size: 340px; }
+    /* Indicador flutuante do pedido mínimo: prioriza telas pequenas. */
+    .catalog-order-progress {
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(620px, calc(100vw - 24px));
+      margin: 0;
+      padding: 13px 15px 12px;
+      border: 1px solid #dce8df;
+      border-radius: 17px;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 8px 32px rgba(15, 35, 24, .20);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .catalog-order-progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .catalog-order-progress-top > div { display: grid; gap: 2px; }
+    .catalog-order-progress-top strong { font-size: 14px; }
+    .catalog-order-progress-top small { color: #667085; font-size: 11px; }
+    #catalog-order-subtotal { white-space: nowrap; font-size: 17px; }
+    .catalog-order-track {
+      height: 7px;
+      margin: 9px 0 8px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e9edf0;
+    }
+    .catalog-order-track span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: #d69e2e;
+      transition: width .25s ease, background .25s ease;
+    }
+    .catalog-order-progress.is-complete .catalog-order-track span { background: #16a34a; }
+    .catalog-order-progress-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    #catalog-order-progress-message {
+      margin: 0;
+      color: #596579;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .catalog-order-progress.is-complete #catalog-order-progress-message { color: #15803d; font-weight: 650; }
+    .catalog-order-cart-link {
+      display: inline-flex;
+      flex: 0 0 auto;
+      min-height: 39px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      border-radius: 10px;
+      background: #166534;
+      color: #fff !important;
+      text-decoration: none !important;
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    body:has(#catalog-order-progress) { padding-bottom: calc(145px + env(safe-area-inset-bottom)); }
+    @media (min-width: 700px) {
+      .catalog-order-progress { bottom: 20px; padding: 15px 18px; }
+      #catalog-order-progress-message { font-size: 12px; }
+      body:has(#catalog-order-progress) { padding-bottom: 125px; }
+    }
+    @media (max-width: 420px) {
+      .catalog-order-progress { width: calc(100vw - 16px); bottom: calc(8px + env(safe-area-inset-bottom)); padding: 11px 12px; border-radius: 14px; }
+      .catalog-order-progress-top strong { font-size: 13px; }
+      #catalog-order-subtotal { font-size: 16px; }
+      .catalog-order-cart-link { min-height: 38px; padding: 0 10px; font-size: 11px; }
+      #catalog-order-progress-message { font-size: 10px; }
+      body:has(#catalog-order-progress) { padding-bottom: calc(135px + env(safe-area-inset-bottom)); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .catalog-spinner { animation: none; }
       #product-grid { transition: none; }
+      .catalog-order-track span { transition: none; }
     }
   </style>
   <script>

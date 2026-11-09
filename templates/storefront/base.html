@@ -88,6 +88,9 @@
       document.addEventListener('DOMContentLoaded', function () {
         const toast = document.getElementById('store-toast');
         const cartCount = document.getElementById('cart-count');
+        if (document.getElementById('catalog-order-progress') && toast) {
+          toast.style.bottom = 'calc(155px + env(safe-area-inset-bottom))';
+        }
         let toastTimeout;
 
         function showStoreToast(message, isError) {
@@ -139,6 +142,8 @@
           }
           if (fill) fill.style.width = progress + '%';
           if (bar) bar.setAttribute('aria-valuenow', String(progress));
+          const cartLink = document.getElementById('catalog-order-cart-link');
+          if (cartLink) cartLink.textContent = met ? 'Finalizar pedido' : 'Ver carrinho';
         }
 
         // Delegação permite que formulários adicionados por AJAX continuem funcionando.

@@ -219,6 +219,17 @@ def store(request, slug):
         return_url = f"{return_url}?{return_query.urlencode()}"
     request.session[_storefront_return_key(tenant)] = return_url
 
+    order_settings = get_order_settings(tenant)
+    _, cart_subtotal = _cart_items(request, tenant)
+    minimum_value = order_settings["minimum_order_value"]
+    minimum_enabled = order_settings["minimum_order_enabled"]
+    minimum_remaining = max(minimum_value - cart_subtotal, Decimal("0.00"))
+    minimum_progress = (
+        min(100, int(cart_subtotal / minimum_value * 100))
+        if minimum_enabled and minimum_value > 0
+        else 100
+    )
+
     context = {
         "tenant": tenant,
         "categories": categories,
@@ -226,7 +237,11 @@ def store(request, slug):
         "query": query,
         "selected_category": category_slug,
         "branding": branding,
-        "order_settings": get_order_settings(tenant),
+        "order_settings": order_settings,
+        "cart_subtotal": cart_subtotal,
+        "minimum_order_remaining": minimum_remaining,
+        "minimum_order_met": (not minimum_enabled or cart_subtotal >= minimum_value),
+        "minimum_order_progress": minimum_progress,
         "cart_quantity_count": _cart_quantity_count(request, tenant),
         "page_obj": page_obj,
         "has_next": page_obj.has_next(),
