@@ -446,6 +446,7 @@ def cart(request, slug):
 @ratelimit(key="ip", rate="15/m", method="POST", block=True)
 def checkout(request, slug):
     tenant = _active_tenant(slug)
+    order_settings = get_order_settings(tenant)
     items, total = _cart_items(request, tenant)
 
     if not items:
@@ -453,7 +454,12 @@ def checkout(request, slug):
         return redirect("storefront:store", slug=slug)
 
     if request.method == "POST":
-        fulfillment = request.POST.get("fulfillment_method", "pickup")
+        default_fulfillment = (
+            Order.Fulfillment.DELIVERY
+            if order_settings["fulfillment_mode"] == "delivery"
+            else Order.Fulfillment.PICKUP
+        )
+        fulfillment = request.POST.get("fulfillment_method", default_fulfillment)
         address = request.POST.get("delivery_address", "").strip()
         if fulfillment not in Order.Fulfillment.values:
             messages.error(request, "Selecione uma modalidade de recebimento válida.")
@@ -519,6 +525,15 @@ def checkout(request, slug):
             "items": items,
             "total": total,
             "cart_quantity_count": _cart_quantity_count(request, tenant),
+            "order_settings": order_settings,
+            "minimum_order_remaining": max(
+                order_settings["minimum_order_value"] - total,
+                Decimal("0.00"),
+            ),
+            "minimum_order_met": (
+                not order_settings["minimum_order_enabled"]
+                or total >= order_settings["minimum_order_value"]
+            ),
         },
     )
 
