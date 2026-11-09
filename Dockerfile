@@ -48,4 +48,4 @@ ENV DJANGO_SETTINGS_MODULE=config.settings.production
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "set -e; python manage.py migrate --noinput; python manage.py collectstatic --noinput; if [ \"${RUN_PRESERVA_PET_IMPORT:-false}\" = \"true\" ]; then python manage.py importar_catalogo_preserva_pet --tenant-slug preserva-pet --once; fi; exec gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
+CMD ["sh", "-c", "set -e; python manage.py migrate --noinput; python manage.py collectstatic --noinput; if [ \"${RUN_PRESERVA_PET_IMPORT:-false}\" = \"true\" ]; then python manage.py importar_catalogo_preserva_pet --tenant-slug preserva-pet --once; fi; if [ \"${RUN_PRESERVA_PET_IMAGE_IMPORT:-false}\" = \"true\" ]; then python manage.py migrar_imagens_preserva_pet --once; fi; exec gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
